@@ -62,7 +62,7 @@ main {
 
 .bi-list-nested-nav-menu::before {
     content: "\2600"; /* Unicode for sun */
-}  
+}
 
 .top-row {
     background-color: rgba(247, 247, 247, 0.8);
