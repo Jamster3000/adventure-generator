@@ -1,0 +1,2381 @@
+{
+  "title structure": [
+    { "[The/A/An] 𖤍[object] on the [object]": "1-2" },
+    { "[The/A/An] 𖤍[object] of the [object]": "3-4" },
+    { "[The/A/An] [entity] in the [location]": "5-6" },
+    { "[The/A/An] [object] of [object]": "7-8" },
+    { "[The/A/An] [entity] [is/will be/shall be] [disposition]": "9-10" },
+    { "[The/A/An] [disposition] of [entity]": "11-12" },
+    { "[entity][location]": "13-14" },
+    { "[The/A/An] [object]": "15-16" },
+    { "𖤍[object] in [location]": "17-18" },
+    { "𖤍[entity] of [location]": "19-20" }
+  ],
+  "object": [
+    { "[Jewel/Gem/Amulet]": "1-2" },
+    { "[Crown/Scepter/Throne]": "3-4" },
+    { "[Skull/Bone]": "5-6" },
+    { "[Thunder/Rain/Wind/Storm]": "7-8" },
+    { "[Knife/Sword/Axe/Spear/Blade]": "9-10" },
+    { "[Night/Midnight/Shadow/Darkness]": "11-12" },
+    { "[Kingdom/Empire/Land/Realm]": "13-14" },
+    { "[Tribe/People/Folk]": "15-16" },
+    { "[Flame/Fire/Pyre/Brand]": "17-18" },
+    { "[Circle/Ring/Obelisk/Column]": "19-20" }
+  ],
+  "nationalities": [
+    { "Hyperborea": "2" },
+    { "Border Kingdom": "3" },
+    { "Nordheim: Asgard or Vanaheim": "4" },
+    { "Cimmeria": "5" },
+    { "Bossonian Marches": "6" },
+    { "Gunderland": "7-8" },
+    { "Aquilonia": "9-10" },
+    { "Koth": "11-12" },
+    { "Nemedia": "13-14" },
+    { "Ophir": "15-16" },
+    { "Brythunia": "17-18" },
+    { "Argos": "19-20" },
+    { "Zamora": "21-22" },
+    { "Shem": "23-24" },
+    { "Stygia": "25-26" },
+    { "Corinthia": "27" },
+    { "Zingara": "28" },
+    { "Khoraja": "29" },
+    { "Khauran": "30" },
+    { "Kush": "31" },
+    { "Darfar": "32" },
+    { "Keshan": "34" },
+    { "Punt": "35" },
+    { "Zembabwei": "36" },
+    { "The Black Kingdoms": "37" },
+    { "Turan": "38" },
+    { "Iranistan, Ghulistan": "39" },
+    { "Hyrkania": "40" }
+  ],
+  "quirks": [
+    { "Eye color is mismatched": "2" },
+    { "Prone to bouts of twitching": "3" },
+    { "Talks using as few words as possible": "4" },
+    { "Appears to be constantly distracted": "5" },
+    { "Has visible tribal scars or tattoos": "6" },
+    { "Swears every other word during conversation": "7" },
+    { "Always refers to a list of rules, which can be real or imagined": "8" },
+    { "Constantly drinking, but never seems drunk": "9" },
+    { "Slips as many quotes and figures of speech as possible into conversation": "10" },
+    { "Is extremely flirtatious, but seems shocked if anyone responds": "11" },
+    { "Abhors physical contact. Visibly cleans self if this occurs": "12" },
+    { "Sports several piercings": "13" },
+    { "Performs a superstitious tic to ward away bad luck": "14" },
+    { "Can never comprehend jokes or sarcasm": "15" },
+    { "Holds on to first impressions and discounts anything that contradicts that opinion": "16" },
+    { "Always seeks to obtain and hold eye contact for an uncomfortably long time": "17" },
+    { "Talks in sibilant whispers": "18" },
+    { "Attaches a cost to everything": "19" },
+    { "Missing a limb": "20" },
+    { "Covered in warts and boils": "21" },
+    { "Extremely hairy": "22" },
+    { "Laughs nervously and inappropriately": "23" },
+    { "Uncouth, vulgar, or spectacularly rude": "24" },
+    { "Very possessive of an object or person": "25" },
+    { "Persistently claims one-upmanship": "26" },
+    { "Treats everyone with complete disdain": "27" },
+    { "Always expects a negative outcome": "28" },
+    { "Is a habitual gambler": "29" },
+    { "Becomes aggressive when criticized": "30" },
+    { "Claims to know someone in every town and city": "31" },
+    { "Is a glutton (food, wealth, power, pleasure, etc.)": "32" },
+    { "Has an obvious tell when lying": "33" },
+    { "Can only talk by shouting": "34" },
+    { "All conversations are drawn out and formal": "35" },
+    { "Struggles to talk through a hacking cough": "36" },
+    { "Badly disfigured by disease": "37" },
+    { "Has extremely obscure tastes in food and drink": "38" },
+    { "Has a terrible catchphrase": "39" },
+    { "Constantly relates in the third person": "40" }
+  ],
+  "entity": [
+    { "Demon/Devil/Fiend/Horror": "1-2" },
+    { "Ghost.Spirit/Specter": "3-4" },
+    { "Ghoul/Dweller/Serpent Folk/Abomination": "5-6" },
+    { "Vulture/Serpent/Eagle/Wolf/Raven/Lion/Tiger/Owl/Ape/Rat/Hound/Hawk": "7-8" },
+    { "King/Queen/Lord/lady/emperor/empress/warlord/prince/princess": "9-10" },
+    { "Sorcerer/Witch": "11-12" },
+    { "Priest/Priestess": "13-14" },
+    { "[religous tenets]": "15-16" },
+    { "Phoenix/Dragon/Hydra/Mummy": "17-18" },
+    { "Stranger/The One/Dweller/Lurker/Holder/Keeper": "19-20" }
+  ],
+  "location": [
+    { "Tower": "1-2" },
+    { "Citadel/Castle/Fortress": "3-4" },
+    { "Cave/Cavern": "5-6" },
+    { "City": "7-8" },
+    { "River": "9-10" },
+    { "Pool": "11-12" },
+    { "Forest": "13-14" },
+    { "Temple": "15-16" },
+    { "Pit": "17-18" },
+    { "Tomb/Crypt": "19-20" }
+  ],
+  "disposition": [
+    { "Born": "1-2" },
+    { "Cursed": "3-4" },
+    { "Haunted": "5-6" },
+    { "Doomed": "7-8" },
+    { "Lost": "9-10" },
+    { "Damned": "11-12" },
+    { "Spawned": "13-14" },
+    { "Fallen": "15-16" },
+    { "Broken": "17-18" },
+    { "Forgotten": "19-20" }
+  ],
+  "descriptor": [
+    { "Black/Ebon/Crimson/Red/Scarlet": "1-4" },
+    { "Ancient/Elder/Old": "5-8" },
+    { "Iron/Steel/Silver/Gold/Golden/Stone/Bronze": "9-12" },
+    { "Cold/Fire/Fiery": "13-16" },
+    { "Shining/Gleaming/Jewelled/Shadowed": "17-20" }
+  ],
+  "opening_setting": [
+    {
+      "A jungle": "1",
+      "Descriptor": "Chaotic"
+    },
+    {
+      "An island": "2",
+      "Descriptor": "Frozen"
+    },
+    {
+      "A mountain range": "3",
+      "Descriptor": "Ominous"
+    },
+    {
+      "A back alley": "4",
+      "Descriptor": "Claustrophobic"
+    },
+    {
+      "A crypt": "5",
+      "Descriptor": "Eerie"
+    },
+    {
+      "A blood-soaked battlefield": "6",
+      "Descriptor": "Fathomless"
+    },
+    {
+      "A courtesan’s chambers": "7",
+      "Descriptor": "Sprawling"
+    },
+    {
+      "A noble’s villa": "8",
+      "Descriptor": "Malodorous"
+    },
+    {
+      "A sewer system": "9",
+      "Descriptor": "Vibrant"
+    },
+    {
+      "A ruined keep": "10",
+      "Descriptor": "Barren"
+    },
+    {
+      "A hidden temple": "11",
+      "Descriptor": "Oppressive"
+    },
+    {
+      "An execution chamber": "12",
+      "Descriptor": "Obscure"
+    },
+    {
+      "A slavers market": "13",
+      "Descriptor": "Brackish"
+    },
+    {
+      "A graveyard": "14",
+      "Descriptor": "Foggy or misty"
+    },
+    {
+      "A desert": "15",
+      "Descriptor": "Searing"
+    },
+    {
+      "A lake or ocean": "16",
+      "Descriptor": "Tempestuous"
+    },
+    {
+      "A forest": "17",
+      "Descriptor": "Empty"
+    },
+    {
+      "A swamp": "18",
+      "Descriptor": "Crumbling"
+    },
+    {
+      "A mine": "19",
+      "Descriptor": "Weird"
+    },
+    {
+      "A royal court": "20",
+      "Descriptor": "Roll twice and apply both"
+    }
+  ],
+  "non_player_characters": [
+    { "Royalty": "1-2" },
+    { "Nobility": "3-4" },
+    { "Militia": "5-6" },
+    { "Natives": "7-8" },
+    { "Mercenary soldiers": "9-10" },
+    { "Porters": "11-12" },
+    { "Slaves": "13-14" },
+    {
+      "Clergy": "15-16",
+      "Roll": "Roll on Religious Tenets table"
+    },
+    { "Bounty hunter or hunter": "17-18" },
+    { "Roll twice, with a separate roll on Temperament table for each": "19-20" }
+  ],
+  "temperament": [
+    { "Benevolent": "1-4" },
+    { "Friendly": "5-8" },
+    { "Indifferent": "9-12" },
+    { "Unfriendly": "13-16" },
+    { "Hostile": "17-20" }
+  ],
+  "hooks_and_draws": [
+    {
+      "A close friend": "1",
+      "Draw": "Delivered outrageous demands"
+    },
+    {
+      "A kidnapped relative": "2",
+      "Draw": "Sent an invitation"
+    },
+    {
+      "An anonymous letter": "3",
+      "Draw": "Lied to the player characters"
+    },
+    {
+      "A wizened scholar": "4",
+      "Draw": "Delivered sensitive information (roll on Knowledge Objective table)"
+    },
+    {
+      "An ancient prophecy": "5",
+      "Draw": "Offered a fortune"
+    },
+    {
+      "A fanatical layperson": "6",
+      "Draw": "Asked for help (roll on Religious Tenets table)"
+    },
+    {
+      "A dying man or woman": "7",
+      "Draw": "Attempted blackmail or extortion"
+    },
+    {
+      "A member of a secret society": "8",
+      "Draw": "Funded an expedition (roll on Cult table)"
+    },
+    {
+      "An old acquaintance": "9",
+      "Draw": "Has mistaken a player character’s identity"
+    },
+    {
+      "A noble": "10",
+      "Draw": "Offered a contract of employment"
+    },
+    {
+      "Unwittingly caught between two opposing forces": "11",
+      "Draw": "Placed an artifact in a player character’s safekeeping with their final breath"
+    },
+    {
+      "Stumble on a strange event or dangerous location": "12",
+      "Draw": "Performed a dangerous ritual"
+    },
+    {
+      "A wealthy entrepreneur": "13",
+      "Draw": "Called in a debt or favor"
+    },
+    {
+      "A seemingly freak accident": "14",
+      "Draw": "Sent a warning"
+    },
+    {
+      "A priest or priestess": "15",
+      "Draw": "Has information on someone relevant who is missing or dead (roll on Religious Tenets table)"
+    },
+    {
+      "A diplomat": "16",
+      "Draw": "Stole from the player characters"
+    },
+    {
+      "The local militia": "17",
+      "Draw": "Seeks revenge"
+    },
+    {
+      "A former enemy": "18",
+      "Draw": "Is worried for their life"
+    },
+    {
+      "A member of a royal family": "19",
+      "Draw": "Has been framed for crime or treason"
+    },
+    {
+      "A despotic tyrant": "20",
+      "Draw": "Offered details on another antagonist (roll on Primary Antagonist table)"
+    }
+  ],
+  "plot_concept": [
+    {
+      "Overthrow the ruling elite": "1",
+      "Motivation": "Vengeance"
+    },
+    {
+      "Complete an infernal ritual": "2",
+      "Motivation": "Pure malice"
+    },
+    {
+      "Tear a gateway to an ancient era": "3",
+      "Motivation": "Intense hatred"
+    },
+    {
+      "Foment a war": "4",
+      "Motivation": "Envy"
+    },
+    {
+      "Destruction of a place, a group, or a creature": "5",
+      "Motivation": "Being manipulated by someone or something (roll twice on the Primary Antagonist table, with the second roll as the true antagonist)"
+    },
+    {
+      "Gather information to prove the existence of something or someone": "6",
+      "Motivation": "An ancient prophecy"
+    },
+    {
+      "Unleash the power of an otherworldly horror": "7",
+      "Motivation": "The voices have spoken…"
+    },
+    {
+      "Protect a person or place": "8",
+      "Motivation": "Forbidden knowledge (roll on Knowledge Objective table)"
+    },
+    {
+      "Gain control of a person or place": "9",
+      "Motivation": "Dreams or visions"
+    },
+    {
+      "Break a deadlock": "10",
+      "Motivation": "Protect interests"
+    },
+    {
+      "A secret coup": "11",
+      "Motivation": "Greed"
+    },
+    {
+      "Dissection and experimentation": "12",
+      "Motivation": "Spiritual or (un)ethical beliefs"
+    },
+    {
+      "Enact revenge for a wrongdoing (real or perceived)": "13",
+      "Motivation": "To protect a person, place, or belief"
+    },
+    {
+      "Cover up a dirty secret": "14",
+      "Motivation": "To strike first"
+    },
+    {
+      "Exploitation of a group of people": "15",
+      "Motivation": "An ancient feud"
+    },
+    {
+      "The pursuit of knowledge": "16",
+      "Motivation": "To divert attention from the true scheme (roll again for both the real plot and motivation)"
+    },
+    {
+      "Recover an ancient artifact": "17",
+      "Motivation": "For the greater good"
+    },
+    {
+      "Recover an otherworldly relic": "18",
+      "Motivation": "Repentance for a mistake"
+    },
+    {
+      "Resurrecting an ancient power": "19",
+      "Motivation": "An unpayable debt"
+    },
+    {
+      "World domination!": "20",
+      "Motivation": "Megalomania"
+    }
+  ],
+  "primary_antagonist": [
+    {
+      "An otherworldly entity": "1",
+      "Trait": "Aggressive"
+    },
+    {
+      "A nefarious cult": "2",
+      "Trait": "Disgruntled"
+    },
+    {
+      "A villainous noble": "3",
+      "Trait": "Ambitious"
+    },
+    {
+      "A crime syndicate": "4",
+      "Trait": "Manipulative"
+    },
+    {
+      "A tyrannical overlord": "5",
+      "Trait": "Unpredictable"
+    },
+    {
+      "An evil priest or priestess": "6",
+      "Trait": "Obsessed"
+    },
+    {
+      "A crime lord": "7",
+      "Trait": "Maniacal"
+    },
+    {
+      "An infernal sorcerer": "8",
+      "Trait": "Tortured"
+    },
+    {
+      "A pirate king or queen": "9",
+      "Trait": "Cruel"
+    },
+    {
+      "A tribal chieftain": "10",
+      "Trait": "Psychotic"
+    },
+    {
+      "A guild leader": "11",
+      "Trait": "Impulsive"
+    },
+    {
+      "An unfeeling historian": "12",
+      "Trait": "Covert"
+    },
+    {
+      "An insane collector of antiquities": "13",
+      "Trait": "Disillusioned"
+    },
+    {
+      "A mercenary captain": "14",
+      "Trait": "Traitorous"
+    },
+    {
+      "A legendary gladiator": "15",
+      "Trait": "Conspiratorial"
+    },
+    {
+      "An intelligent beast": "16",
+      "Trait": "Intolerant"
+    },
+    {
+      "A corrupt judiciary": "17",
+      "Trait": "Vindictive"
+    },
+    {
+      "One or more royal advisors": "18",
+      "Trait": "Masochistic"
+    },
+    {
+      "One or more members of a royal family": "19",
+      "Trait": "Ineffable"
+    },
+    {
+      "A despotic king or queen": "20",
+      "Trait": "Layered quality (roll twice: first is actual, second is apparent)"
+    }
+  ],
+  "plot_fulfillment_and_location": [
+    {
+      "Willing sacrificial victims": "1",
+      "From/Where": "Mount Yimsha"
+    },
+    {
+      "Unwilling sacrificial victims": "2",
+      "From/Where": "Atlantean ruins"
+    },
+    {
+      "Subjects for experimentation": "3",
+      "From/Where": "Hyperborea"
+    },
+    {
+      "An ancient text": "4",
+      "From/Where": "The Island of the Black Ones"
+    },
+    {
+      "Hidden knowledge": "5",
+      "From/Where": "A lost island or ruin (Knowledge Objectives table)"
+    },
+    {
+      "A specific location": "6",
+      "From/Where": "A sacred temple (Location Objectives table)"
+    },
+    {
+      "An otherworldly gateway": "7",
+      "From/Where": "A concealed tomb"
+    },
+    {
+      "A relic of Acheron or Valusia": "8",
+      "From/Where": "A pyramid lost to the desert"
+    },
+    {
+      "A lock of hair": "9",
+      "From/Where": "A cursed glade (Primary Antagonist table)"
+    },
+    {
+      "The kidnap of a powerful figure": "10",
+      "From/Where": "A sunken ship"
+    },
+    {
+      "A precious jewel": "11",
+      "From/Where": "A trap-filled dungeon"
+    },
+    {
+      "An extract from the books of Skelos": "12",
+      "From/Where": "The vault of a hidden cult (Cult table)"
+    },
+    {
+      "A strange and alien device": "13",
+      "From/Where": "A pirate haven"
+    },
+    {
+      "A stone circle": "14",
+      "From/Where": "The hidden depths of the Maul"
+    },
+    {
+      "A cursed object": "15",
+      "From/Where": "An otherworldly gateway"
+    },
+    {
+      "A sorcerer’s tome": "16",
+      "From/Where": "An otherworldly entity’s lair (Ancient or Otherworldly Creature table)"
+    },
+    {
+      "An alignment of the stars": "17",
+      "From/Where": "A cursed and forgotten city"
+    },
+    {
+      "The blood of a royal": "18",
+      "From/Where": "A sorcerer’s lair"
+    },
+    {
+      "The heart of an otherworldly creature": "19",
+      "From/Where": "A royal vault (Ancient or Otherworldly Creature table)"
+    },
+    {
+      "The horn of a living dragon": "20",
+      "From/Where": "A dragon’s lair"
+    }
+  ],
+  "obstacles_and_twists": [
+    {
+      "On a short timescale": "1",
+      "Plot Twist": "They must make a great personal sacrifice (one or more group members)"
+    },
+    {
+      "Considered an unreachable destination": "2",
+      "Plot Twist": "They are the experiment (a group or faction is testing their abilities)"
+    },
+    {
+      "Numerous distractions along the way": "3",
+      "Plot Twist": "Led into a trap (they are the antagonist’s missing ingredient)"
+    },
+    {
+      "Key knowledge is required": "4",
+      "Plot Twist": "Into the jaws of death (no one is expected to leave alive)"
+    },
+    {
+      "Physically or environmentally challenging": "5",
+      "Plot Twist": "The antagonist is part of the group (if played right, maybe even a player character)"
+    },
+    {
+      "Another non-player character faction is also involved": "6",
+      "Plot Twist": "Intelligence leads them to believe there is only one to deal with (they were wrong!)"
+    },
+    {
+      "It is guarded by at least a Nemesis level entity or Toughened unit": "7",
+      "Plot Twist": "Familial connections (the antagonist has close ties to a player character)"
+    },
+    {
+      "They must carry a hindrance": "8",
+      "Plot Twist": "Snake in the grass (a traitor working for an independent faction — roll on Non-Player Characters table)"
+    },
+    {
+      "Battered by the elements": "9",
+      "Plot Twist": "High body count"
+    },
+    {
+      "Must cross hotly disputed territory": "10",
+      "Plot Twist": "Damned if we do… (letting the antagonist escape will save countless lives)"
+    },
+    {
+      "Famine": "11",
+      "Plot Twist": "A person or object that is a required to foil the antagonist is also exactly what the antagonist needs!"
+    },
+    {
+      "Poverty stricken": "12",
+      "Plot Twist": "To understand a villain, you must become the villain (they must do bad things to achieve their goal)"
+    },
+    {
+      "Extortionate cost": "13",
+      "Plot Twist": "The antagonist is a patsy for the true villain (roll again on Primary Antagonist table)"
+    },
+    {
+      "Lesser of two evils": "14",
+      "Plot Twist": "The antagonist is performing heinous acts in the hope of preventing a greater evil"
+    },
+    {
+      "Civil unrest": "15",
+      "Plot Twist": "Fulfillment before their eyes (the group arrive too late or the event unfolds around them)"
+    },
+    {
+      "Extortion and bribery": "16",
+      "Plot Twist": "Cut off and left adrift (the group’s supporters fall strangely silent and no longer provide support)"
+    },
+    {
+      "Sold misinformation": "17",
+      "Plot Twist": "A key character of the plot is killed, only to return alive later (can be keyed to entries 2 or 8 of this table)"
+    },
+    {
+      "Problems with the authorities": "18",
+      "Plot Twist": "The player characters are working for the real villain and the antagonist is trying to stop them"
+    },
+    {
+      "Strange malady that requires the antagonists’ plot fulfillment to cure": "19",
+      "Plot Twist": "Tread dark paths (the player characters must open themselves to Corruption to achieve a greater good)"
+    },
+    {
+      "Ambushed!": "20",
+      "Plot Twist": "Escalation (roll twice on this table, ignoring further results of 20)"
+    }
+  ],
+  "goals_and_objectives": [
+    {
+      "Explore": "1",
+      "Objective": "An ally (Person Objective table)"
+    },
+    {
+      "Recover": "2",
+      "Objective": "An enemy (Primary Antagonist table)"
+    },
+    {
+      "Plunder": "3",
+      "Objective": "Identity of a person (Primary Antagonist table)"
+    },
+    {
+      "Destroy": "4",
+      "Objective": "An opponent (Opponents table)"
+    },
+    {
+      "Protect": "5",
+      "Objective": "An opponent (Opponents table)"
+    },
+    {
+      "Deliver": "6",
+      "Objective": "Documents or secrets (Knowledge or Person Objective table)"
+    },
+    {
+      "Capture": "7",
+      "Objective": "Documents or secrets (Knowledge or Person Objective table)"
+    },
+    {
+      "Find/Locate": "8",
+      "Objective": "An artifact (Artifact Descriptors and Conditions table)"
+    },
+    {
+      "Negotiate": "9",
+      "Objective": "An artifact (Artifact Descriptors and Conditions table)"
+    },
+    {
+      "Scout": "10",
+      "Objective": "A physical location (Location Choice and appropriate sub-table)"
+    },
+    {
+      "Divert": "11",
+      "Objective": "A physical location (Location Choice and appropriate sub-table)"
+    },
+    {
+      "Distract": "12",
+      "Objective": "An ancient map to (Roll on Sinister column of Building Type table)"
+    },
+    {
+      "Unveil": "13",
+      "Objective": "An ancient map to (Roll on Sinister column of Building Type table)"
+    },
+    {
+      "Hide": "14",
+      "Objective": "An otherworldly creature’s body part (Ancient or Otherworldly Creatures table)"
+    },
+    {
+      "Understand": "15",
+      "Objective": "An otherworldly creature’s body part (Ancient or Otherworldly Creatures table)"
+    },
+    {
+      "Prove": "16",
+      "Objective": "The current antagonist"
+    },
+    {
+      "Disprove": "17",
+      "Objective": "The current antagonist"
+    },
+    {
+      "Steal": "18",
+      "Objective": "A deadly or secret organisation (Cult table)"
+    },
+    {
+      "Infiltrate": "19",
+      "Objective": "A deadly or secret organisation (Cult table)"
+    },
+    {
+      "Rescue": "20",
+      "Objective": "A legendary character (Legendary Characters table)"
+    }
+  ],
+  "artifact_descriptors_and_conditions": [
+    {
+      "Book": {
+        "Descriptor": "Ancient",
+        "Condition": "None"
+      }
+    },
+    {
+      "Scroll": {
+        "Descriptor": "Sentient",
+        "Condition": "None"
+      }
+    },
+    {
+      "Key": {
+        "Descriptor": "Cursed",
+        "Condition": "None"
+      }
+    },
+    {
+      "Religious icon": {
+        "Descriptor": "Fragile",
+        "Condition": "Roll on Religious Tenets table"
+      }
+    },
+    {
+      "Statue": {
+        "Descriptor": "Unstable",
+        "Condition": "None"
+      }
+    },
+    {
+      "Rare plant or flower": {
+        "Descriptor": "Mutable",
+        "Condition": "None"
+      }
+    },
+    {
+      "Jewel": {
+        "Descriptor": "Infectious",
+        "Condition": "None"
+      }
+    },
+    {
+      "Precious ore": {
+        "Descriptor": "Blessed",
+        "Condition": "None"
+      }
+    },
+    {
+      "Crystal": {
+        "Descriptor": "Incorruptible",
+        "Condition": "None"
+      }
+    },
+    {
+      "Contraption": {
+        "Descriptor": "Locked",
+        "Condition": "None"
+      }
+    },
+    {
+      "Otherworldly object": {
+        "Descriptor": "Frozen (iced)",
+        "Condition": "None"
+      }
+    },
+    {
+      "Heirloom": {
+        "Descriptor": "Ethereal",
+        "Condition": "None"
+      }
+    },
+    {
+      "Potion": {
+        "Descriptor": "Lucky",
+        "Condition": "None"
+      }
+    },
+    {
+      "Armor and/or shield": {
+        "Descriptor": "Toxic",
+        "Condition": "None"
+      }
+    },
+    {
+      "Drug": {
+        "Descriptor": "Broken",
+        "Condition": "None"
+      }
+    },
+    {
+      "Priceless art object": {
+        "Descriptor": "Buried",
+        "Condition": "None"
+      }
+    },
+    {
+      "Jewelry": {
+        "Descriptor": "Powerless",
+        "Condition": "None"
+      }
+    },
+    {
+      "Weapon": {
+        "Descriptor": "Corrupt",
+        "Condition": "None"
+      }
+    },
+    {
+      "Legendary weapon": {
+        "Descriptor": "Otherworldly",
+        "Condition": "Roll twice: first result is X, second result is Y"
+      }
+    },
+    {
+      "Legendary artifact": {
+        "Descriptor": "Appears to be X, but is actually Y",
+        "Condition": "Roll twice: first result is X, second result is Y"
+      }
+    }
+  ],
+  "knowledge_or_person_objectives": [
+    { "Map (treasure, lost land, building plans, kingdom defenses)": "Civilian" },
+    { "Crude alchemical discovery": "Militia" },
+    { "Cure to a strange illness": "Soldier" },
+    { "A weakness": "Scholar" },
+    { "An ancient secret": "Insane genius" },
+    { "Escape route": "Fugitive" },
+    { "Conspiracy": "Criminal" },
+    { "Strange formula": "Spy" },
+    { "Criminal activity": "Traitor" },
+    { "A legend": "Mercenary" },
+    { "A lost language": "Priest or priestess (Roll on Religious Tenets table)" },
+    { "Concerning an artifact": "Noble (Roll on Artifacts table)" },
+    { "A cult secret": "Historian (Roll on Cult table)" },
+    { "The truth to a cover up": "Politician" },
+    { "What is at the location?": "Sorcerer" },
+    { "What transpired?": "Archaeologist" },
+    { "A traitor’s identity": "Heir/heiress" },
+    { "Historical data": "Smuggler" },
+    { "Cartographical data": "Wounded non-player character (Roll again)" },
+    { "Otherworldly knowledge": "Royal non-player character (Roll again)" }
+  ],
+  "opponent": [
+    { "Bandit": "1" },
+    { "Berserker": "2" },
+    { "Bodyguard": "3" },
+    { "Cultist": "4" },
+    { "Cult leader": "5" },
+    { "Degenerate": "6" },
+    { "Degenerate warrior": "7" },
+    { "Guard sergeant": "8" },
+    { "Knight": "9" },
+    { "Pirate": "10" },
+    { "Pirate captain": "11" },
+    { "Savage": "12" },
+    { "Sorcerer": "13" },
+    { "Thug": "14" },
+    { "Ghoul": "15" },
+    { "Skeletal warrior": "16" },
+    { "Rat thing": "17" },
+    { "Frost giant": "18" },
+    { "Black One": "19" },
+    { "Otherworldly creature": "20 (Roll on Ancient or Otherworldly Creature table)" }
+  ],
+  "building_type": [
+    {
+      "Hovel": "1",
+      "Sinister": "Castle"
+    },
+    {
+      "Tavern": "2",
+      "Sinister": "Temple"
+    },
+    {
+      "Monastery": "3",
+      "Sinister": "Stone circle"
+    },
+    {
+      "Warehouse": "4",
+      "Sinister": "Church"
+    },
+    {
+      "Blacksmithy": "5",
+      "Sinister": "Mansion"
+    },
+    {
+      "Prison": "6",
+      "Sinister": "Cemetery"
+    },
+    {
+      "Shop or store": "7",
+      "Sinister": "Cave system"
+    },
+    {
+      "Gambling den": "8",
+      "Sinister": "Tomb"
+    },
+    {
+      "Noble’s estate": "9",
+      "Sinister": "Archaeological excavation"
+    },
+    {
+      "Library": "10",
+      "Sinister": "Ruins"
+    },
+    {
+      "Hospital": "11",
+      "Sinister": "Mine"
+    },
+    {
+      "University": "12",
+      "Sinister": "Hospital"
+    },
+    {
+      "Temple": "13",
+      "Sinister": "Monastery"
+    },
+    {
+      "Mansion": "14",
+      "Sinister": "Museum"
+    },
+    {
+      "Museum": "15",
+      "Sinister": "Swamp"
+    },
+    {
+      "Farmhouse": "16",
+      "Sinister": "Stone circle"
+    },
+    {
+      "Inn": "17",
+      "Sinister": "Ancient battlefield"
+    },
+    {
+      "Royal building": "18",
+      "Sinister": "Gateway"
+    },
+    {
+      "Sanatorium": "19",
+      "Sinister": "Island"
+    },
+    {
+      "Palace": "20",
+      "Sinister": "Monolith"
+    }
+  ],
+  "location_choice_and_atmosphere": [
+    {
+      "Building": {
+        "Choice": "1",
+        "Atmosphere": "Derelict"
+      }
+    },
+    {
+      "Building": {
+        "Choice": "2",
+        "Atmosphere": "Ruined"
+      }
+    },
+    {
+      "Building": {
+        "Choice": "3",
+        "Atmosphere": "Peaceful"
+      }
+    },
+    {
+      "Building": {
+        "Choice": "4",
+        "Atmosphere": "Abandoned"
+      }
+    },
+    {
+      "Building": {
+        "Choice": "5",
+        "Atmosphere": "Windswept"
+      }
+    },
+    {
+      "Rural": {
+        "Choice": "6",
+        "Atmosphere": "Dreadful"
+      }
+    },
+    {
+      "Rural": {
+        "Choice": "7",
+        "Atmosphere": "Overgrown"
+      }
+    },
+    {
+      "Rural": {
+        "Choice": "8",
+        "Atmosphere": "Submerged"
+      }
+    },
+    {
+      "Sinister": {
+        "Choice": "9",
+        "Atmosphere": "Ancient"
+      }
+    },
+    {
+      "Sinister": {
+        "Choice": "10",
+        "Atmosphere": "Impossible"
+      }
+    },
+    {
+      "Sinister": {
+        "Choice": "11",
+        "Atmosphere": "Perched"
+      }
+    },
+    {
+      "Sinister": {
+        "Choice": "12",
+        "Atmosphere": "Mountain-top"
+      }
+    },
+    {
+      "Sinister": {
+        "Choice": "13",
+        "Atmosphere": "Cliff-top"
+      }
+    },
+    {
+      "Marine": {
+        "Choice": "14",
+        "Atmosphere": "Flooded"
+      }
+    },
+    {
+      "Marine": {
+        "Choice": "15",
+        "Atmosphere": "Underground"
+      }
+    },
+    {
+      "Marine": {
+        "Choice": "16",
+        "Atmosphere": "Remote"
+      }
+    },
+    {
+      "Military": {
+        "Choice": "17",
+        "Atmosphere": "Enigmatic"
+      }
+    },
+    {
+      "Military": {
+        "Choice": "18",
+        "Atmosphere": "Dripping"
+      }
+    },
+    {
+      "Ancient or otherworldly site": {
+        "Choice": "19",
+        "Atmosphere": "Frozen"
+      }
+    },
+    {
+      "Ancient or otherworldly site": {
+        "Choice": "20",
+        "Atmosphere": "Eerie"
+      }
+    }
+  ],
+  "rural_or_marine_locations": [
+    {
+      "Old battlefield": "1",
+      "Shipyard": "1"
+    },
+    {
+      "Cavern": "2",
+      "Cargo ship": "2"
+    },
+    {
+      "Plantation": "3",
+      "Warship": "3"
+    },
+    {
+      "Jungle": "4",
+      "Underwater ruins": "4"
+    },
+    {
+      "Abandoned settlement": "5",
+      "Deep sea ridge": "5"
+    },
+    {
+      "River": "6",
+      "Submerged wreck": "6"
+    },
+    {
+      "Desert": "7",
+      "Reef": "7"
+    },
+    {
+      "Glacier": "8",
+      "Lost island": "8"
+    },
+    {
+      "Swamp": "9",
+      "Pirate haven": "9"
+    },
+    {
+      "Coastline": "10",
+      "Merchant ship": "10"
+    },
+    {
+      "Canyon": "11",
+      "Open sea": "11"
+    },
+    {
+      "Lake": "12",
+      "Coastal waters": "12"
+    },
+    {
+      "Forest": "13",
+      "Coast": "13"
+    },
+    {
+      "Mine": "14",
+      "Port": "14"
+    },
+    {
+      "Farm": "15",
+      "Underwater caverns": "15"
+    },
+    {
+      "Fields": "16",
+      "Beached wreck": "16"
+    },
+    {
+      "Hills": "17",
+      "Deep sea trench": "17"
+    },
+    {
+      "Mountains": "18",
+      "Island chain": "18"
+    },
+    {
+      "Delta": "19",
+      "Sinking island": "19"
+    },
+    {
+      "Snowfields": "20",
+      "An armada": "20"
+    }
+  ],
+  "military_or_otherworldly_sites": [
+    {
+      "Command tent": "1",
+      "Acheronian ruins": "1"
+    },
+    {
+      "Knight’s tent": "2",
+      "Pre-Cataclysmic ruins": "2"
+    },
+    {
+      "Squire’s tent": "3",
+      "Xuthal": "3"
+    },
+    {
+      "Sentry post": "4",
+      "Island of the Black Ones": "4"
+    },
+    {
+      "War camp": "5",
+      "Dweller’s lair (submerged)": "5"
+    },
+    {
+      "Supply camp": "6",
+      "Ancient pyramid": "6"
+    },
+    {
+      "Horse enclosure": "7",
+      "Gateway to the Outer Dark": "7"
+    },
+    {
+      "Border fort": "8",
+      "Cyclopean tomb": "8"
+    },
+    {
+      "Mercenary outpost": "9",
+      "Primeval forest": "9"
+    },
+    {
+      "Mercenary base": "10",
+      "Pangaean valley": "10"
+    },
+    {
+      "Militia building": "11",
+      "City of Alkmeenon": "11"
+    },
+    {
+      "Small keep": "12",
+      "Citadel of Tsotha": "12"
+    },
+    {
+      "Castle": "13",
+      "Haunted cairn": "13"
+    },
+    {
+      "Wainwright’s": "14",
+      "Tunnels beneath sewers": "14"
+    },
+    {
+      "Blacksmith’s": "15",
+      "Heart of a mountain": "15"
+    },
+    {
+      "Naval ship": "16",
+      "Stygian ruins": "16"
+    },
+    {
+      "Naval dock": "17",
+      "Island of Xapur": "17"
+    },
+    {
+      "Military monument": "18",
+      "Ruins of Kuthchemes": "18"
+    },
+    {
+      "Ambush site": "19",
+      "Mount Yimsha": "19"
+    },
+    {
+      "Battlefield": "20",
+      "City of Xuchotil": "20"
+    }
+  ],
+  "cult": [
+    { "Black Seers of Mount Yimsha": "1-2" },
+    { "Cult of Jhebbal Sag": "3-5" },
+    { "Cult of Asura": "6-7" },
+    { "The Spider Cult of Yezud": "8-9" },
+    { "Cannibal Cult of Zamboula": "10-11" },
+    { "Cult of Hanuman": "12-13" },
+    { "The Black Ring": "14-16" },
+    { "The Red Brotherhood": "17-18" },
+    { "The Scarlet Circle": "19-20" }
+  ],
+  "religious_tenets": [
+    { "Set": "1-3" },
+    { "Jhebbal Sag": "4-6" },
+    { "Asura": "6-8" },
+    { "Ishtar": "9-11" },
+    { "Mitra": "12-15" },
+    { "Bel": "16-18" },
+    { "The Spider-God": "19-20" }
+  ],
+  "ancient_or_otherworldly_creature": [
+    { "Abomination": "1-2" },
+    { "Child of the Dark": "3-4" },
+    { "Creature of the Far Reaches of the Skies": "5-7" },
+    { "Devil of the Outer Dark": "8-9" },
+    { "Forest devil": "10-11" },
+    { "Malign plant": "12-14" },
+    { "Mummified sorcerer": "15-17" },
+    { "Werewolf": "18-19" },
+    { "Winged One": "20" }
+  ],
+  "legendary_character": [
+    { "Conan": "1-2" },
+    { "Valeria": "3-5" },
+    { "Amalric": "4-8" },
+    { "Astreas": "9-11" },
+    { "Thutmekri": "12-13" },
+    { "Olgerd Vladislav": "14-16" },
+    { "Taurus of Nemedia": "17-18" },
+    { "Thoth-Amon": "19-20" }
+  ],
+  "legendary_artifact": [
+    { "The Heart of Ahriman": "1-2" },
+    { "A lock of Atali’s hair": "3-4" },
+    { "Golden elixir of Xuthal": "5-7" },
+    { "Headdress of Zogar Sag": "8-9" },
+    { "Khemsa’s Stygian girdle": "10-11" },
+    { "The Bowl of Set": "12-14" },
+    { "The Teeth of Gwahlur": "15-17" },
+    { "The Heart of the Elephant": "18-19" },
+    { "The Serpent Ring of Set": "20" }
+  ],
+  "hazards": [
+    {
+      "damage": "2𖤍",
+      "doom_cost": "2",
+      "examples": "The player character stands on a sharpened spike or takes a punch from behind."
+    },
+    {
+      "damage": "3𖤍",
+      "doom_cost": "3",
+      "examples": "A booby-trap constructed from small sharp blades; spears that spring from the walls."
+    },
+    {
+      "damage": "4𖤍",
+      "doom_cost": "4",
+      "examples": "A hidden man-trap; small rockslide."
+    },
+    {
+      "damage": "5𖤍",
+      "doom_cost": "5",
+      "examples": "A more lethal trap; a mid-sized rockslide."
+    },
+    {
+      "damage": "6𖤍",
+      "doom_cost": "6",
+      "examples": "A large and deadly trap; a large rockslide."
+    },
+    {
+      "area": "2",
+      "examples": "A complicated trap that fires multiple darts or stones."
+    },
+    {
+      "incendiary": "X",
+      "doom_cost": "Equal to half X, rounding up",
+      "examples": "A fire spreads around the player character; the roof catches fire and starts to cave in; molten lava in close proximity."
+    },
+    {
+      "intense": "2",
+      "examples": "A massive boulder; a sharpened man-trap."
+    },
+    {
+      "knockdown": "1",
+      "examples": "A log swung at shoulder height; a small pitfall."
+    },
+    {
+      "nonlethal": "Reduce overall Doom Cost by two",
+      "examples": "A sand dune collapsing on the player character; a fall onto soft ground."
+    },
+    {
+      "piercing": "X",
+      "doom_cost": "Equal to half X, rounding up",
+      "examples": "Sharpened stakes or rocks."
+    },
+    {
+      "stun": "1",
+      "examples": "A gas stirred up by the opening of ancient doors; a trap that drops rocks."
+    },
+    {
+      "persistent": "X",
+      "doom_cost": "Equal to half X, rounding up",
+      "examples": "Long narrow blades that leave bleeding wounds."
+    },
+    {
+      "vicious": "X",
+      "doom_cost": "Equal to X",
+      "examples": "Traps set by master trap makers."
+    }
+  ],
+  "hazard_difficulties": [
+    {
+      "test_difficulty": "No skill test required",
+      "doom_cost": "—",
+      "examples": "Instant effects."
+    },
+    {
+      "test_difficulty": "Average (D1)",
+      "doom_cost": "Reduce overall Doom Cost by three",
+      "examples": "A river bank with an obvious ford."
+    },
+    {
+      "test_difficulty": "Challenging (D2)",
+      "doom_cost": "Reduce overall Doom Cost by one",
+      "examples": "A river bank with no ford."
+    },
+    {
+      "test_difficulty": "Daunting (D3) or greater",
+      "doom_cost": "—",
+      "examples": "A whitewater rapid."
+    }
+  ],
+  "displays_of_might_and_power": [
+    {
+      "name": "A Mighty Name",
+      "skill": "Command or Discipline",
+      "range": "Close",
+      "damage": "X𖤍",
+      "qualities": "Area"
+    },
+    {
+      "name": "Dead Man’s Stare",
+      "skill": "Melee",
+      "range": "Close",
+      "damage": "3𖤍",
+      "qualities": "Area, Vicious 1"
+    },
+    {
+      "name": "Flaming Brand",
+      "skill": "Survival",
+      "range": "Close",
+      "damage": "3𖤍",
+      "qualities": "Stun, Vicious 1"
+    },
+    {
+      "name": "Impossible Feat of Might",
+      "skill": "Athletics",
+      "range": "Medium",
+      "damage": "5𖤍",
+      "qualities": "Area, Stun"
+    },
+    {
+      "name": "Knife to the Throat",
+      "skill": "Melee or Stealth",
+      "range": "Reach",
+      "damage": "4𖤍",
+      "qualities": "Stun, Vicious 1"
+    },
+    {
+      "name": "Sorcerous Might",
+      "skill": "Sorcery",
+      "range": "Medium",
+      "damage": "5𖤍",
+      "qualities": "Area, Intense"
+    },
+    {
+      "name": "Stain the Soil Red",
+      "skill": "Melee or Ranged Weapons",
+      "range": "Close",
+      "damage": "X𖤍",
+      "qualities": "Area"
+    },
+    {
+      "name": "Steely Glare",
+      "skill": "Persuade",
+      "range": "Close",
+      "damage": "2𖤍",
+      "qualities": "Stun"
+    }
+  ],
+  "kits": [
+    {
+      "skill": "Alchemy",
+      "item_type": "Laboratory",
+      "availability": "Facility",
+      "cost": "25",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Alchemy",
+      "item_type": "Laboratory, Field Kit",
+      "availability": "Kit",
+      "cost": "8",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Alchemy",
+      "item_type": "Library, Academic Library",
+      "availability": "Facility",
+      "cost": "30",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Alchemy",
+      "item_type": "Library, Personal Library",
+      "availability": "Library",
+      "cost": "10",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Alchemy",
+      "item_type": "Library, Reference Library",
+      "availability": "Facility",
+      "cost": "15",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Alchemy",
+      "item_type": "Ingredient",
+      "availability": "Resource",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Alchemy",
+      "item_type": "Test Kit",
+      "availability": "Tools (1 use)",
+      "cost": "3",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Animal Handling",
+      "item_type": "Handler’s Kit/Bridle/Tack Kit",
+      "availability": "Kit",
+      "cost": "2",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Animal Handling",
+      "item_type": "Rewards",
+      "availability": "Resource",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Animal Handling",
+      "item_type": "Stable/Menagerie",
+      "availability": "Facility",
+      "cost": "50",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Athletics",
+      "item_type": "Climbing Gear (climbing only)",
+      "availability": "Kit",
+      "cost": "4",
+      "encumbrance": "2"
+    },
+    {
+      "skill": "Athletics",
+      "item_type": "Spikes",
+      "availability": "Resource",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Counsel",
+      "item_type": "Calming Herbs and Perfumes",
+      "availability": "Resource",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Counsel",
+      "item_type": "Private Chambers",
+      "availability": "Facility",
+      "cost": "22",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Craft",
+      "item_type": "Coal",
+      "availability": "Resource",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Craft/Thievery",
+      "item_type": "Tool Kit",
+      "availability": "Tools",
+      "cost": "8",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Craft",
+      "item_type": "Workshop",
+      "availability": "Facility",
+      "cost": "15",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Healing",
+      "item_type": "Healer’s Bag",
+      "availability": "Kit",
+      "cost": "8",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Healing",
+      "item_type": "Chirurgeon’s House",
+      "availability": "Facility",
+      "cost": "22",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Healing",
+      "item_type": "Ligation Kit",
+      "availability": "Kit (1 use)",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Healing",
+      "item_type": "Medicine",
+      "availability": "Resource",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Ranged Weapons",
+      "item_type": "Arrows, Bolts, etc.",
+      "availability": "Reload",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Sorcery",
+      "item_type": "Sorcerous Garb and Talismans",
+      "availability": "Tools",
+      "cost": "11",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Sorcery",
+      "item_type": "Circle of Power",
+      "availability": "Facility",
+      "cost": "30",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Sorcery",
+      "item_type": "Library, Academic Library",
+      "availability": "Facility",
+      "cost": "50",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Sorcery",
+      "item_type": "Library, Personal Library",
+      "availability": "Library",
+      "cost": "20",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Sorcery",
+      "item_type": "Library, Reference Library",
+      "availability": "Facility",
+      "cost": "30",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Sorcery",
+      "item_type": "Offerings",
+      "availability": "Resource",
+      "cost": "3",
+      "encumbrance": "2"
+    },
+    {
+      "skill": "Stealth",
+      "item_type": "Appropriate Clothing (by region/season)",
+      "availability": "Tools (1 use)",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Stealth",
+      "item_type": "Makeup and Scent Oils",
+      "availability": "Resource",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Stealth",
+      "item_type": "Wardrobe of Appropriate clothing (by region/season)",
+      "availability": "Tools",
+      "cost": "6",
+      "encumbrance": "3"
+    },
+    {
+      "skill": "Survival",
+      "item_type": "Day Bag (by region)",
+      "availability": "Kit (1 use)",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Survival",
+      "item_type": "Outpost (by region)",
+      "availability": "Facility",
+      "cost": "8",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Survival",
+      "item_type": "Provisions",
+      "availability": "Resource",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Survival",
+      "item_type": "Survival Kit (by region)",
+      "availability": "Tools",
+      "cost": "4",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Thievery",
+      "item_type": "Thief’s Kit",
+      "availability": "Tools (1 use)",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "skill": "Any one skill",
+      "item_type": "Library, Academic Library",
+      "availability": "Facility",
+      "cost": "15",
+      "encumbrance": "—"
+    },
+    {
+      "skill": "Any one skill",
+      "item_type": "Library, Personal Library",
+      "availability": "Library",
+      "cost": "5",
+      "encumbrance": "5"
+    },
+    {
+      "skill": "Any one skill",
+      "item_type": "Library, Reference Library",
+      "availability": "Facility",
+      "cost": "10",
+      "encumbrance": "—"
+    }
+  ],
+  "swords": [
+    {
+      "weapon": "Broadsword",
+      "reach": "2",
+      "damage": "5𖤍",
+      "size": "Unbalanced",
+      "qualities": "Parrying 1",
+      "availability": "5",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Cutlass",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "Unbalanced",
+      "qualities": "Vicious 1",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Scimitar or Saber",
+      "reach": "2",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Cavalry 1, Parrying 1",
+      "availability": "5",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Shortsword",
+      "reach": "1",
+      "damage": "4𖤍",
+      "size": "1H",
+      "qualities": "Parrying 1",
+      "availability": "5",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Sword",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "1H",
+      "qualities": "Parrying 1",
+      "availability": "5",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Tulwar",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "Unbalanced",
+      "qualities": "Cavalry 1, Parrying 1",
+      "availability": "5",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Two-handed Sword",
+      "reach": "3",
+      "damage": "5𖤍",
+      "size": "2H",
+      "qualities": "Vicious 1",
+      "availability": "1",
+      "cost": "8",
+      "encumbrance": "2"
+    }
+  ],
+  "dagger_and_knives": [
+    {
+      "weapon": "Dagger, Dirk, Poniard, or Stiletto",
+      "reach": "1",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Hidden 1, Parrying, Thrown, Unforgiving",
+      "availability": "5",
+      "cost": "—",
+      "encumbrance": "—"
+    },
+    {
+      "weapon": "Ghanata Knife",
+      "reach": "1",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Hidden 1, Vicious",
+      "availability": "2",
+      "cost": "4",
+      "encumbrance": "—"
+    },
+    {
+      "weapon": "Knife",
+      "reach": "1",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Hidden 1, Improvised, Unforgiving",
+      "availability": "1",
+      "cost": "2",
+      "encumbrance": "—"
+    },
+    {
+      "weapon": "Yuetshi Knife",
+      "reach": "1",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Hidden 1, Intense",
+      "availability": "5",
+      "cost": "—",
+      "encumbrance": "—"
+    },
+    {
+      "weapon": "Zhaibar Knife",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "1H",
+      "qualities": "Unforgiving",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Throwing Knife",
+      "reach": "C",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Hidden 1, Volley",
+      "availability": "5",
+      "cost": "—",
+      "encumbrance": "—"
+    }
+  ],
+  "clubs_flails_warhammers": [
+    {
+      "weapon": "Club",
+      "reach": "2",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Stun, Knockdown",
+      "availability": "0",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Flail, Farming",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "2H",
+      "qualities": "Improvised, Knockdown, Piercing",
+      "availability": "1",
+      "cost": "1",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Flail, Military",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "Unbalanced",
+      "qualities": "Knockdown, Piercing",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Great Hammer",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "2H",
+      "qualities": "Improvised, Knockdown, Stun",
+      "availability": "1",
+      "cost": "2",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Mace",
+      "reach": "2",
+      "damage": "3𖤍",
+      "size": "Unbalanced",
+      "qualities": "Knockdown, Stun, Piercing",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Maul",
+      "reach": "2",
+      "damage": "5𖤍",
+      "size": "2H",
+      "qualities": "Knockdown, Stun",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Morning Star",
+      "reach": "2",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Vicious",
+      "availability": "1",
+      "cost": "4",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Pick, Horseman’s",
+      "reach": "2",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Vicious",
+      "availability": "1",
+      "cost": "6",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Pickaxe",
+      "reach": "2",
+      "damage": "5𖤍",
+      "size": "2H",
+      "qualities": "Improvised, Vicious",
+      "availability": "1",
+      "cost": "4",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Sap",
+      "reach": "1",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Hidden 1, Stun, Unforgiving",
+      "availability": "1",
+      "cost": "0",
+      "encumbrance": "—"
+    },
+    {
+      "weapon": "Staff",
+      "reach": "2 or 3",
+      "damage": "4𖤍",
+      "size": "2H",
+      "qualities": "Knockdown",
+      "availability": "0",
+      "cost": "3",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Warhammer",
+      "reach": "2",
+      "damage": "4𖤍",
+      "size": "Unbalanced",
+      "qualities": "Knockdown, Vicious",
+      "availability": "2",
+      "cost": "5",
+      "encumbrance": "1"
+    }
+  ],
+  "flexible_weapons": [
+    {
+      "weapon": "Chain",
+      "reach": "3",
+      "damage": "3𖤍",
+      "size": "Unbalanced",
+      "qualities": "Grapple, Improvised, Knockdown, Vicious",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "1"
+    },
+    {
+      "weapon": "Net",
+      "reach": "2",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Grapple, Non-Lethal, Parrying, Thrown",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "—"
+    },
+    {
+      "weapon": "Whip",
+      "reach": "3",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Fearsome 2, Grapple",
+      "availability": "5",
+      "cost": "—",
+      "encumbrance": "—"
+    }
+  ],
+  "spears_polearms": [
+    {
+      "weapon": "Spear",
+      "reach": "3",
+      "damage": "4𖤍",
+      "size": "Unbalanced",
+      "qualities": "Piercing",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Javelin",
+      "reach": "2",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Fragile, Piercing, Thrown (Medium)",
+      "availability": "1",
+      "cost": "3",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Lance",
+      "reach": "3",
+      "damage": "4𖤍",
+      "size": "Unbalanced",
+      "qualities": "Cavalry 2, Fragile",
+      "availability": "2",
+      "cost": "7",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Pike",
+      "reach": "4",
+      "damage": "4𖤍",
+      "size": "Unwieldy",
+      "qualities": "Piercing",
+      "availability": "2",
+      "cost": "6",
+      "encumbrance": "3"
+    },
+    {
+      "weapon": "Polearm",
+      "reach": "3",
+      "damage": "4𖤍",
+      "size": "2H",
+      "qualities": "Knockdown, Vicious",
+      "availability": "1",
+      "cost": "5",
+      "encumbrance": "3"
+    }
+  ],
+  "missile_weapons": [
+    {
+      "weapon": "Arbalest",
+      "range": "M",
+      "damage": "5𖤍",
+      "size": "2H",
+      "qualities": "Unforgiving 1, Vicious",
+      "availability": "2",
+      "cost": "10",
+      "encumbrance": "3"
+    },
+    {
+      "weapon": "Bow, Hunting",
+      "range": "C",
+      "damage": "3𖤍",
+      "size": "2H",
+      "qualities": "Volley",
+      "availability": "1",
+      "cost": "6",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Bow, Hyrkanian Horse",
+      "range": "C",
+      "damage": "3𖤍",
+      "size": "2H",
+      "qualities": "Volley",
+      "availability": "3",
+      "cost": "6",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Bow, Shemite",
+      "range": "L",
+      "damage": "3𖤍",
+      "size": "2H",
+      "qualities": "Piercing 1, Volley",
+      "availability": "2",
+      "cost": "7",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Crossbow",
+      "range": "M",
+      "damage": "3𖤍",
+      "size": "Unbalanced",
+      "qualities": "Unforgiving 1, Volley",
+      "availability": "1",
+      "cost": "6",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Longbow, Bossonian",
+      "range": "M",
+      "damage": "5𖤍",
+      "size": "2H",
+      "qualities": "Piercing 1, Volley",
+      "availability": "4",
+      "cost": "8",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Short Bow, Stygian",
+      "range": "C",
+      "damage": "3𖤍",
+      "size": "2H",
+      "qualities": "Volley",
+      "availability": "2",
+      "cost": "6",
+      "encumbrance": "2"
+    },
+    {
+      "weapon": "Sling",
+      "range": "M",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Stun, Volley",
+      "availability": "1",
+      "cost": "1",
+      "encumbrance": "1"
+    }
+  ],
+  "shields": [
+    {
+      "shield": "Buckler",
+      "reach": "1",
+      "damage": "3𖤍",
+      "size": "1H",
+      "qualities": "Parrying, Stun",
+      "availability": "1",
+      "cost": "4",
+      "encumbrance": "1"
+    },
+    {
+      "shield": "Shield",
+      "reach": "2",
+      "damage": "2𖤍",
+      "size": "1H",
+      "qualities": "Knockdown, Shield",
+      "availability": "2",
+      "cost": "5",
+      "encumbrance": "2"
+    },
+    {
+      "shield": "Shield, Tower",
+      "reach": "2",
+      "damage": "2𖤍",
+      "size": "Unbalanced",
+      "qualities": "Knockdown, Shield",
+      "availability": "4",
+      "cost": "6",
+      "encumbrance": "3"
+    }
+  ],
+  "armor": [
+    {
+      "armor_type": "Heavy Clothing Padded Gambeson",
+      "hit_locations": "Torso and Arms",
+      "soak": "1",
+      "qualities": "—",
+      "availability": "1",
+      "cost": "2",
+      "encumbrance": "1"
+    },
+    {
+      "armor_type": "Heavy Clothing Trousers",
+      "hit_locations": "Legs",
+      "soak": "1",
+      "qualities": "—",
+      "availability": "1",
+      "cost": "1",
+      "encumbrance": "1"
+    },
+    {
+      "armor_type": "Light Armor Brigandine Jacket",
+      "hit_locations": "Torso and Arms",
+      "soak": "2",
+      "qualities": "—",
+      "availability": "8",
+      "cost": "3",
+      "encumbrance": "3"
+    },
+    {
+      "armor_type": "Light Armor Brigandine Vest",
+      "hit_locations": "Torso",
+      "soak": "2",
+      "qualities": "—",
+      "availability": "4",
+      "cost": "2",
+      "encumbrance": "2"
+    },
+    {
+      "armor_type": "Light Armor Brigandine Sleeves or Trousers",
+      "hit_locations": "Arms or Legs",
+      "soak": "2",
+      "qualities": "—",
+      "availability": "4",
+      "cost": "2",
+      "encumbrance": "2"
+    },
+    {
+      "armor_type": "Light Armor Brigandine Sleeve or Legging",
+      "hit_locations": "Single Limb",
+      "soak": "2",
+      "qualities": "—",
+      "availability": "2",
+      "cost": "1 each",
+      "encumbrance": "1 each"
+    },
+    {
+      "armor_type": "Heavy Armor Heavy Hauberk or Coat",
+      "hit_locations": "Torso, Arms, Legs",
+      "soak": "3",
+      "qualities": "Heavy or Noisy",
+      "availability": "3",
+      "cost": "18",
+      "encumbrance": "3"
+    },
+    {
+      "armor_type": "Heavy Armor Heavy Vest",
+      "hit_locations": "Torso",
+      "soak": "3",
+      "qualities": "Heavy or Noisy",
+      "availability": "6",
+      "cost": "6",
+      "encumbrance": "2"
+    },
+    {
+      "armor_type": "Heavy Armor Heavy Shirt",
+      "hit_locations": "Torso and Arms",
+      "soak": "3",
+      "qualities": "Heavy or Noisy",
+      "availability": "12",
+      "cost": "12",
+      "encumbrance": "2"
+    },
+    {
+      "armor_type": "Heavy Armor Heavy Sleeve or Legging",
+      "hit_locations": "Single Limb",
+      "soak": "3",
+      "qualities": "Noisy",
+      "availability": "3",
+      "cost": "3",
+      "encumbrance": "1 each"
+    },
+    {
+      "armor_type": "Very Heavy Armor Cuirass",
+      "hit_locations": "Torso",
+      "soak": "4",
+      "qualities": "Very Heavy",
+      "availability": "4",
+      "cost": "8",
+      "encumbrance": "3"
+    },
+    {
+      "armor_type": "Very Heavy Armor Arm or Leg Plates",
+      "hit_locations": "Single Limb",
+      "soak": "4",
+      "qualities": "Very Heavy",
+      "availability": "4",
+      "cost": "4",
+      "encumbrance": "1 each"
+    },
+    {
+      "armor_type": "Very Heavy Armor Full Plate Armor",
+      "hit_locations": "All",
+      "soak": "4",
+      "qualities": "Very Heavy",
+      "availability": "28",
+      "cost": "28",
+      "encumbrance": "7"
+    },
+    {
+      "armor_type": "Heavy Clothing Leather Cap",
+      "hit_locations": "Head",
+      "soak": "1",
+      "qualities": "—",
+      "availability": "1",
+      "cost": "1",
+      "encumbrance": "—"
+    },
+    {
+      "armor_type": "Heavy Armor Helmet or Coif",
+      "hit_locations": "Head",
+      "soak": "3",
+      "qualities": "Heavy",
+      "availability": "3",
+      "cost": "3",
+      "encumbrance": "2"
+    },
+    {
+      "armor_type": "Very Heavy Armor Great Helm",
+      "hit_locations": "Head",
+      "soak": "4",
+      "qualities": "Very Heavy",
+      "availability": "4",
+      "cost": "4",
+      "encumbrance": "2"
+    }
+  ],
+  "barding": [
+    {
+      "item": "Light Barding",
+      "hit_locations": "Body, Neck, Head",
+      "soak": "1",
+      "armor_type": "Light Armor",
+      "availability": "3",
+      "cost": "5",
+      "encumbrance": "8"
+    },
+    {
+      "item": "Heavy Barding",
+      "hit_locations": "Body, Neck, Head",
+      "soak": "2",
+      "armor_type": "Heavy Armor",
+      "availability": "4",
+      "cost": "8",
+      "encumbrance": "12"
+    },
+    {
+      "item": "Very Heavy Barding",
+      "hit_locations": "Body, Neck, Head",
+      "soak": "4",
+      "armor_type": "Very Heavy Armor",
+      "availability": "5",
+      "cost": "12",
+      "encumbrance": "16"
+    }
+  ],
+  "mount_or_vehicle_hit_locations": [
+    {
+      "roll": "1 or 2",
+      "location_struck": "Animal(s): Roll for damage normally against the creature(s) pulling the vehicle.",
+      "effect": "Driver: Roll for damage normally against the driver. If there is more than one driver, roll randomly to determine which is struck.",
+      "any_other_result": "Vehicle: The mount or vehicle is instead struck. For mounts, damage is taken as per humans, while the gamemaster should determine the effects of damage to the vehicle."
+    }
+  ]
+}
