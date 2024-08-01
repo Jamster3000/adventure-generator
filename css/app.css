@@ -1,9 +1,33 @@
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+html {
+    font-family: 'Conan', sans-serif;
+}
+
+@font-face {
+    font-family: 'Conan';
+    src: url('../fonts/CrushYourEnemies_BOLD.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+main {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: 'Conan', sans-serif;
+}
+
+h1 {
+    text-align: center;
 }
 
 h1:focus {
     outline: none;
+}
+
+p {
+    padding-top: 40px;
+    text-align: center;
 }
 
 a, .btn-link {
