@@ -63,7 +63,7 @@ main[b-jch1yo7e81] {
 
 .bi-list-nested-nav-menu[b-jch1yo7e81]::before {
     content: "\2600"; /* Unicode for sun */
-}  
+}
 
 .top-row[b-jch1yo7e81] {
     background-color: rgba(247, 247, 247, 0.8);
@@ -190,15 +190,15 @@ main[b-jch1yo7e81] {
         line-height: 3rem;
     }
 
-.nav-item[b-gtkn1oxqxm]  a.active {
-    background-color: rgba(255,255,255,0.37);
-    color: white;
-}
+        .nav-item[b-gtkn1oxqxm]  a.active {
+            background-color: rgba(255,255,255,0.37);
+            color: white;
+        }
 
-.nav-item[b-gtkn1oxqxm]  a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
+        .nav-item[b-gtkn1oxqxm]  a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
 
 @media (min-width: 641px) {
     .navbar-toggler[b-gtkn1oxqxm] {
@@ -209,7 +209,7 @@ main[b-jch1yo7e81] {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
-    
+
     .nav-scrollable[b-gtkn1oxqxm] {
         /* Allow sidebar to scroll for tall menus */
         height: calc(100vh - 3.5rem);
