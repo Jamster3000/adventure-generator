@@ -22,7 +22,7 @@ main {
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('/images/leather.jpg');
+        background: url('images/leather.jpg');
         opacity: 0.1;
         pointer-events: none;
     }
