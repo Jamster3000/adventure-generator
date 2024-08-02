@@ -78,25 +78,79 @@ a, .btn-link {
 }
 
 .btn-primary {
-    background-color: #8B4513; 
-    border: 2px solid #4a2608;
-    color: #FFF8DC; 
+    background: linear-gradient(145deg, #d4af37, #b8960f);
+    color: #2d2101;
+    border: none;
+    padding: 15px 30px;
     font-family: 'Conan', sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 12px 24px;
-    font-size: 1.1em;
+    letter-spacing: 2px;
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 -5px 10px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
 }
 
-    .btn-primary:hover, .btn-primary:focus {
-        background-color: #A0522D; 
-        border-color: #8B4513;
-        color: #FFD700; 
-        transform: translateY(-2px);
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    .btn-primary:before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(0,0,0,0.1));
+        clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+        z-index: -1;
     }
+
+    .btn-primary:hover, .btn-primary:focus {
+        transform: translateY(-2px) rotate(-1deg);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3), inset 0 -5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+        .btn-primary:hover:before {
+            filter: brightness(1.2);
+        }
+
+    .btn-primary:active {
+        transform: translateY(2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
+    }
+
+.generate-title {
+    width: 1000px;
+    height: 100px;
+    position: fixed;
+    bottom: 2%;
+    left: 25%;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.btn-primary:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background-size: 200% 100%;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    animation: shimmer 3s infinite;
+}
 
 /* Loading and Error Styles */
 /* Loading and Error Styles */
@@ -269,3 +323,38 @@ code {
     padding: 1rem 1rem 1rem 3.7rem;
     color: white;
 }
+
+.generated-text {
+    border: 2px solid #8B4513; /* Saddle Brown to match the theme */
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    color: #f0e6d2; /* Light text color */
+    padding: 1.5rem; /* Space inside the border */
+    margin: 1.5rem; /* Space outside the element */
+    font-size: 1.2rem; /* Slightly larger text for readability */
+    line-height: 1.6; /* Line height for better text spacing */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Shadow effect for depth */
+    border-radius: 10px; /* Rounded corners */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
+    text-align: center; /* Centered text */
+}
+
+    /* Optional: Add a decorative element using a pseudo-element */
+    .generated-text:before {
+        content: '';
+        display: block;
+        width: 80%;
+        height: 2px;
+        background: linear-gradient(90deg, #d4af37, #b8960f);
+        margin: 0 auto 1rem auto;
+        border-radius: 1px;
+    }
+
+    .generated-text:after {
+        content: '';
+        display: block;
+        width: 80%;
+        height: 2px;
+        background: linear-gradient(90deg, #b8960f, #d4af37);
+        margin: 1rem auto 0 auto;
+        border-radius: 1px;
+    }

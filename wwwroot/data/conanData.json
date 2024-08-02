@@ -12,16 +12,16 @@
     { "𖤍[entity] of [location]": "19-20" }
   ],
   "object": [
-    { "[Jewel/Gem/Amulet]": "1-2" },
-    { "[Crown/Scepter/Throne]": "3-4" },
-    { "[Skull/Bone]": "5-6" },
-    { "[Thunder/Rain/Wind/Storm]": "7-8" },
-    { "[Knife/Sword/Axe/Spear/Blade]": "9-10" },
-    { "[Night/Midnight/Shadow/Darkness]": "11-12" },
-    { "[Kingdom/Empire/Land/Realm]": "13-14" },
-    { "[Tribe/People/Folk]": "15-16" },
-    { "[Flame/Fire/Pyre/Brand]": "17-18" },
-    { "[Circle/Ring/Obelisk/Column]": "19-20" }
+    { "Jewel/Gem/Amulet": "1-2" },
+    { "Crown/Scepter/Throne": "3-4" },
+    { "Skull/Bone": "5-6" },
+    { "Thunder/Rain/Wind/Storm": "7-8" },
+    { "Knife/Sword/Axe/Spear/Blade": "9-10" },
+    { "Night/Midnight/Shadow/Darkness": "11-12" },
+    { "Kingdom/Empire/Land/Realm": "13-14" },
+    { "Tribe/People/Folk": "15-16" },
+    { "Flame/Fire/Pyre/Brand": "17-18" },
+    { "Circle/Ring/Obelisk/Column": "19-20" }
   ],
   "nationalities": [
     { "Hyperborea": "2" },

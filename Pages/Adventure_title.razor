@@ -1,17 +1,28 @@
 ﻿@page "/adventure-title"
-@layout MainLayout
 
 <PageTitle>adventure title</PageTitle>
 
 <link href="css/app.css" rel="stylesheet" />
 
 <div class="container">
-  <h3>Adventure Title</h3>
+  <h1>Adventure Title</h1>
 </div>
 
+@inject ITitleGeneratorService TitleGenerator
 
+@if (!string.IsNullOrEmpty(generatedTitle))
+{
+    <p class="generated-text" style="margin-top: 125px;">@generatedTitle</p>
+}
+
+<button class="btn-primary generate-title" @onclick="Generate">Generate Title</button>
 
 @code {
+    private string generatedTitle;
 
+    private async Task Generate()
+    {
+        generatedTitle = await TitleGenerator.GenerateTitle();
+    }
 }
 
