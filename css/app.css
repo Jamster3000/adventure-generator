@@ -108,7 +108,7 @@ a, .btn-link {
     }
 
     .btn-primary:hover, .btn-primary:focus {
-        transform: translateY(-2px) rotate(-1deg);
+        transform: translateY(-2px);
         box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3), inset 0 -5px 10px rgba(0, 0, 0, 0.2);
     }
 
@@ -120,14 +120,6 @@ a, .btn-link {
         transform: translateY(2px);
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2), inset 0 -3px 5px rgba(0, 0, 0, 0.1);
     }
-
-.generate-title {
-    width: 1000px;
-    height: 100px;
-    position: fixed;
-    bottom: 2%;
-    left: 25%;
-}
 
 @keyframes shimmer {
     0% {
@@ -150,6 +142,14 @@ a, .btn-link {
     background-size: 200% 100%;
     clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
     animation: shimmer 3s infinite;
+}
+
+.generate-title {
+    width: 1000px;
+    height: 100px;
+    position: fixed;
+    bottom: 2%;
+    left: 25%;
 }
 
 /* Loading and Error Styles */
@@ -358,3 +358,69 @@ code {
         margin: 1rem auto 0 auto;
         border-radius: 1px;
     }
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #f0e6d2;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+    /* Tooltip arrow */
+    .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    }
+
+/* Show tooltip on hover */
+.tooltip-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Ensure the container is fixed at the bottom */
+.bottom-container {
+    position: fixed;
+    bottom: 17%;
+    left: 40%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the checkbox and label as needed */
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+label {
+    color: #f0e6d2;
+    font-size: 1rem;
+}
+

@@ -1,13 +1,13 @@
 {
   "title structure": [
-    { "[The/A/An] 𖤍[object] on the [object]": "1-2" },
-    { "[The/A/An] 𖤍[object] of the [object]": "3-4" },
-    { "[The/A/An] [entity] in the [location]": "5-6" },
-    { "[The/A/An] [object] of [object]": "7-8" },
-    { "[The/A/An] [entity] [is/will be/shall be] [disposition]": "9-10" },
-    { "[The/A/An] [disposition] of [entity]": "11-12" },
-    { "[entity][location]": "13-14" },
-    { "[The/A/An] [object]": "15-16" },
+    { "The 𖤍[object] on the [object]": "1-2" },
+    { "The 𖤍[object] of the [object]": "3-4" },
+    { "The [entity] in the [location]": "5-6" },
+    { "The [object] of [object]": "7-8" },
+    { "A**An [entity] [is/will be/shall be] [disposition]": "9-10" },
+    { "The [disposition] of [entity]": "11-12" },
+    { "[entity] [location]": "13-14" },
+    { "The [object]": "15-16" },
     { "𖤍[object] in [location]": "17-18" },
     { "𖤍[entity] of [location]": "19-20" }
   ],
@@ -96,13 +96,13 @@
   ],
   "entity": [
     { "Demon/Devil/Fiend/Horror": "1-2" },
-    { "Ghost.Spirit/Specter": "3-4" },
+    { "Ghost/Spirit/Specter": "3-4" },
     { "Ghoul/Dweller/Serpent Folk/Abomination": "5-6" },
     { "Vulture/Serpent/Eagle/Wolf/Raven/Lion/Tiger/Owl/Ape/Rat/Hound/Hawk": "7-8" },
     { "King/Queen/Lord/lady/emperor/empress/warlord/prince/princess": "9-10" },
     { "Sorcerer/Witch": "11-12" },
     { "Priest/Priestess": "13-14" },
-    { "[religous tenets]": "15-16" },
+    { "[religious_tenets]": "15-16" },
     { "Phoenix/Dragon/Hydra/Mummy": "17-18" },
     { "Stranger/The One/Dweller/Lurker/Holder/Keeper": "19-20" }
   ],
