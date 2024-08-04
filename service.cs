@@ -5,11 +5,12 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 public interface ITitleGeneratorService
 {
     Task InitializeAsync();
-    Task<string> GenerateTitle();
+    Task<string> GenerateTitle(bool randomizeOptions);
 }
 
 public class TitleGeneratorService : ITitleGeneratorService
@@ -45,155 +46,267 @@ public class TitleGeneratorService : ITitleGeneratorService
         }
     }
 
-    public async Task<string> GenerateTitle()
+    public async Task<string> GenerateTitle(bool randomizeOptions)
     {
         if (data == null)
         {
             await InitializeAsync();
         }
-        return tables.GenerateTitle();
+        return tables.GenerateTitle(randomizeOptions);
     }
 
     private class Tables
     {
         private Random random = new Random();
-        private HashSet<string> usedObjects = new HashSet<string>();
-        private HashSet<string> usedEntity = new HashSet<string>();
+        private Dictionary<string, HashSet<string>> usedItems = new Dictionary<string, HashSet<string>>();
         private Dictionary<string, JsonElement> data;
 
         public Tables(Dictionary<string, JsonElement> data)
         {
             this.data = data;
-        }
-
-        public (string, int) Object(int randomRange)
-        {
-            int randomNum = random.Next(1, randomRange + 1);
-            while (true)
+            foreach (var key in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
             {
-                foreach (var obj in data["object"].EnumerateArray())
-                {
-                    foreach (var property in obj.EnumerateObject())
-                    {
-                        string key = property.Name;
-                        string value = property.Value.GetString();
-                        int[] range = value.Split('-').Select(int.Parse).ToArray();
-                        if (range[0] <= randomNum && randomNum <= range[1])
-                        {
-                            if (usedObjects.Contains(key))
-                            {
-                                randomNum = random.Next(1, randomRange + 1);
-                            }
-                            else
-                            {
-                                if (key.Contains("pick"))
-                                {
-                                    string[] options = key.Split(": ")[1].Split(", ");
-                                    string selectedOption = options[random.Next(options.Length)];
-                                    usedObjects.Add(key);
-                                    return (selectedOption, randomNum);
-                                }
-                                else
-                                {
-                                    usedObjects.Add(key);
-                                    return (key, randomNum);
-                                }
-                            }
-                        }
-                    }
-                }
+                usedItems[key] = new HashSet<string>();
             }
         }
 
-        public (string, int) Entity(int randomRange)
+        private (string, int) GetRandomItem(string category, int randomRange)
         {
             int randomNum = random.Next(1, randomRange + 1);
-            while (true)
-            {
-                foreach (var ent in data["entity"].EnumerateArray())
+            var item = data[category].EnumerateArray()
+                .SelectMany(obj => obj.EnumerateObject())
+                .Where(prop =>
                 {
-                    foreach (var property in ent.EnumerateObject())
-                    {
-                        string key = property.Name;
-                        string value = property.Value.GetString();
-                        int[] range = value.Split('-').Select(int.Parse).ToArray();
-                        if (range[0] <= randomNum && randomNum <= range[1])
-                        {
-                            if (usedEntity.Contains(key))
-                            {
-                                randomNum = random.Next(1, randomRange + 1);
-                            }
-                            else
-                            {
-                                if (key.Contains("pick"))
-                                {
-                                    string[] options = key.Split(": ")[1].Split(", ");
-                                    string selectedOption = options[random.Next(options.Length)];
-                                    usedEntity.Add(key);
-                                    return (selectedOption, randomNum);
-                                }
-                                else
-                                {
-                                    usedEntity.Add(key);
-                                    return (key, randomNum);
-                                }
-                            }
-                        }
-                    }
-                }
+                    var range = prop.Value.GetString().Split('-').Select(int.Parse).ToArray();
+                    return range[0] <= randomNum && randomNum <= range[1];
+                })
+                .FirstOrDefault(prop => !usedItems[category].Contains(prop.Name));
+
+            if (item.Value.ValueKind == JsonValueKind.Undefined)
+            {
+                usedItems[category].Clear();
+                return GetRandomItem(category, randomRange);
             }
+
+            string key = item.Name;
+            usedItems[category].Add(key);
+
+            if (key.StartsWith("pick: "))
+            {
+                string[] options = key[6..].Split(", ");
+                return (options[random.Next(options.Length)], randomNum);
+            }
+
+            return (key, randomNum);
         }
 
         public string TitleStructure()
         {
-            int randomNum = random.Next(1, 21);
-            foreach (var title in data["title structure"].EnumerateArray())
+            int attempts = 0;
+            while (attempts < 100)
             {
-                foreach (var property in title.EnumerateObject())
-                {
-                    string key = property.Name;
-                    string value = property.Value.GetString();
-                    int[] range = value.Split('-').Select(int.Parse).ToArray();
-                    if (range[0] <= randomNum && randomNum <= range[1])
+                int randomNum = random.Next(1, 21);
+                var matchingStructure = data["title structure"].EnumerateArray()
+                    .SelectMany(obj => obj.EnumerateObject())
+                    .FirstOrDefault(prop =>
                     {
-                        return key;
-                    }
+                        var range = prop.Value.GetString().Split('-').Select(int.Parse).ToArray();
+                        return range[0] <= randomNum && randomNum <= range[1];
+                    });
+
+                if (matchingStructure.Name != null)
+                {
+                    return matchingStructure.Name;
                 }
+                attempts++;
             }
-            return string.Empty;
+
+            return "The [object] of the [entity]";
         }
 
-        public string GenerateTitle()
+        public string GenerateTitle(bool randomizeOptions)
         {
-            string title = TitleStructure();
-            while (title.Contains("[object]"))
+            string title;
+            Dictionary<string, string> usedReplacements = new Dictionary<string, string>();
+            int attempts = 0;
+            const int maxAttempts = 100;  // Prevent infinite loop
+
+            do
             {
-                if (title.Contains("𖤍"))
+                attempts++;
+                if (attempts > maxAttempts)
                 {
-                    var (obj, _) = Object(6);
-                    title = title.Replace("𖤍[object]", "[" + obj + "]");
+                    return "Failed to generate a suitable title";
                 }
-                else
+
+                title = TitleStructure();
+                usedReplacements.Clear();
+                foreach (var category in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
                 {
-                    var (obj, _) = Object(20);
-                    title = title.Replace("[object]", "[" + obj + "]");
+                    usedItems[category].Clear();
+                }
+
+                foreach (var category in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
+                {
+                    string pattern = $"[{category}]";
+                    string misspelledPattern = category == "religious_tenets" ? "[religous tenets]" : pattern;
+
+                    while (title.Contains(pattern) || title.Contains(misspelledPattern))
+                    {
+                        var (item, _) = GetRandomItem(category, title.Contains("𖤍") ? 6 : 20);
+
+                        if (item == "[religious_tenets]" || item == "[religous tenets]")
+                        {
+                            var (religiousTenet, _) = GetRandomItem("religious_tenets", 20);
+                            item = religiousTenet;
+                        }
+
+                        string replacement = category switch
+                        {
+                            "disposition" => item,
+                            "location" => item.Contains("/") ? $"[{item}]" : item,
+                            _ => $"[{item}]"
+                        };
+
+                        if (usedReplacements.ContainsValue(replacement))
+                        {
+                            // If we're using the same replacement, regenerate the title
+                            title = "";
+                            break;
+                        }
+
+                        usedReplacements[pattern] = replacement;
+                        title = title.Replace(title.Contains("𖤍") ? $"𖤍{pattern}" : pattern, replacement);
+                        title = title.Replace(title.Contains("𖤍") ? $"𖤍{misspelledPattern}" : misspelledPattern, replacement);
+                    }
+
+                    if (string.IsNullOrEmpty(title)) break; // Restart the generation process
+                }
+
+                if (title.Contains("A**An"))
+                {
+                    title = title.Replace("A**An", "[A/An]");
+                }
+
+                if (randomizeOptions)
+                {
+                    title = findOptions(title);
+                }
+
+                title = ApplyTheRule(title);
+
+            } while (HasRepeatedTerms(title) || IsTitlePotentiallyProblematic(title));
+
+            return title;
+        }
+
+        public string findOptions(string title)
+        {
+            Random random = new Random();
+
+            string ReplaceMatch(Match match)
+            {
+                string options = match.Value.Trim('[', ']');
+                string[] choices = options.Split('/');
+                return choices[random.Next(choices.Length)];
+            }
+
+            string pattern = @"\[(?:[^\[\]]+)\]|(?:\b\w+(?:/\w+)+\b)";
+            string result = Regex.Replace(title, pattern, ReplaceMatch);
+
+            // Add spaces between options and following words
+            result = Regex.Replace(result, @"(\w)([A-Z])", "$1 $2");
+
+            // Handle A/An
+            if (result.Contains("A/An"))
+            {
+                var vowels = new List<char> { 'A', 'E', 'I', 'O', 'U' };
+                string[] resultSplit = result.Split(" ", 2);
+
+                if (resultSplit.Length > 1)
+                {
+                    var firstLetter = resultSplit[1][0];
+                    var firstLetterCapitalized = char.ToUpper(firstLetter);
+                    var beginsWithVowel = vowels.Contains(firstLetterCapitalized);
+
+                    result = (beginsWithVowel ? "An " : "A ") + resultSplit[1];
                 }
             }
 
-            while (title.Contains("[entity]"))
+            return result;
+        }
+
+        public string ApplyTheRule(string title)
+        {
+            int roll = random.Next(1, 7);  // Roll a d6
+
+            if (title.StartsWith("The "))
             {
-                if (title.Contains("𖤍"))
+                if (roll <= 2)
                 {
-                    var (ent, _) = Entity(6);
-                    title = title.Replace("𖤍[entity]", "[" + ent + "]");
+                    // "The" remains
+                    return title;
+                }
+                else if (roll == 3 || roll == 4)
+                {
+                    // Switch "The" with "A" or "An"
+                    string restOfTitle = title.Substring(4);
+                    return (IsVowel(restOfTitle[0]) ? "An " : "A ") + restOfTitle;
                 }
                 else
                 {
-                    var (ent, _) = Entity(20);
-                    title = title.Replace("[entity]", "[" + ent + "]");
+                    // Remove "The" and add a Descriptor
+                    string restOfTitle = title.Substring(4);
+                    string descriptor = GetRandomDescriptor();
+                    return $"{descriptor} {restOfTitle}";
                 }
             }
+
+            // If title doesn't start with "The", still add Descriptor on 5 or 6
+            if (roll >= 5)
+            {
+                string descriptor = GetRandomDescriptor();
+                return $"{descriptor} {title}";
+            }
+
             return title;
+        }
+
+        private string GetRandomDescriptor()
+        {
+            int randomNum = random.Next(1, 21);
+            var descriptorItem = data["descriptor"].EnumerateArray()
+                .SelectMany(obj => obj.EnumerateObject())
+                .FirstOrDefault(prop =>
+                {
+                    var range = prop.Value.GetString().Split('-').Select(int.Parse).ToArray();
+                    return range[0] <= randomNum && randomNum <= range[1];
+                });
+
+            if (descriptorItem.Name != null)
+            {
+                string[] options = descriptorItem.Name.Split('/');
+                return options[random.Next(options.Length)];
+            }
+
+            return "Mysterious"; // Default descriptor if something goes wrong
+        }
+
+        private bool IsVowel(char c)
+        {
+            return "AEIOUaeiou".IndexOf(c) >= 0;
+        }
+
+        private bool HasRepeatedTerms(string title)
+        {
+            var words = title.Split(' ');
+            return words.Distinct().Count() != words.Length;
+        }
+
+        private bool IsTitlePotentiallyProblematic(string title)
+        {
+            // Add checks here, e.g., for very short titles
+            return title.Split(' ').Length < 3;
         }
     }
 }
