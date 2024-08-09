@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using System.Text.RegularExpressions;
 
 public interface ITitleGeneratorService
 {
     Task InitializeAsync();
     Task<string> GenerateTitle(bool randomizeOptions);
+    Task<string> GenerateOpeningScene();
 }
 
 public class TitleGeneratorService : ITitleGeneratorService
 {
     private readonly HttpClient _httpClient;
     private Dictionary<string, JsonElement> data;
+    private Dictionary<string, JsonElement> openSceneData;
     private Tables tables;
 
     public TitleGeneratorService(HttpClient httpClient)
@@ -46,6 +42,15 @@ public class TitleGeneratorService : ITitleGeneratorService
         }
     }
 
+    public async Task<string> GenerateOpeningScene()
+    {
+        if (openSceneData == null)
+        {
+            await InitializeAsync();
+        }
+        return tables.GenerateOpeningScene();
+    }
+
     public async Task<string> GenerateTitle(bool randomizeOptions)
     {
         if (data == null)
@@ -68,6 +73,34 @@ public class TitleGeneratorService : ITitleGeneratorService
             {
                 usedItems[key] = new HashSet<string>();
             }
+        }
+
+        public string GenerateOpeningScene()
+        {
+            var openingSettings = data["opening_setting"].EnumerateArray().ToList();
+
+            //rolling for the setting from the openingin_setting table
+            int settingRoll = random.Next(1, 21);
+            var settingEntry = openingSettings[settingRoll - 1];
+            string setting = settingEntry.EnumerateObject().First().Name;
+
+            //rolling for the descriptor from the opening_setting table
+            int descriptorRoll = random.Next(1, 21);
+            var descriptorEntry = openingSettings[descriptorRoll - 1];
+            string descriptor = descriptorEntry.GetProperty("Descriptor").GetString();
+
+            if (descriptor == "Roll twice and apply both")
+            {
+                int secondRoll = random.Next(1, 21);
+                while (secondRoll == descriptorRoll)
+                {
+                    secondRoll = random.Next(1, 21);
+                }
+                var secondDescriptorEntry = openingSettings[secondRoll - 1];
+                string secondDescriptor = secondDescriptorEntry.GetProperty("Descriptor").GetString();
+                descriptor = $"{descriptor} and {secondDescriptor}";
+            }
+            return $"{descriptor} {setting}";
         }
 
         private (string, int) GetRandomItem(string category, int randomRange)
