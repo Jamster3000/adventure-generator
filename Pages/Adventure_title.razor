@@ -2,16 +2,29 @@
 @inject ITitleGeneratorService TitleGenerator
 @inject IJSRuntime JSRuntime
 
+@using Microsoft.AspNetCore.Components
+
 <PageTitle>Adventure Title</PageTitle>
 <link href="css/app.css" rel="stylesheet" />
-
 <div class="container">
     <h1>Adventure Title</h1>
 </div>
 
 @if (!string.IsNullOrEmpty(generatedTitle))
 {
-    <p class="generated-text" style="margin-top: 125px; line-height: 1.6">@generatedTitle</p>
+    <div style="margin-top: 50px;" class="text-container">
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Title Structure</h2>
+            <p>@HighlightBracketedText(generatedTitle)</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Opening scene</h2>
+            <p>@HighlightBracketedText(generatedOpeningScene)</p>
+            <hr>
+            <h2>Descriptor</h2>
+            <p>@HighlightBracketedText(generatedSecondOpeningScene)</p>
+        </div>
+    </div>
 }
 
 <div class="bottom-container">
@@ -21,17 +34,20 @@
         <span class="tooltip">Check this box to randomize the generated options. E.g., Disabled: Jewel/Gem/Amulet.  Enabled: Gem.</span>
     </div>
 </div>
-
 <button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
 
 @code {
-    private string generatedTitle;
+    private string generatedTitle = string.Empty;
+    private string generatedOpeningScene = string.Empty;
+    private string generatedSecondOpeningScene = string.Empty;
     private bool randomizeOptions = false;
     private ElementReference buttonElement;
 
     private async Task Generate()
     {
         generatedTitle = await TitleGenerator.GenerateTitle(randomizeOptions);
+        generatedOpeningScene = await TitleGenerator.GenerateOpeningScene();
+        generatedSecondOpeningScene = await TitleGenerator.GenerateOpeningScene();
         await UnfocusButton();
     }
 
@@ -50,5 +66,20 @@
                 }
             ");
         }
+    }
+
+    private MarkupString HighlightBracketedText(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return new MarkupString(string.Empty);
+        }
+
+        var highlightedText = System.Text.RegularExpressions.Regex.Replace(
+            text,
+            @"\[([^\]]+)\]",
+            "<span style='height: 5px;' class='highlighted'>[$1]</span>"
+    );
+        return new MarkupString(highlightedText);
     }
 }

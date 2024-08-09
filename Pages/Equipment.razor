@@ -1,21 +1,26 @@
-﻿@page "/npc"
+﻿@page "/Equipment"
 @inject ITitleGeneratorService TitleGenerator
 @inject IJSRuntime JSRuntime
 
-<PageTitle>NPC</PageTitle>
+<PageTitle>Equipment</PageTitle>
 <link href="css/app.css" rel="stylesheet" />
 
-<h1>NPC</h1>
+<h1>Equipment</h1>
 
 @if (!string.IsNullOrEmpty(generatedTitle))
 {
     <div class="text-container">
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">non_player_characters</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">tempermant table</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">nationalities</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">quirks</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">opponent</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">cult</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">kits</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">swords</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">dagger_and_knives</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">clubs_flails_warhammers</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">flexible_weapons</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">spears_polearms</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">missile_weapons</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">shields</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">armor</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">barding</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">mount_or_vehicle_hit_locations</p>
     </div>
 }
 
@@ -28,6 +33,7 @@
 </div>
 
 <button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
+
 
 @code {
     private string generatedTitle;

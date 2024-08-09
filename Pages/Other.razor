@@ -1,21 +1,27 @@
-﻿@page "/npc"
+﻿@page "/Other-tables"
 @inject ITitleGeneratorService TitleGenerator
 @inject IJSRuntime JSRuntime
 
-<PageTitle>NPC</PageTitle>
+<PageTitle>Other Tables</PageTitle>
 <link href="css/app.css" rel="stylesheet" />
 
-<h1>NPC</h1>
+<h1>Others</h1>
 
 @if (!string.IsNullOrEmpty(generatedTitle))
 {
     <div class="text-container">
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">non_player_characters</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">tempermant table</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">nationalities</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">quirks</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">opponent</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">cult</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">artifact_descriptors_and_conditions</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">location_choice_and_atmosphere</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">Building type</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">military_or_otherworldly_sites</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">knowledge_or_person_objectives</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">rural_or_marine_locations</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">ancient_or_otherworldly_creature</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">legendary_character</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">legendary_artifact</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">hazards</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">hazard_difficulties</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">displays_of_might_and_power</p>
     </div>
 }
 
@@ -28,6 +34,7 @@
 </div>
 
 <button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
+
 
 @code {
     private string generatedTitle;

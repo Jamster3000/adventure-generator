@@ -1,7 +1,59 @@
 ﻿@page "/quest"
+@inject ITitleGeneratorService TitleGenerator
+@inject IJSRuntime JSRuntime
 
-<h3>Quest</h3>
+<PageTitle>Quest</PageTitle>
+<link href="css/app.css" rel="stylesheet" />
+
+<h1>Quest</h1>
+
+@if (!string.IsNullOrEmpty(generatedTitle))
+{
+    <div style="overflow-y: auto; max-height: 475px;" class="text-container">
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6">hooks and draws table</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">Plot concept</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">primary_antagonist</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">Plot Fulfillment and \Location</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">obstacles and twists</p>
+        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">goals and objectives</p>
+    </div>
+}
+
+<div class="bottom-container">
+    <div class="tooltip-container">
+        <input type="checkbox" id="choose-option-checkbox" name="choose-option-checkbox" @bind="randomizeOptions">
+        <label for="choose-option-checkbox">Randomize options</label>
+        <span class="tooltip">Check this box to randomize the generated options. E.g., Disabled: Jewel/Gem/Amulet.  Enabled: Gem.</span>
+    </div>
+</div>
+
+<button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
 
 @code {
+    private string generatedTitle;
+    private bool randomizeOptions = false;
+    private ElementReference buttonElement;
 
+    private async Task Generate()
+    {
+        generatedTitle = await TitleGenerator.GenerateTitle(randomizeOptions);
+        await UnfocusButton();
+    }
+
+    private async Task UnfocusButton()
+    {
+        await JSRuntime.InvokeVoidAsync("unfocusElement", buttonElement);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("eval", @"
+                window.unfocusElement = function(element) {
+                    element.blur();
+                }
+            ");
+        }
+    }
 }
