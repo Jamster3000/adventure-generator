@@ -7,36 +7,60 @@
 
 <h1>NPC</h1>
 
-@if (!string.IsNullOrEmpty(generatedTitle))
+@if (!string.IsNullOrEmpty(non_player_characters))
 {
     <div class="text-container">
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">non_player_characters</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">tempermant table</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">nationalities</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">quirks</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">opponent</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">cult</p>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Non-Player Character</h2>
+            <p style="font-size: 15px; line-height: 1.6">@non_player_characters</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Temperament</h2>
+            <p style="font-size: 15px; line-height: 1.6;">@tempermant</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Nationalities</h2>
+            <p style="font-size: 15px; line-height: 1.6;">@nationalities</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Quirks</h2>
+            <p style="font-size: 15px; line-height: 1.6;">@quirks</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Opponent</h2>
+            <p  style="font-size: 15px; line-height: 1.6;">@opponent</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Cult</h2>
+            <p style="font-size: 15px; line-height: 1.6;">@cult</p>
+        </div>
     </div>
 }
-
-<div class="bottom-container">
-    <div class="tooltip-container">
-        <input type="checkbox" id="choose-option-checkbox" name="choose-option-checkbox" @bind="randomizeOptions">
-        <label for="choose-option-checkbox">Randomize options</label>
-        <span class="tooltip">Check this box to randomize the generated options. E.g., Disabled: Jewel/Gem/Amulet.  Enabled: Gem.</span>
-    </div>
-</div>
 
 <button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
 
 @code {
-    private string generatedTitle;
-    private bool randomizeOptions = false;
+    private string non_player_characters = string.Empty;
+    private string tempermant = string.Empty;
+    private string nationalities = string.Empty;
+    private string quirks = string.Empty;
+    private string opponent = string.Empty;
+    private string cult = string.Empty;
     private ElementReference buttonElement;
 
     private async Task Generate()
     {
-        generatedTitle = await TitleGenerator.GenerateTitle(randomizeOptions);
+        non_player_characters = await TitleGenerator.GenerateNonPlayerCharacter();
+        quirks = await TitleGenerator.GenerateQuirks();
+        tempermant = await TitleGenerator.GenerateTemperament();
+        cult = await TitleGenerator.GenerateCult();
+        opponent = await TitleGenerator.GenerateOpponent();
+        nationalities = await TitleGenerator.GenerateNationalities();
         await UnfocusButton();
     }
 

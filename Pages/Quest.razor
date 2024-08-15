@@ -5,39 +5,102 @@
 <PageTitle>Quest</PageTitle>
 <link href="css/app.css" rel="stylesheet" />
 
-<h1>Quest</h1>
+<div class="container">
+    <h1>Quest</h1>
+</div>
 
-@if (!string.IsNullOrEmpty(generatedTitle))
+@if (!string.IsNullOrEmpty(hook))
 {
-    <div style="overflow-y: auto; max-height: 475px;" class="text-container">
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">hooks and draws table</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">Plot concept</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">primary_antagonist</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">Plot Fulfillment and \Location</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">obstacles and twists</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6;">goals and objectives</p>
+    <div style="margin-top: 50px;" class="text-container">
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Hoooks and Draws</h2>
+            <p>@hook</p>
+            <hr />
+            <p>@draw</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Plot</h2>
+            <p>@plots</p>
+            <hr />
+            <p>@plotMotivation</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Antagonist</h2>
+            <p>@antagonist</p>
+            <hr />
+            <p>@antagonistTrait</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Plot Fullfillment</h2>
+            <p>@plotFullfilment</p>
+            <hr />
+            <p>@plotLocation</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Obstacles and Twists</h2>
+            <p>@obstacle</p>
+            <hr />
+            <p>@twist</p>
+        </div>
+
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Goals and Objectives</h2>
+            <p>@goals</p>
+            <hr />
+            <p>@objectives</p>
+        </div>
     </div>
 }
 
-<div class="bottom-container">
-    <div class="tooltip-container">
-        <input type="checkbox" id="choose-option-checkbox" name="choose-option-checkbox" @bind="randomizeOptions">
-        <label for="choose-option-checkbox">Randomize options</label>
-        <span class="tooltip">Check this box to randomize the generated options. E.g., Disabled: Jewel/Gem/Amulet.  Enabled: Gem.</span>
-    </div>
-</div>
-
-<button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
+<button @ref="buttonElement" @onclick="async () => await Generate()" class="btn-primary generate-title">Generate Title</button>
 
 @code {
-    private string generatedTitle;
+    private string hook = string.Empty;
+    private string draw = string.Empty;
+    private string plots = string.Empty;
+    private string plotMotivation = string.Empty;
+    private string antagonist = string.Empty;
+    private string antagonistTrait = string.Empty;
+    private string plotFullfilment = string.Empty;
+    private string plotLocation = string.Empty;
+    private string obstacle = string.Empty;
+    private string twist = string.Empty;
+    private string goals = string.Empty;
+    private string objectives = string.Empty;    
     private bool randomizeOptions = false;
     private ElementReference buttonElement;
 
     private async Task Generate()
     {
-        generatedTitle = await TitleGenerator.GenerateTitle(randomizeOptions);
+        var hooks = await TitleGenerator.GenerateHooksAndDraws();
+        var hookSplit = hooks.Split("***");
+        (hook, draw) = (hookSplit[0], hookSplit[1]);
+
+        var plot = await TitleGenerator.GeneratePlots();
+        var plotSplit = plot.Split("***");
+        (plots, plotMotivation) = (plotSplit[0], plotSplit[1]);
+
+        var antagonists = await TitleGenerator.GenerateAntagonist();
+        var antSplit = antagonists.Split("***");
+        (antagonist, antagonistTrait) = (antSplit[0], antSplit[1]);
+
+        var plotLoc = await TitleGenerator.GeneratePlotFullfillment();
+        var locSplit = plotLoc.Split("***");
+        (plotFullfilment, plotLocation) = (locSplit[0], locSplit[1]);
+
+        var obstaclesAndTwists = await TitleGenerator.GenerateObstaclesAndTwists();
+        var split = obstaclesAndTwists.Split("***");
+        (obstacle, twist) = (split[0], split[1]);
+
+        var goalsAndObjectives = await TitleGenerator.GenerateGoalsAndObjectives();
+        var splits = goalsAndObjectives.Split("***");
+        (goals, objectives) = (splits[0], splits[1]);
         await UnfocusButton();
+        StateHasChanged();
     }
 
     private async Task UnfocusButton()

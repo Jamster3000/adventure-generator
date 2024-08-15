@@ -1,13 +1,14 @@
-﻿@page "/adventure-title"
+﻿@page "/adventure"
 @inject ITitleGeneratorService TitleGenerator
 @inject IJSRuntime JSRuntime
 
 @using Microsoft.AspNetCore.Components
 
-<PageTitle>Adventure Title</PageTitle>
+<PageTitle>Adventure</PageTitle>
 <link href="css/app.css" rel="stylesheet" />
+
 <div class="container">
-    <h1>Adventure Title</h1>
+    <h1>Adventure</h1>
 </div>
 
 @if (!string.IsNullOrEmpty(generatedTitle))
@@ -45,9 +46,11 @@
 
     private async Task Generate()
     {
+        var openScene = await TitleGenerator.GenerateOpeningScene();
+        var sceneSplit = openScene.Split("***");
         generatedTitle = await TitleGenerator.GenerateTitle(randomizeOptions);
-        generatedOpeningScene = await TitleGenerator.GenerateOpeningScene();
-        generatedSecondOpeningScene = await TitleGenerator.GenerateOpeningScene();
+        generatedOpeningScene = sceneSplit[1];
+        generatedSecondOpeningScene = sceneSplit[0];
         await UnfocusButton();
     }
 
