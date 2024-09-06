@@ -16,6 +16,7 @@ html, body {
     color: #f0e6d2;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 h1, h2 {
@@ -82,7 +83,7 @@ a, .btn-link {
     background: linear-gradient(145deg, #d4af37, #b8960f);
     color: #2d2101;
     border: none;
-    padding: 15px 30px;
+    padding-right: 15px 30px;
     font-family: 'Conan', sans-serif;
     font-size: 1.2em;
     font-weight: bold;
@@ -468,4 +469,6 @@ label {
     color: #f0e6d2;
     font-size: 1rem;
 }
+
+
 
