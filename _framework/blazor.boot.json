@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "adventureGenerator",
   "resources": {
-    "hash": "sha256-hMxRx1ekAS/qVzrWERn+o1+1ZZ5V0IT8E0HgI1fTMz8=",
+    "hash": "sha256-Aq80XPWK1FauEfsL56jE27bwDptV43Y1a2B7Yzmijmc=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.746giovk6l.js": "sha256-juC5sA7gHTLXFEhAKgdM2/RavswpwCtDfjYGsAz2FXg="
     },
@@ -17,7 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "adventureGenerator.wasm": "sha256-dRzMkHNwgWY7GwjiYF29oqxeKSPCdfiIz/3p0SygNI8=",
+      "adventureGenerator.wasm": "sha256-KKAFsTsDceaTE190qk8hMJjQYzXppX79BZShNYiLtBc=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-6C+im4pEdTeM9RE3yo9wtup+8teQInIe307HbGT4e/8=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-2Nc52xPm6AAtLy8IOvelSz2P5TBQN5mNmSng7M/1YBE=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-cjv0l2XLcfeTcLwHeVQeK+F20CSOw34aaTjOGlrKazc=",

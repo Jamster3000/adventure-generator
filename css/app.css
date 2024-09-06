@@ -20,7 +20,6 @@ html, body {
 }
 
 h1, h2 {
-    all: unset !important;
     user-select: none !important;
     outline: none !important;
     display: block !important;
