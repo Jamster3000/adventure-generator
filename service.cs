@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 public interface ITitleGeneratorService
@@ -15,29 +16,26 @@ public interface ITitleGeneratorService
     Task<string> GenerateHooksAndDraws();
     Task<string> GeneratePlots();
     Task<string> GenerateAntagonist();
-    Task<string> GeneratePlotFullfillment();
+    Task<string> GeneratePlotFulfillment();
     Task<string> GenerateObstaclesAndTwists();
     Task<string> GenerateGoalsAndObjectives();
+
+    Task<string> GenerateArtifact();
+    Task<string> GenerateLocation();
+    Task<string> GenerateBuilding();
+    Task<string> GenerateMilitary();
+    Task<string> GenerateKnowledgePerson();
+    Task<string> GenerateRuralMarine();
+    Task<string> GenerateOldCreature();
+    Task<string> GenerateLegendaryCharacter();
+    Task<string> GenerateLegendaryArtifact();
 }
 
 public class TitleGeneratorService : ITitleGeneratorService
 {
     private readonly HttpClient _httpClient;
-    private Dictionary<string, JsonElement> data = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> openSceneData = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> non_player_character = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> quirks = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> temperament = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> nationality = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> opponent = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> cult = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> hooksAndDraw = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> plots = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> antagonist = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> plotFullfillment = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> obstacles = new Dictionary<string, JsonElement>();
-    private Dictionary<string, JsonElement> goals = new Dictionary<string, JsonElement>();
-    private Tables tables;
+    private Dictionary<string, JsonElement> _data;
+    private Tables _tables;
 
     public TitleGeneratorService(HttpClient httpClient)
     {
@@ -49,697 +47,439 @@ public class TitleGeneratorService : ITitleGeneratorService
         try
         {
             var response = await _httpClient.GetAsync("data/conanData.json");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                data = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(content);
-                tables = new Tables(data);
-            }
-            else
-            {
-                Console.WriteLine($"Failed to load data. Status code: {response.StatusCode}");
-            }
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            _data = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(content);
+            _tables = new Tables(_data);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading data: {ex.Message}");
+            throw;
         }
     }
 
-    public async Task<string> GenerateHooksAndDraws()
-    {
-        if (hooksAndDraw == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateHooksAndDraws();
-    }
+    public async Task<string> GenerateArtifact() => await EnsureInitializedAndGenerate(_tables.GenerateArtifact);
+    public async Task<string> GenerateLocation() => await EnsureInitializedAndGenerate(_tables.GenerateLocation);
+    public async Task<string> GenerateBuilding() => await EnsureInitializedAndGenerate(_tables.GenerateBuilding);
+    public async Task<string> GenerateMilitary() => await EnsureInitializedAndGenerate(_tables.GenerateMilitary);
+    public async Task<string> GenerateKnowledgePerson() => await EnsureInitializedAndGenerate(_tables.GenerateKnowledgePerson);
+    public async Task<string> GenerateRuralMarine() => await EnsureInitializedAndGenerate(_tables.GenerateRuralMarine);
+    public async Task<string> GenerateOldCreature() => await EnsureInitializedAndGenerate(_tables.GenerateOldCreature);
+    public async Task<string> GenerateLegendaryCharacter() => await EnsureInitializedAndGenerate(_tables.GenerateLegendaryCharacter);
+    public async Task<string> GenerateLegendaryArtifact() => await EnsureInitializedAndGenerate(_tables.GenerateLegendaryArtifact);
+    public async Task<string> GenerateHooksAndDraws() => await EnsureInitializedAndGenerate(_tables.GenerateHooksAndDraws);
+    public async Task<string> GeneratePlots() => await EnsureInitializedAndGenerate(_tables.GeneratePlots);
+    public async Task<string> GenerateAntagonist() => await EnsureInitializedAndGenerate(_tables.GenerateAntagonist);
+    public async Task<string> GeneratePlotFulfillment() => await EnsureInitializedAndGenerate(_tables.GeneratePlotFulfillment);
+    public async Task<string> GenerateObstaclesAndTwists() => await EnsureInitializedAndGenerate(_tables.GenerateObstaclesAndTwists);
+    public async Task<string> GenerateGoalsAndObjectives() => await EnsureInitializedAndGenerate(_tables.GenerateGoalsAndObjectives);
+    public async Task<string> GenerateOpeningScene() => await EnsureInitializedAndGenerate(_tables.GenerateOpeningScene);
+    public async Task<string> GenerateCult() => await EnsureInitializedAndGenerate(_tables.GenerateCult);
+    public async Task<string> GenerateNationalities() => await EnsureInitializedAndGenerate(_tables.GenerateNationalities);
+    public async Task<string> GenerateOpponent() => await EnsureInitializedAndGenerate(_tables.GenerateOpponent);
+    public async Task<string> GenerateTemperament() => await EnsureInitializedAndGenerate(_tables.GenerateTemperament);
+    public async Task<string> GenerateQuirks() => await EnsureInitializedAndGenerate(_tables.GenerateQuirks);
+    public async Task<string> GenerateNonPlayerCharacter() => await EnsureInitializedAndGenerate(_tables.GenerateNonPlayerCharacter);
+    public async Task<string> GenerateTitle(bool randomizeOptions) => await EnsureInitializedAndGenerate(() => _tables.GenerateTitle(randomizeOptions));
 
-    public async Task<string> GeneratePlots()
+    private async Task<string> EnsureInitializedAndGenerate(Func<string> generator)
     {
-        if (plots == null)
+        if (_data == null)
         {
             await InitializeAsync();
         }
-        return tables.GeneratePlots();
-    }
-
-    public async Task<string> GenerateAntagonist()
-    {
-        if (antagonist == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateAntagonist();
-    }
-
-    public async Task<string> GeneratePlotFullfillment()
-    {
-        if (plotFullfillment == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GeneratePlotFullfillment();
-    }
-
-    public async Task<string> GenerateObstaclesAndTwists()
-    {
-        if (obstacles == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateObstaclesAndTwists();
-    }
-
-    public async Task<string> GenerateGoalsAndObjectives()
-    {
-        if (goals == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateGoalsAndObjectives();
-    }
-
-    public async Task<string> GenerateOpeningScene()
-    {
-        if (openSceneData == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateOpeningScene();
-    }
-
-    public async Task<string> GenerateCult()
-    {
-        if (cult == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateCult();
-    }
-
-    public async Task<string> GenerateNationalities()
-    {
-        if (nationality == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateNationalities();
-    }
-
-    public async Task<string> GenerateOpponent()
-    {
-        if (opponent == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateOpponent();
-    }
-
-    public async Task<string> GenerateTemperament()
-    {
-        if (temperament == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateTemperament();
-    }
-
-    public async Task<string> GenerateQuirks()
-    {
-        if (quirks == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateQuirks();
-    }
-
-    public async Task<string> GenerateNonPlayerCharacter()
-    {
-        if (non_player_character == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateNonPlayerCharacter();
-    }
-
-    public async Task<string> GenerateTitle(bool randomizeOptions)
-    {
-        if (data == null)
-        {
-            await InitializeAsync();
-        }
-        return tables.GenerateTitle(randomizeOptions);
+        return generator();
     }
 
     private class Tables
     {
-        private Random random = new Random();
-        private Dictionary<string, HashSet<string>> usedItems = new Dictionary<string, HashSet<string>>();
-        private Dictionary<string, JsonElement> data;
+        private readonly Random _random = new Random();
+        private readonly Dictionary<string, HashSet<string>> _usedItems = new Dictionary<string, HashSet<string>>();
+        private readonly Dictionary<string, JsonElement> _data;
 
         public Tables(Dictionary<string, JsonElement> data)
         {
-            this.data = data;
+            _data = data;
             foreach (var key in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
             {
-                usedItems[key] = new HashSet<string>();
+                _usedItems[key] = new HashSet<string>();
             }
         }
 
-        public string GenerateGoalsAndObjectives()
+        public string GenerateMilitary() => GenerateRandomItem("military_or_otherworldly_sites");
+        public string GenerateRuralMarine() => GenerateRandomItem("rural_or_marine_locations");
+
+        private string GenerateRandomItem(string tableName)
         {
-            var twist = data["goals_and_objectives"].EnumerateArray().ToList();
+            var table = _data[tableName].EnumerateArray().ToList();
+            int firstRoll = _random.Next(1, 21);
+            int secondRoll = _random.Next(1, 21);
 
-            // First roll for the hook
-            int twistRoll = random.Next(1, 21);
-            var selectedPlot = twist.FirstOrDefault(item =>
+            // Find the first selected item
+            var selectedItem1 = table.FirstOrDefault(item =>
             {
-                var value = item.EnumerateObject().First().Value.GetString();
-                return int.Parse(value) == twistRoll;
-            });
-
-            if (selectedPlot.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate hook";
-            }
-
-            string hook = selectedPlot.EnumerateObject().First().Name;
-
-            // Second roll for the draw
-            int twistRoll2 = random.Next(1, 21);
-            var selectedTwist = twist[twistRoll2 - 1].GetProperty("Objective").GetString();
-
-            return $"{hook}***{selectedTwist}";
-        }
-
-        public string GenerateObstaclesAndTwists()
-        {
-            var twist = data["obstacles_and_twists"].EnumerateArray().ToList();
-
-            // First roll for the hook
-            int twistRoll = random.Next(1, 21);
-            var selectedPlot = twist.FirstOrDefault(item =>
-            {
-                var value = item.EnumerateObject().First().Value.GetString();
-                return int.Parse(value) == twistRoll;
-            });
-
-            if (selectedPlot.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate hook";
-            }
-
-            string hook = selectedPlot.EnumerateObject().First().Name;
-
-            // Second roll for the draw
-            int twistRoll2 = random.Next(1, 21);
-            var selectedTwist = twist[twistRoll2 - 1].GetProperty("Plot Twist").GetString();
-
-            return $"{hook}***{selectedTwist}";
-        }
-
-        public string GeneratePlotFullfillment()
-        {
-            var antagonist = data["plot_fulfillment_and_location"].EnumerateArray().ToList();
-
-            // First roll for the hook
-            int plotRoll = random.Next(1, 21);
-            var selectedPlot = antagonist.FirstOrDefault(item =>
-            {
-                var value = item.EnumerateObject().First().Value.GetString();
-                return int.Parse(value) == plotRoll;
-            });
-
-            if (selectedPlot.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate hook";
-            }
-
-            string hook = selectedPlot.EnumerateObject().First().Name;
-
-            // Second roll for the draw
-            int plotRoll2 = random.Next(1, 21);
-            var seletedPlot2 = antagonist[plotRoll2 - 1].GetProperty("From/Where").GetString();
-
-            return $"{hook}***{seletedPlot2}";
-        }
-
-        public string GenerateAntagonist()
-        {
-            var antagonist = data["primary_antagonist"].EnumerateArray().ToList();
-
-            // First roll for the hook
-            int antagonistRoll = random.Next(1, 21);
-            var selectedAntagonist = antagonist.FirstOrDefault(item =>
-            {
-                var value = item.EnumerateObject().First().Value.GetString();
-                return int.Parse(value) == antagonistRoll;
-            });
-
-            if (selectedAntagonist.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate hook";
-            }
-
-            string hook = selectedAntagonist.EnumerateObject().First().Name;
-
-            // Second roll for the draw
-            int antagonistRoll2 = random.Next(1, 21);
-            var selectedAntagonist2 = antagonist[antagonistRoll2 - 1].GetProperty("Trait").GetString();
-
-            return $"{hook}***{selectedAntagonist2}";
-        }
-
-        public string GeneratePlots()
-        {
-            var plotConcept = data["plot_concept"].EnumerateArray().ToList();
-
-            // First roll for the hook
-            int plotRoll = random.Next(1, 21);
-            var selectedPlot = plotConcept.FirstOrDefault(item =>
-            {
-                var value = item.EnumerateObject().First().Value.GetString();
-                return int.Parse(value) == plotRoll;
-            });
-
-            if (selectedPlot.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate hook";
-            }
-
-            string hook = selectedPlot.EnumerateObject().First().Name;
-
-            // Second roll for the draw
-            int motivationRoll = random.Next(1, 21);
-            var selecctedMotivation = plotConcept[motivationRoll - 1].GetProperty("Motivation").GetString();
-
-            return $"{hook}***{selecctedMotivation}";
-        }
-
-        public string GenerateHooksAndDraws()
-        {
-            var hooksAndDraws = data["hooks_and_draws"].EnumerateArray().ToList();
-
-            // First roll for the hook
-            int hookRoll = random.Next(1, 21);
-            var selectedHook = hooksAndDraws.FirstOrDefault(item =>
-            {
-                var value = item.EnumerateObject().First().Value.GetString();
-                return int.Parse(value) == hookRoll;
-            });
-
-            if (selectedHook.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate hook";
-            }
-
-            string hook = selectedHook.EnumerateObject().First().Name;
-
-            // Second roll for the draw
-            int drawRoll = random.Next(1, 21);
-            var selectedDraw = hooksAndDraws[drawRoll - 1].GetProperty("Draw").GetString();
-
-            Console.WriteLine(selectedDraw);
-            Console.WriteLine(hook);
-
-            return $"{hook}***{selectedDraw}";
-        }
-
-        public string GenerateNationalities()
-        {
-            var nationalityList = data["nationalities"].EnumerateArray().ToList();
-            int roll = random.Next(2, 41);  // Roll between 2 and 40 inclusive
-
-            var selectedNationality = nationalityList.FirstOrDefault(nationality =>
-            {
-                var value = nationality.EnumerateObject().First().Value.GetString();
-                if (value.Contains("-"))
+                foreach (var prop in item.EnumerateObject())
                 {
-                    var range = value.Split('-').Select(int.Parse).ToArray();
-                    return range[0] <= roll && roll <= range[1];
+                    if (int.Parse(prop.Value.GetString()) == firstRoll)
+                        return true;
                 }
-                else
+                return false;
+            });
+
+            // Find the second selected item
+            var selectedItem2 = table.FirstOrDefault(item =>
+            {
+                foreach (var prop in item.EnumerateObject())
                 {
-                    return int.Parse(value) == roll;
+                    if (int.Parse(prop.Value.GetString()) == secondRoll)
+                        return true;
                 }
+                return false;
             });
 
-            if (selectedNationality.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate nationality";
-            }
+            // Extract the property names (e.g., "Command tent") for the selected items
+            string selectedItem1Name = selectedItem1.EnumerateObject().FirstOrDefault().Name;
+            string selectedItem2Name = selectedItem2.EnumerateObject().FirstOrDefault().Name;
 
-            string nationalityType = selectedNationality.EnumerateObject().First().Name;
-            return nationalityType;
+            return $"{selectedItem1Name}***{selectedItem2Name}";
         }
 
-        public string GenerateNonPlayerCharacter()
+
+        public string GenerateGoalsAndObjectives() => GenerateFromTable("goals_and_objectives", "Objective");
+        public string GenerateObstaclesAndTwists() => GenerateFromTable("obstacles_and_twists", "Plot Twist");
+        public string GeneratePlotFulfillment() => GenerateFromTable("plot_fulfillment_and_location", "From/Where");
+        public string GenerateAntagonist() => GenerateFromTable("primary_antagonist", "Trait");
+        public string GeneratePlots() => GenerateFromTable("plot_concept", "Motivation");
+        public string GenerateHooksAndDraws() => GenerateFromTable("hooks_and_draws", "Draw");
+        public string GenerateBuilding() => GenerateFromTable("building_type", "Sinister");
+
+        private string GenerateFromTable(string tableName, string secondPropertyName)
         {
-            var npcTypes = data["non_player_characters"].EnumerateArray().ToList();
+            var table = _data[tableName].EnumerateArray().ToList();
+            int roll1 = _random.Next(1, 21);
+            int roll2 = _random.Next(1, 21);
 
-            int roll = random.Next(1, 21);
-            var selectedNpc = npcTypes.FirstOrDefault(npc =>
-            {
-                var range = npc.EnumerateObject().First().Value.GetString().Split('-').Select(int.Parse).ToArray();
-                return range[0] <= roll && roll <= range[1];
-            });
+            var selectedItem1 = table.FirstOrDefault(item =>
+                int.Parse(item.EnumerateObject().First().Value.GetString()) == roll1);
 
-            if (selectedNpc.ValueKind == JsonValueKind.Undefined)
+            if (selectedItem1.ValueKind == JsonValueKind.Undefined)
             {
-                return "Failed to generate NPC";
+                return $"Failed to generate from {tableName}";
             }
 
-            string npcType = selectedNpc.EnumerateObject().First().Name;
+            string firstPart = selectedItem1.EnumerateObject().First().Name;
+            string secondPart = table[roll2 - 1].GetProperty(secondPropertyName).GetString();
 
-            // Special handling for Clergy and double roll
-            if (npcType == "Clergy")
-            {
-                string religiousTenet = GenerateReligiousTenet(); // You'll need to implement this
-                return $"Clergy ({religiousTenet})";
-            }
-            else if (npcType == "Roll twice, with a separate roll on Temperament table for each")
-            {
-                string npc1 = GenerateNonPlayerCharacter();
-                string npc2 = GenerateNonPlayerCharacter();
-                string temperament1 = GenerateTemperament(); // You'll need to implement this
-                string temperament2 = GenerateTemperament();
-                return $"{npc1} ({temperament1}) and {npc2} ({temperament2})";
-            }
-
-            return npcType;
+            return $"{firstPart}***{secondPart}";
         }
 
-        public string GenerateTemperament()
+        public string GenerateNationalities() => GenerateFromRangeTable("nationalities", 2, 40);
+        public string GenerateNonPlayerCharacter() => GenerateFromRangeTable("non_player_characters", 1, 21);
+        public string GenerateTemperament() => GenerateFromRangeTable("temperament", 1, 21);
+        public string GenerateCult() => GenerateFromRangeTable("cult", 1, 21);
+        public string GenerateOpponent() => GenerateFromRangeTable("opponent", 1, 21);
+        public string GenerateQuirks() => GenerateFromRangeTable("quirks", 2, 40);
+        public string GenerateReligiousTenet() => GenerateFromRangeTable("religious_tenets", 1, 21);
+        public string GenerateOldCreature() => GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 21);
+        public string GenerateLegendaryCharacter() => GenerateFromRangeTable("legendary_character", 1, 21);
+        public string GenerateLegendaryArtifact() => GenerateFromRangeTable("legendary_artifact", 1, 21);
+        public string GenerateKnowledgePerson() => GenerateFromRangeTable("knowledge_or_person_objectives");
+
+        private string GenerateFromRangeTable(string tableName, int minRoll = 0, int maxRoll = 0)
         {
-            var tempermantType = data["temperament"].EnumerateArray().ToList();
-
-            int roll = random.Next(1, 21);
-            var selectedTempermant = tempermantType.FirstOrDefault(npc =>
+            const int maxRetries = 5;
+            for (int attempt = 0; attempt < maxRetries; attempt++)
             {
-                var range = npc.EnumerateObject().First().Value.GetString().Split('-').Select(int.Parse).ToArray();
-                return range[0] <= roll && roll <= range[1];
-            });
+                try
+                {
+                    if (!_data.ContainsKey(tableName))
+                    {
+                        throw new KeyNotFoundException($"Table '{tableName}' not found");
+                    }
 
-            if (selectedTempermant.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate temperament";
+                    if (minRoll == 0 && maxRoll == 0)
+                    {
+                        var table = _data[tableName].EnumerateArray().ToList();
+                        int roll = _random.Next(0, table.Count);
+                        var selectedItem = table[roll];
+                        var key = selectedItem.EnumerateObject().First().Name;
+                        var value = selectedItem.EnumerateObject().First().Value;
+                        return $"{key}***{value}";
+                    }
+                    else
+                    {
+                        var table = _data[tableName].EnumerateArray().ToList();
+                        int roll = _random.Next(minRoll, maxRoll + 1);
+                        var selectedItem = table.FirstOrDefault(item =>
+                        {
+                            var rangeString = item.EnumerateObject().First().Value.GetString();
+                            if (string.IsNullOrEmpty(rangeString)) return false;
+                            var rangeParts = rangeString.Split('-');
+                            if (rangeParts.Length != 2) return false;
+                            if (!int.TryParse(rangeParts[0], out int rangeStart) || !int.TryParse(rangeParts[1], out int rangeEnd))
+                                return false;
+                            return rangeStart <= roll && roll <= rangeEnd;
+                        });
+
+                        if (selectedItem.ValueKind == JsonValueKind.Undefined)
+                        {
+                            throw new InvalidOperationException($"No matching item found in table '{tableName}' for roll {roll}");
+                        }
+
+                        string result = selectedItem.EnumerateObject().First().Name;
+
+                        // Special handling for specific tables
+                        if (tableName == "opponent" && result == "Otherworldly Creature")
+                        {
+                            result = $"Otherworldly Creature: {GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 21)}";
+                        }
+                        else if (tableName == "non_player_characters")
+                        {
+                            if (result == "Clergy")
+                            {
+                                string religiousTenet = GenerateReligiousTenet();
+                                result = $"Clergy ({religiousTenet})";
+                            }
+                            else if (result == "Roll twice, with a separate roll on Temperament table for each")
+                            {
+                                string npc1 = GenerateNonPlayerCharacter();
+                                string npc2 = GenerateNonPlayerCharacter();
+                                string temperament1 = GenerateTemperament();
+                                string temperament2 = GenerateTemperament();
+                                result = $"{npc1} ({temperament1}) and {npc2} ({temperament2})";
+                            }
+                        }
+
+                        return result;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (attempt == maxRetries - 1)
+                    {
+                        return $"Failed to generate from {tableName} after {maxRetries} attempts: {ex.Message}";
+                    }
+                    // If it's not the last attempt, continue to the next iteration
+                }
             }
 
-            string tempermantTypes = selectedTempermant.EnumerateObject().First().Name;
-
-            return tempermantTypes;
+            // This line should never be reached, but is needed to satisfy the compiler
+            return $"Failed to generate from {tableName} due to an unexpected error";
         }
 
-        public string GenerateCult()
+        public string GenerateArtifact() => GenerateArtifactResult();
+
+        public string GenerateArtifactResult()
         {
-            var cultType = data["cult"].EnumerateArray().ToList();
-
-            int roll = random.Next(1, 21);
-            var selectedCult = cultType.FirstOrDefault(npc =>
+            try
             {
-                var range = npc.EnumerateObject().First().Value.GetString().Split('-').Select(int.Parse).ToArray();
-                return range[0] <= roll && roll <= range[1];
-            });
+                var data = _data["artifact_descriptors_and_conditions"].EnumerateArray().ToList();
 
-            if (selectedCult.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate cult";
+                // Randomly select an item from the list
+                var selectedItem = data[_random.Next(data.Count)];
+
+                // Get the first (and only) property of the selected item
+                var artifactProperty = selectedItem.EnumerateObject().First();
+                string artifactType = artifactProperty.Name;
+
+                // Get the inner object
+                var innerObject = artifactProperty.Value;
+
+                // Get the descriptor from the inner object
+                string descriptor = innerObject.GetProperty("Descriptor").GetString();
+
+                return $"{artifactType}***{descriptor}";
             }
-
-            string cultTypes = selectedCult.EnumerateObject().First().Name;
-
-            return cultTypes;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error generating artifact: {ex.Message}");
+                return "Error: Unable to generate artifact.";
+            }
         }
 
-        public string GenerateCreature()
+        public string GenerateLocation()
         {
-            var creatureType = data["ancient_or_otherworldly_creature"].EnumerateArray().ToList();
-
-            int roll = random.Next(1, 21);
-            var selectedCreature = creatureType.FirstOrDefault(npc =>
+            try
             {
-                var range = npc.EnumerateObject().First().Value.GetString().Split('-').Select(int.Parse).ToArray();
-                return range[0] <= roll && roll <= range[1];
-            });
+                var data = _data["location_choice_and_atmosphere"].EnumerateArray().ToList();
 
-            if (selectedCreature.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate creature";
+                // Randomly select an item from the list
+                var selectedItem = data[_random.Next(data.Count)];
+
+                // Get the first (and only) property of the selected item
+                var locationProperty = selectedItem.EnumerateObject().First();
+                string locationType = locationProperty.Name;
+
+                // Get the inner object
+                var innerObject = locationProperty.Value;
+
+                // Get the atmosphere from the inner object
+                string atmosphere = innerObject.GetProperty("Atmosphere").GetString();
+
+                return $"{locationType}***{atmosphere}";
             }
-
-            string creatureTypes = selectedCreature.EnumerateObject().First().Name;
-
-            return creatureTypes;
-        }
-
-        public string GenerateOpponent()
-        {
-            var opponentList = data["opponent"].EnumerateArray().ToList();
-            int roll = random.Next(1, 21);  // Roll between 1 and 20 inclusive
-
-            var selectedOpponent = opponentList.FirstOrDefault(opponent =>
+            catch (Exception ex)
             {
-                var value = opponent.EnumerateObject().First().Value.GetString();
-                return value == roll.ToString() || value.StartsWith($"{roll} ");
-            });
-
-            if (selectedOpponent.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate opponent";
+                Console.WriteLine($"Error generating location: {ex.Message}");
+                return "Error: Unable to generate location.";
             }
-
-            var opponentEntry = selectedOpponent.EnumerateObject().First();
-            string opponentType = opponentEntry.Name;
-            string opponentValue = opponentEntry.Value.GetString();
-
-            // Special handling for Otherworldly creature
-            if (opponentValue == "20 (Roll on Ancient or Otherworldly Creature table)")
-            {
-                string creature = GenerateCreature();
-                return $"Otherworldly Creature: {creature}";
-            }
-
-            return opponentType;
-        }
-
-        public string GenerateQuirks()
-        {
-            var quirksList = data["quirks"].EnumerateArray().ToList();
-            int roll = random.Next(2, 41);  // Roll between 2 and 40 inclusive
-
-            var selectedQuirk = quirksList.FirstOrDefault(quirk =>
-            {
-                var value = int.Parse(quirk.EnumerateObject().First().Value.GetString());
-                return value == roll;
-            });
-
-            if (selectedQuirk.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate quirk";
-            }
-
-            string quirkDescription = selectedQuirk.EnumerateObject().First().Name;
-            return quirkDescription;
-        }
-
-        public string GenerateReligiousTenet()
-        {
-            var religionType = data["religious_tenets"].EnumerateArray().ToList();
-
-            int roll = random.Next(1, 21);
-            var selectedReligion = religionType.FirstOrDefault(npc =>
-            {
-                var range = npc.EnumerateObject().First().Value.GetString().Split('-').Select(int.Parse).ToArray();
-                return range[0] <= roll && roll <= range[1];
-            });
-
-            if (selectedReligion.ValueKind == JsonValueKind.Undefined)
-            {
-                return "Failed to generate NPC";
-            }
-
-            string religionTypes = selectedReligion.EnumerateObject().First().Name;
-
-            return religionTypes;
         }
 
         public string GenerateOpeningScene()
         {
-            var openingSettings = data["opening_setting"].EnumerateArray().ToList();
+            var openingSettings = _data["opening_setting"].EnumerateArray().ToList();
 
-            //rolling for the setting from the openingin_setting table
-            int settingRoll = random.Next(1, 21);
-            var settingEntry = openingSettings[settingRoll - 1];
-            string setting = settingEntry.EnumerateObject().First().Name;
+            int settingRoll = _random.Next(1, 21);
+            int descriptorRoll = _random.Next(1, 21);
 
-            //rolling for the descriptor from the opening_setting table
-            int descriptorRoll = random.Next(1, 21);
-            var descriptorEntry = openingSettings[descriptorRoll - 1];
-            string descriptor = descriptorEntry.GetProperty("Descriptor").GetString();
+            string setting = openingSettings[settingRoll - 1].EnumerateObject().First().Name;
+            string descriptor = openingSettings[descriptorRoll - 1].GetProperty("Descriptor").GetString();
 
             if (descriptor == "Roll twice and apply both")
             {
-                int secondRoll = random.Next(1, 21);
+                int secondRoll = _random.Next(1, 21);
                 while (secondRoll == descriptorRoll)
                 {
-                    secondRoll = random.Next(1, 21);
+                    secondRoll = _random.Next(1, 21);
                 }
-                var secondDescriptorEntry = openingSettings[secondRoll - 1];
-                string secondDescriptor = secondDescriptorEntry.GetProperty("Descriptor").GetString();
+                string secondDescriptor = openingSettings[secondRoll - 1].GetProperty("Descriptor").GetString();
                 descriptor = $"{descriptor} and {secondDescriptor}";
             }
+
             return $"{descriptor}***{setting}";
+        }
+
+        public string GenerateTitle(bool randomizeOptions)
+        {
+            const int maxAttempts = 100;
+            for (int attempts = 0; attempts < maxAttempts; attempts++)
+            {
+                string title = GenerateTitleAttempt(randomizeOptions);
+                if (!HasRepeatedTerms(title) && !IsTitlePotentiallyProblematic(title))
+                {
+                    return title;
+                }
+            }
+            return "Failed to generate a suitable title";
+        }
+
+        private string GenerateTitleAttempt(bool randomizeOptions)
+        {
+            string title = TitleStructure();
+            Dictionary<string, string> usedReplacements = new Dictionary<string, string>();
+
+            foreach (var category in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
+            {
+                _usedItems[category].Clear();
+            }
+
+            foreach (var category in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
+            {
+                string pattern = $"[{category}]";
+                string misspelledPattern = category == "religious_tenets" ? "[religous tenets]" : pattern;
+
+                while (title.Contains(pattern) || title.Contains(misspelledPattern))
+                {
+                    var (item, _) = GetRandomItem(category, title.Contains("𖤍") ? 6 : 21);
+
+                    if (item == "[religious_tenets]" || item == "[religous tenets]")
+                    {
+                        var (religiousTenet, _) = GetRandomItem("religious_tenets", 21);
+                        item = religiousTenet;
+                    }
+
+                    string replacement = category switch
+                    {
+                        "disposition" => item,
+                        "location" => item.Contains("/") ? $"[{item}]" : item,
+                        _ => $"[{item}]"
+                    };
+
+                    if (usedReplacements.ContainsValue(replacement))
+                    {
+                        return string.Empty; // Restart the generation process
+                    }
+
+                    usedReplacements[pattern] = replacement;
+                    title = title.Replace(title.Contains("𖤍") ? $"𖤍{pattern}" : pattern, replacement);
+                    title = title.Replace(title.Contains("𖤍") ? $"𖤍{misspelledPattern}" : misspelledPattern, replacement);
+                }
+
+                if (string.IsNullOrEmpty(title)) break;
+            }
+
+            if (title.Contains("A**An"))
+            {
+                title = title.Replace("A**An", "[A/An]");
+            }
+
+            if (randomizeOptions)
+            {
+                title = FindOptions(title);
+            }
+
+            return ApplyTheRule(title);
+        }
+
+        private string TitleStructure()
+        {
+            int randomNum = _random.Next(1, 21);
+            var matchingStructure = _data["title structure"].EnumerateArray()
+                .SelectMany(obj => obj.EnumerateObject())
+                .FirstOrDefault(prop =>
+                {
+                    var range = prop.Value.GetString().Split('-').Select(int.Parse).ToArray();
+                    return range[0] <= randomNum && randomNum <= range[1];
+                });
+
+            return matchingStructure.Name ?? "The [object] of the [entity]";
         }
 
         private (string, int) GetRandomItem(string category, int randomRange)
         {
-            int randomNum = random.Next(1, randomRange + 1);
-            var item = data[category].EnumerateArray()
+            int randomNum = _random.Next(1, randomRange + 1);
+            var item = _data[category].EnumerateArray()
                 .SelectMany(obj => obj.EnumerateObject())
                 .Where(prop =>
                 {
                     var range = prop.Value.GetString().Split('-').Select(int.Parse).ToArray();
                     return range[0] <= randomNum && randomNum <= range[1];
                 })
-                .FirstOrDefault(prop => !usedItems[category].Contains(prop.Name));
+                .FirstOrDefault(prop => !_usedItems[category].Contains(prop.Name));
 
             if (item.Value.ValueKind == JsonValueKind.Undefined)
             {
-                usedItems[category].Clear();
+                _usedItems[category].Clear();
                 return GetRandomItem(category, randomRange);
             }
 
             string key = item.Name;
-            usedItems[category].Add(key);
+            _usedItems[category].Add(key);
 
             if (key.StartsWith("pick: "))
             {
                 string[] options = key[6..].Split(", ");
-                return (options[random.Next(options.Length)], randomNum);
+                return (options[_random.Next(options.Length)], randomNum);
             }
 
             return (key, randomNum);
         }
 
-        public string TitleStructure()
+        private string FindOptions(string title)
         {
-            int attempts = 0;
-            while (attempts < 100)
-            {
-                int randomNum = random.Next(1, 21);
-                var matchingStructure = data["title structure"].EnumerateArray()
-                    .SelectMany(obj => obj.EnumerateObject())
-                    .FirstOrDefault(prop =>
-                    {
-                        var range = prop.Value.GetString().Split('-').Select(int.Parse).ToArray();
-                        return range[0] <= randomNum && randomNum <= range[1];
-                    });
-
-                if (matchingStructure.Name != null)
-                {
-                    return matchingStructure.Name;
-                }
-                attempts++;
-            }
-
-            return "The [object] of the [entity]";
-        }
-
-        public string GenerateTitle(bool randomizeOptions)
-        {
-            string title;
-            Dictionary<string, string> usedReplacements = new Dictionary<string, string>();
-            int attempts = 0;
-            const int maxAttempts = 100;  // Prevent infinite loop
-
-            do
-            {
-                attempts++;
-                if (attempts > maxAttempts)
-                {
-                    return "Failed to generate a suitable title";
-                }
-
-                title = TitleStructure();
-                usedReplacements.Clear();
-                foreach (var category in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
-                {
-                    usedItems[category].Clear();
-                }
-
-                foreach (var category in new[] { "object", "entity", "location", "disposition", "religious_tenets" })
-                {
-                    string pattern = $"[{category}]";
-                    string misspelledPattern = category == "religious_tenets" ? "[religous tenets]" : pattern;
-
-                    while (title.Contains(pattern) || title.Contains(misspelledPattern))
-                    {
-                        var (item, _) = GetRandomItem(category, title.Contains("𖤍") ? 6 : 20);
-
-                        if (item == "[religious_tenets]" || item == "[religous tenets]")
-                        {
-                            var (religiousTenet, _) = GetRandomItem("religious_tenets", 20);
-                            item = religiousTenet;
-                        }
-
-                        string replacement = category switch
-                        {
-                            "disposition" => item,
-                            "location" => item.Contains("/") ? $"[{item}]" : item,
-                            _ => $"[{item}]"
-                        };
-
-                        if (usedReplacements.ContainsValue(replacement))
-                        {
-                            // If we're using the same replacement, regenerate the title
-                            title = "";
-                            break;
-                        }
-
-                        usedReplacements[pattern] = replacement;
-                        title = title.Replace(title.Contains("𖤍") ? $"𖤍{pattern}" : pattern, replacement);
-                        title = title.Replace(title.Contains("𖤍") ? $"𖤍{misspelledPattern}" : misspelledPattern, replacement);
-                    }
-
-                    if (string.IsNullOrEmpty(title)) break; // Restart the generation process
-                }
-
-                if (title.Contains("A**An"))
-                {
-                    title = title.Replace("A**An", "[A/An]");
-                }
-
-                if (randomizeOptions)
-                {
-                    title = findOptions(title);
-                }
-
-                title = ApplyTheRule(title);
-
-            } while (HasRepeatedTerms(title) || IsTitlePotentiallyProblematic(title));
-
-            return title;
-        }
-
-        public string findOptions(string title)
-        {
-            Random random = new Random();
-
             string ReplaceMatch(Match match)
             {
                 string options = match.Value.Trim('[', ']');
                 string[] choices = options.Split('/');
-                return choices[random.Next(choices.Length)];
+                return choices[_random.Next(choices.Length)];
             }
 
             string pattern = @"\[(?:[^\[\]]+)\]|(?:\b\w+(?:/\w+)+\b)";
             string result = Regex.Replace(title, pattern, ReplaceMatch);
 
-            // Add spaces between options and following words
             result = Regex.Replace(result, @"(\w)([A-Z])", "$1 $2");
 
-            // Handle A/An
             if (result.Contains("A/An"))
             {
                 var vowels = new List<char> { 'A', 'E', 'I', 'O', 'U' };
@@ -758,33 +498,29 @@ public class TitleGeneratorService : ITitleGeneratorService
             return result;
         }
 
-        public string ApplyTheRule(string title)
+        private string ApplyTheRule(string title)
         {
-            int roll = random.Next(1, 7);  // Roll a d6
+            int roll = _random.Next(1, 7);
 
             if (title.StartsWith("The "))
             {
                 if (roll <= 2)
                 {
-                    // "The" remains
                     return title;
                 }
                 else if (roll == 3 || roll == 4)
                 {
-                    // Switch "The" with "A" or "An"
                     string restOfTitle = title.Substring(4);
                     return (IsVowel(restOfTitle[0]) ? "An " : "A ") + restOfTitle;
                 }
                 else
                 {
-                    // Remove "The" and add a Descriptor
                     string restOfTitle = title.Substring(4);
                     string descriptor = GetRandomDescriptor();
                     return $"{descriptor} {restOfTitle}";
                 }
             }
 
-            // If title doesn't start with "The", still add Descriptor on 5 or 6
             if (roll >= 5)
             {
                 string descriptor = GetRandomDescriptor();
@@ -796,8 +532,8 @@ public class TitleGeneratorService : ITitleGeneratorService
 
         private string GetRandomDescriptor()
         {
-            int randomNum = random.Next(1, 21);
-            var descriptorItem = data["descriptor"].EnumerateArray()
+            int randomNum = _random.Next(1, 21);
+            var descriptorItem = _data["descriptor"].EnumerateArray()
                 .SelectMany(obj => obj.EnumerateObject())
                 .FirstOrDefault(prop =>
                 {
@@ -808,10 +544,10 @@ public class TitleGeneratorService : ITitleGeneratorService
             if (descriptorItem.Name != null)
             {
                 string[] options = descriptorItem.Name.Split('/');
-                return options[random.Next(options.Length)];
+                return options[_random.Next(options.Length)];
             }
 
-            return "Mysterious"; // Default descriptor if something goes wrong
+            return "Couldn't get descriptor";
         }
 
         private bool IsVowel(char c)

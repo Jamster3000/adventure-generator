@@ -13,9 +13,10 @@
 {
     <div style="margin-top: 50px;" class="text-container">
         <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Hoooks and Draws</h2>
+            <h2>Hooks</h2>
             <p>@hook</p>
             <hr />
+            <h2>Draws</h2>
             <p>@draw</p>
         </div>
 
@@ -30,6 +31,7 @@
             <h2>Antagonist</h2>
             <p>@antagonist</p>
             <hr />
+            <h2>Antagonist Trait</h2>
             <p>@antagonistTrait</p>
         </div>
 
@@ -37,20 +39,23 @@
             <h2>Plot Fullfillment</h2>
             <p>@plotFullfilment</p>
             <hr />
+            <h2>Plot Location</h2>
             <p>@plotLocation</p>
         </div>
 
         <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Obstacles and Twists</h2>
+            <h2>Obstacles</h2>
             <p>@obstacle</p>
             <hr />
+            <h2>Twists</h2>
             <p>@twist</p>
         </div>
 
         <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Goals and Objectives</h2>
+            <h2>Goals</h2>
             <p>@goals</p>
             <hr />
+            <h2>Objectives</h2>
             <p>@objectives</p>
         </div>
     </div>
@@ -88,7 +93,7 @@
         var antSplit = antagonists.Split("***");
         (antagonist, antagonistTrait) = (antSplit[0], antSplit[1]);
 
-        var plotLoc = await TitleGenerator.GeneratePlotFullfillment();
+        var plotLoc = await TitleGenerator.GeneratePlotFulfillment();
         var locSplit = plotLoc.Split("***");
         (plotFullfilment, plotLocation) = (locSplit[0], locSplit[1]);
 

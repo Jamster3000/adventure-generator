@@ -5,47 +5,171 @@
 <PageTitle>Other Tables</PageTitle>
 <link href="css/app.css" rel="stylesheet" />
 
-<h1>Others</h1>
+<div class="container">
+    <h1>Others</h1>
+</div>
 
-@if (!string.IsNullOrEmpty(generatedTitle))
+@if (!string.IsNullOrEmpty(artifact))
 {
-    <div class="text-container">
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">artifact_descriptors_and_conditions</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">location_choice_and_atmosphere</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">Building type</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">military_or_otherworldly_sites</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">knowledge_or_person_objectives</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">rural_or_marine_locations</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">ancient_or_otherworldly_creature</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">legendary_character</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">legendary_artifact</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">hazards</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">hazard_difficulties</p>
-        <p class="generated-text" style="font-size: 15px; line-height: 1.6">displays_of_might_and_power</p>
+    <div style="margin-top: 50px;" class="text-container">
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Artifact</h2>
+            <p>@artifact</p>
+            <h2>Descriptor</h2>
+            <p>@descriptor</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Location</h2>
+            <p>@locationChoice</p>
+            <hr />
+            <h2>Atmosphere</h2>
+            <p>@atmosphere</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Building Type</h2>
+            <p>@buildingType</p>
+            <hr />
+            <h2>Building Sinister</h2>
+            <p>@buildingSinister</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Military</h2>
+            <p>@militaryTypeOne</p>
+            <hr />
+            <h2>OtherWorldly</h2>
+            <p>@militaryTypeTwo</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Knowledge</h2>
+            <p>@knowledge</p>
+            <hr />
+            <h2>Person</h2>
+            <p>@person</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Rural</h2>
+            <p>@ruralLocation</p>
+            <hr />
+            <h2>Marine</h2>
+            <p>@marineLocation</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Ancient or Otherworldly Creature</h2>
+            <p>@oldCreature</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Legendary Character</h2>
+            <p>@legendaryCharacter</p>
+        </div>
+        <div style="margin-bottom: 2rem;" class="generated-text">
+            <h2>Legendary Artifact</h2>
+            <p>@legendaryArtifact</p>
+        </div>
     </div>
 }
-
-<div class="bottom-container">
-    <div class="tooltip-container">
-        <input type="checkbox" id="choose-option-checkbox" name="choose-option-checkbox" @bind="randomizeOptions">
-        <label for="choose-option-checkbox">Randomize options</label>
-        <span class="tooltip">Check this box to randomize the generated options. E.g., Disabled: Jewel/Gem/Amulet.  Enabled: Gem.</span>
-    </div>
-</div>
 
 <button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
 
 
 @code {
-    private string generatedTitle;
-    private bool randomizeOptions = false;
+    private string artifact = string.Empty;
+    private string descriptor = string.Empty;
+    private string locationChoice = string.Empty;
+    private string atmosphere = string.Empty;
+    private string buildingType = string.Empty;
+    private string buildingSinister = string.Empty;
+    private string militaryTypeOne = string.Empty;
+    private string militaryTypeTwo = string.Empty;
+    private string knowledge = string.Empty;
+    private string person = string.Empty;
+    private string ruralLocation = string.Empty;
+    private string marineLocation = string.Empty;
+    private string oldCreature = string.Empty;
+    private string legendaryCharacter = string.Empty;
+    private string legendaryArtifact = string.Empty;
     private ElementReference buttonElement;
 
     private async Task Generate()
     {
-        generatedTitle = await TitleGenerator.GenerateTitle(randomizeOptions);
+        oldCreature = await TitleGenerator.GenerateOldCreature();
+        legendaryCharacter = await TitleGenerator.GenerateLegendaryCharacter();
+        legendaryArtifact = await TitleGenerator.GenerateLegendaryArtifact();
+
+        var generatedDescription = await TitleGenerator.GenerateArtifact();
+        var descriptionSplit = generatedDescription.Split(new[] { "***" }, StringSplitOptions.None);
+        if (descriptionSplit.Length >= 2)
+        {
+            (artifact, descriptor) = (descriptionSplit[0], descriptionSplit[1]);
+        }
+        else
+        {
+            artifact = "No artifact generated";
+            descriptor = "No descriptor generated";
+        }
+
+        var generatedLocation = await TitleGenerator.GenerateLocation();
+        var locationSplit = generatedLocation.Split(new[] { "***" }, StringSplitOptions.None);
+        if (locationSplit.Length >= 2)
+        {
+            (locationChoice, atmosphere) = (locationSplit[0], locationSplit[1]);
+        }
+        else
+        {
+            locationChoice = "No location generated";
+            atmosphere = "No atmosphere generated";
+        }
+
+        var generatedBuilding = await TitleGenerator.GenerateBuilding();
+        var buildingSplit = generatedBuilding.Split(new[] { "***" }, StringSplitOptions.None);
+        if (buildingSplit.Length >= 2)
+        {
+            (buildingType, buildingSinister) = (buildingSplit[0], buildingSplit[1]);
+        }
+        else
+        {
+            buildingType = "No building type generated";
+            buildingSinister = "No building sinister generated";
+        }
+
+        var generatedMilitary = await TitleGenerator.GenerateMilitary();
+        var militarySplit = generatedMilitary.Split(new[] { "***" }, StringSplitOptions.None);
+        if (militarySplit.Length >= 2)
+        {
+            (militaryTypeOne, militaryTypeTwo) = (militarySplit[0], militarySplit[1]);
+        }
+        else
+        {
+            militaryTypeOne = "No military type generated";
+            militaryTypeTwo = "No military type generated";
+        }
+
+        var generatedKnowledge = await TitleGenerator.GenerateKnowledgePerson();
+        var knowledgeSplit = generatedKnowledge.Split(new[] { "***" }, StringSplitOptions.None);
+        if (knowledgeSplit.Length >= 2)
+        {
+            (knowledge, person) = (knowledgeSplit[0], knowledgeSplit[1]);
+        }
+        else
+        {
+            knowledge = "No knowledge generated";
+            person = "No person generated";
+        }
+
+        var generatedLoc = await TitleGenerator.GenerateRuralMarine();
+        var locSplit = generatedLoc.Split(new[] { "***" }, StringSplitOptions.None);
+        if (locSplit.Length >= 2)
+        {
+            (ruralLocation, marineLocation) = (locSplit[0], locSplit[1]);
+        }
+        else
+        {
+            ruralLocation = "No rural location generated";
+            marineLocation = "No marine location generated";
+        }
+
         await UnfocusButton();
     }
+
 
     private async Task UnfocusButton()
     {
