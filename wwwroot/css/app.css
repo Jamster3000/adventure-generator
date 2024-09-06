@@ -20,13 +20,9 @@ html, body {
 }
 
 h1, h2 {
-    user-select: none !important;
-    outline: none !important;
-    display: block !important;
     color: #d4af37; 
     text-shadow: 2px 2px 4px #000000;
     text-align: center;
-    user-select: none;
 }
 
 h1 {
