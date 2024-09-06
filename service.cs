@@ -174,12 +174,12 @@ public class TitleGeneratorService : ITitleGeneratorService
             return $"{firstPart}***{secondPart}";
         }
 
-        public string GenerateNationalities() => GenerateFromRangeTable("nationalities", 2, 40);
+        public string GenerateNationalities() => GenerateFromRangeTable("nationalities", 2, 41);
         public string GenerateNonPlayerCharacter() => GenerateFromRangeTable("non_player_characters", 1, 21);
         public string GenerateTemperament() => GenerateFromRangeTable("temperament", 1, 21);
         public string GenerateCult() => GenerateFromRangeTable("cult", 1, 21);
         public string GenerateOpponent() => GenerateFromRangeTable("opponent", 1, 21);
-        public string GenerateQuirks() => GenerateFromRangeTable("quirks", 2, 40);
+        public string GenerateQuirks() => GenerateFromRangeTable("quirks", 2, 41);
         public string GenerateReligiousTenet() => GenerateFromRangeTable("religious_tenets", 1, 21);
         public string GenerateOldCreature() => GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 21);
         public string GenerateLegendaryCharacter() => GenerateFromRangeTable("legendary_character", 1, 21);
@@ -211,15 +211,29 @@ public class TitleGeneratorService : ITitleGeneratorService
                     {
                         var table = _data[tableName].EnumerateArray().ToList();
                         int roll = _random.Next(minRoll, maxRoll + 1);
+
                         var selectedItem = table.FirstOrDefault(item =>
                         {
                             var rangeString = item.EnumerateObject().First().Value.GetString();
                             if (string.IsNullOrEmpty(rangeString)) return false;
                             var rangeParts = rangeString.Split('-');
-                            if (rangeParts.Length != 2) return false;
-                            if (!int.TryParse(rangeParts[0], out int rangeStart) || !int.TryParse(rangeParts[1], out int rangeEnd))
-                                return false;
-                            return rangeStart <= roll && roll <= rangeEnd;
+
+                            if (rangeParts.Length == 1) // Single value case
+                            {
+                                if (int.TryParse(rangeParts[0], out int singleValue))
+                                {
+                                    return singleValue == roll;
+                                }
+                            }
+                            else if (rangeParts.Length == 2) // Range case
+                            {
+                                if (int.TryParse(rangeParts[0], out int rangeStart) && int.TryParse(rangeParts[1], out int rangeEnd))
+                                {
+                                    return rangeStart <= roll && roll <= rangeEnd;
+                                }
+                            }
+
+                            return false;
                         });
 
                         if (selectedItem.ValueKind == JsonValueKind.Undefined)
@@ -267,6 +281,7 @@ public class TitleGeneratorService : ITitleGeneratorService
             // This line should never be reached, but is needed to satisfy the compiler
             return $"Failed to generate from {tableName} due to an unexpected error";
         }
+
 
         public string GenerateArtifact() => GenerateArtifactResult();
 

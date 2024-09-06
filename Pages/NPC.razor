@@ -3,46 +3,80 @@
 @inject IJSRuntime JSRuntime
 
 <PageTitle>NPC</PageTitle>
-<link href="css/app.css" rel="stylesheet" />
-
 <h1>NPC</h1>
-
-@if (!string.IsNullOrEmpty(non_player_characters))
-{
-    <div class="text-container">
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Non-Player Character</h2>
-            <p style="font-size: 15px; line-height: 1.6">@non_player_characters</p>
+<div class="npc-container">
+    @if (!string.IsNullOrEmpty(non_player_characters))
+    {
+        <div class="text-grid">
+            <div class="generated-text">
+                <h2>Non-Player Character</h2>
+                <p>@non_player_characters</p>
+            </div>
+            <div class="generated-text">
+                <h2>Temperament</h2>
+                <p>@tempermant</p>
+            </div>
+            <div class="generated-text">
+                <h2>Nationalities</h2>
+                <p>@nationalities</p>
+            </div>
+            <div class="generated-text">
+                <h2>Quirks</h2>
+                <p>@quirks</p>
+            </div>
+            <div class="generated-text">
+                <h2>Opponent</h2>
+                <p>@opponent</p>
+            </div>
+            <div class="generated-text">
+                <h2>Cult</h2>
+                <p>@cult</p>
+            </div>
         </div>
+    }
+    <button @onclick="Generate" class="btn-primary generate-title">Generate</button>
+</div>
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Temperament</h2>
-            <p style="font-size: 15px; line-height: 1.6;">@tempermant</p>
-        </div>
+<style>
+    .npc-container {
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        box-sizing: border-box;
+        padding-top: 50px;
+    }
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Nationalities</h2>
-            <p style="font-size: 15px; line-height: 1.6;">@nationalities</p>
-        </div>
+    .text-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        flex-grow: 1;
+        overflow: hidden;
+        max-height: calc(80vh - 150px);
+    }
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Quirks</h2>
-            <p style="font-size: 15px; line-height: 1.6;">@quirks</p>
-        </div>
+    .generated-text {
+        color: #d4af37;
+        display: flex;
+        flex-direction: column;
+    }
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Opponent</h2>
-            <p  style="font-size: 15px; line-height: 1.6;">@opponent</p>
-        </div>
+        .generated-text p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 10px;
+        }
+</style>
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Cult</h2>
-            <p style="font-size: 15px; line-height: 1.6;">@cult</p>
-        </div>
-    </div>
-}
-
-<button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
+<script>
+    window.unfocusElement = function () {
+        document.activeElement.blur();
+    };
+</script>
 
 @code {
     private string non_player_characters = string.Empty;
@@ -51,7 +85,11 @@
     private string quirks = string.Empty;
     private string opponent = string.Empty;
     private string cult = string.Empty;
-    private ElementReference buttonElement;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Generate();
+    }
 
     private async Task Generate()
     {
@@ -61,23 +99,14 @@
         cult = await TitleGenerator.GenerateCult();
         opponent = await TitleGenerator.GenerateOpponent();
         nationalities = await TitleGenerator.GenerateNationalities();
+
         await UnfocusButton();
     }
 
     private async Task UnfocusButton()
     {
-        await JSRuntime.InvokeVoidAsync("unfocusElement", buttonElement);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("eval", @"
-                window.unfocusElement = function(element) {
-                    element.blur();
-                }
-            ");
-        }
+        try { 
+            await JSRuntime.InvokeVoidAsync("unfocusElement"); 
+        }catch { }
     }
 }
