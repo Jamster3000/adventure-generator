@@ -34,7 +34,7 @@
             </div>
         </div>
     }
-    <button @onclick="Generate" class="btn-primary generate-title">Generate</button>
+    <button @onclick="async () => await Generate()" class="btn-primary generate-title">Generate</button>
 </div>
 
 <style>

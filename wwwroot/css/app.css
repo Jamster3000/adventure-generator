@@ -20,15 +20,24 @@ html, body {
 }
 
 h1, h2 {
-    color: #d4af37; 
+    user-select: none !important;
+    outline: none !important;
+    display: block !important;
+    color: #d4af37;
     text-shadow: 2px 2px 4px #000000;
     text-align: center;
-}
+    user-select: none;
+}   
 
 h1 {
     font-size: 3.5rem;
     margin-bottom: 0.5rem;
 }
+
+    h1:focus {
+        outline: none;
+    }
+
 
 h2 {
     font-size: 1.4rem;

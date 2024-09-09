@@ -5,37 +5,40 @@
 @using Microsoft.AspNetCore.Components
 
 <PageTitle>Adventure</PageTitle>
-<link href="css/app.css" rel="stylesheet" />
-
-<div class="container">
-    <h1>Adventure</h1>
-</div>
-
-@if (!string.IsNullOrEmpty(generatedTitle))
-{
-    <div style="margin-top: 50px;" class="text-container">
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Title Structure</h2>
-            <p>@HighlightBracketedText(generatedTitle)</p>
+<h1>Adventure</h1>
+<div class="npc-container">
+    @if (!string.IsNullOrEmpty(generatedTitle))
+    {
+        <div class="text-grid">
+            <div class="generated-text">
+                <h2>Title Structure</h2>
+                <p>@HighlightBracketedText(generatedTitle)</p>
+            </div>
+            <div class="generated-text">
+                <h2>Opening scene</h2>
+                <p>@HighlightBracketedText(generatedOpeningScene)</p>
+                <hr>
+                <h2>Descriptor</h2>
+                <p>@HighlightBracketedText(generatedSecondOpeningScene)</p>
+            </div>
         </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Opening scene</h2>
-            <p>@HighlightBracketedText(generatedOpeningScene)</p>
-            <hr>
-            <h2>Descriptor</h2>
-            <p>@HighlightBracketedText(generatedSecondOpeningScene)</p>
+    }
+
+    <div class="bottom-container">
+        <div class="tooltip-container">
+            <input type="checkbox" id="choose-option-checkbox" name="choose-option-checkbox" @bind="randomizeOptions">
+            <label for="choose-option-checkbox">Randomize options</label>
+            <span class="tooltip">Check this box to randomize the generated options. E.g., Disabled: Jewel/Gem/Amulet.  Enabled: Gem.</span>
         </div>
     </div>
-}
-
-<div class="bottom-container">
-    <div class="tooltip-container">
-        <input type="checkbox" id="choose-option-checkbox" name="choose-option-checkbox" @bind="randomizeOptions">
-        <label for="choose-option-checkbox">Randomize options</label>
-        <span class="tooltip">Check this box to randomize the generated options. E.g., Disabled: Jewel/Gem/Amulet.  Enabled: Gem.</span>
-    </div>
+    <button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
 </div>
-<button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
+
+<script>
+    window.unfocusElement = function () {
+        document.activeElement.blur();
+    };
+</script>
 
 @code {
     private string generatedTitle = string.Empty;
@@ -43,6 +46,11 @@
     private string generatedSecondOpeningScene = string.Empty;
     private bool randomizeOptions = false;
     private ElementReference buttonElement;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Generate();
+    }
 
     private async Task Generate()
     {
@@ -56,19 +64,11 @@
 
     private async Task UnfocusButton()
     {
-        await JSRuntime.InvokeVoidAsync("unfocusElement", buttonElement);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
+        try
         {
-            await JSRuntime.InvokeVoidAsync("eval", @"
-                window.unfocusElement = function(element) {
-                    element.blur();
-                }
-            ");
+            await JSRuntime.InvokeVoidAsync("unfocusElement");
         }
+        catch { }
     }
 
     private MarkupString HighlightBracketedText(string text)

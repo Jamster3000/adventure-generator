@@ -3,65 +3,110 @@
 @inject IJSRuntime JSRuntime
 
 <PageTitle>Quest</PageTitle>
-<link href="css/app.css" rel="stylesheet" />
+<h1>Quest</h1>
+<div class="npc-container">
+    @if (!string.IsNullOrEmpty(hook))
+    {
+        <div class="text-grid">
+            <div class="generated-text">
+                <h2>Hooks</h2>
+                <p>@hook</p>
+                <hr />
+                <h2>Draws</h2>
+                <p>@draw</p>
+            </div>
 
-<div class="container">
-    <h1>Quest</h1>
+            <div class="generated-text">
+                <h2>Plot</h2>
+                <p>@plots</p>
+                <hr />
+                <p>@plotMotivation</p>
+            </div>
+
+            <div class="generated-text">
+                <h2>Antagonist</h2>
+                <p>@antagonist</p>
+                <hr />
+                <h2>Antagonist Trait</h2>
+                <p>@antagonistTrait</p>
+            </div>
+
+            <div class="generated-text">
+                <h2>Plot Fullfillment</h2>
+                <p>@plotFullfilment</p>
+                <hr />
+                <h2>Plot Location</h2>
+                <p>@plotLocation</p>
+            </div>
+
+            <div class="generated-text">
+                <h2>Obstacles</h2>
+                <p>@obstacle</p>
+                <hr />
+                <h2>Twists</h2>
+                <p>@twist</p>
+            </div>
+
+            <div class="generated-text">
+                <h2>Goals</h2>
+                <p>@goals</p>
+                <hr />
+                <h2>Objectives</h2>
+                <p>@objectives</p>
+            </div>
+        </div>
+    }
+
+    <button @onclick="async () => await Generate()" class="btn-primary generate-title">Generate</button>
 </div>
 
-@if (!string.IsNullOrEmpty(hook))
-{
-    <div style="margin-top: 50px;" class="text-container">
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Hooks</h2>
-            <p>@hook</p>
-            <hr />
-            <h2>Draws</h2>
-            <p>@draw</p>
-        </div>
+<script>
+    window.unfocusElement = function () {
+        document.activeElement.blur();
+    };
+</script>
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Plot</h2>
-            <p>@plots</p>
-            <hr />
-            <p>@plotMotivation</p>
-        </div>
+<style>
+    .npc-container {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        box-sizing: border-box;
+        padding-top: 25px;
+        overflow: hidden;
+    }
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Antagonist</h2>
-            <p>@antagonist</p>
-            <hr />
-            <h2>Antagonist Trait</h2>
-            <p>@antagonistTrait</p>
-        </div>
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Plot Fullfillment</h2>
-            <p>@plotFullfilment</p>
-            <hr />
-            <h2>Plot Location</h2>
-            <p>@plotLocation</p>
-        </div>
+    .text-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem; 
+        flex-grow: 1;
+        overflow: hidden;
+        max-height: calc(90vh - 150px); 
+    }
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Obstacles</h2>
-            <p>@obstacle</p>
-            <hr />
-            <h2>Twists</h2>
-            <p>@twist</p>
-        </div>
 
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Goals</h2>
-            <p>@goals</p>
-            <hr />
-            <h2>Objectives</h2>
-            <p>@objectives</p>
-        </div>
-    </div>
-}
+    .generated-text {
+        color: #d4af37;
+        display: flex;
+        flex-direction: column;
+    }
 
-<button @ref="buttonElement" @onclick="async () => await Generate()" class="btn-primary generate-title">Generate Title</button>
+        .generated-text p {
+            font-size: 0.7rem; 
+            line-height: 1.2;
+            margin: 0;
+            overflow-y: hidden;
+            flex-grow: 1;
+            padding-right: 5px; 
+        }
+
+        .generated-text h2 {
+            font-size: 1rem; 
+        }
+</style>
 
 @code {
     private string hook = string.Empty;
@@ -78,6 +123,11 @@
     private string objectives = string.Empty;    
     private bool randomizeOptions = false;
     private ElementReference buttonElement;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Generate();
+    }
 
     private async Task Generate()
     {
@@ -104,24 +154,16 @@
         var goalsAndObjectives = await TitleGenerator.GenerateGoalsAndObjectives();
         var splits = goalsAndObjectives.Split("***");
         (goals, objectives) = (splits[0], splits[1]);
+
         await UnfocusButton();
-        StateHasChanged();
     }
 
     private async Task UnfocusButton()
     {
-        await JSRuntime.InvokeVoidAsync("unfocusElement", buttonElement);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
+        try
         {
-            await JSRuntime.InvokeVoidAsync("eval", @"
-                window.unfocusElement = function(element) {
-                    element.blur();
-                }
-            ");
+            await JSRuntime.InvokeVoidAsync("unfocusElement");
         }
+        catch { }
     }
 }

@@ -3,73 +3,117 @@
 @inject IJSRuntime JSRuntime
 
 <PageTitle>Other Tables</PageTitle>
-<link href="css/app.css" rel="stylesheet" />
+<h1>Others</h1>
+<div class="npc-container">
+    @if (!string.IsNullOrEmpty(artifact))
+    {
+        <div class="text-grid">
+            <div class="generated-text">
+                <h2>Artifact</h2>
+                <p>@artifact</p>
+                <h2>Descriptor</h2>
+                <p>@descriptor</p>
+            </div>
+            <div class="generated-text">
+                <h2>Location</h2>
+                <p>@locationChoice</p>
+                <hr />
+                <h2>Atmosphere</h2>
+                <p>@atmosphere</p>
+            </div>
+            <div class="generated-text">
+                <h2>Building Type</h2>
+                <p>@buildingType</p>
+                <hr />
+                <h2>Building Sinister</h2>
+                <p>@buildingSinister</p>
+            </div>
+            <div class="generated-text">
+                <h2>Military</h2>
+                <p>@militaryTypeOne</p>
+                <hr />
+                <h2>OtherWorldly</h2>
+                <p>@militaryTypeTwo</p>
+            </div>
+            <div class="generated-text">
+                <h2>Knowledge</h2>
+                <p>@knowledge</p>
+                <hr />
+                <h2>Person</h2>
+                <p>@person</p>
+            </div>
+            <div class="generated-text">
+                <h2>Rural</h2>
+                <p>@ruralLocation</p>
+                <hr />
+                <h2>Marine</h2>
+                <p>@marineLocation</p>
+            </div>
+            <div class="generated-text">
+                <h2>Ancient or Otherworldly Creature</h2>
+                <p>@oldCreature</p>
+            </div>
+            <div class="generated-text">
+                <h2>Legendary Character</h2>
+                <p>@legendaryCharacter</p>
+            </div>
+            <div class="generated-text">
+                <h2>Legendary Artifact</h2>
+                <p>@legendaryArtifact</p>
+            </div>
+        </div>
+    }
 
-<div class="container">
-    <h1>Others</h1>
+    <button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
 </div>
 
-@if (!string.IsNullOrEmpty(artifact))
-{
-    <div style="margin-top: 50px;" class="text-container">
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Artifact</h2>
-            <p>@artifact</p>
-            <h2>Descriptor</h2>
-            <p>@descriptor</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Location</h2>
-            <p>@locationChoice</p>
-            <hr />
-            <h2>Atmosphere</h2>
-            <p>@atmosphere</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Building Type</h2>
-            <p>@buildingType</p>
-            <hr />
-            <h2>Building Sinister</h2>
-            <p>@buildingSinister</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Military</h2>
-            <p>@militaryTypeOne</p>
-            <hr />
-            <h2>OtherWorldly</h2>
-            <p>@militaryTypeTwo</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Knowledge</h2>
-            <p>@knowledge</p>
-            <hr />
-            <h2>Person</h2>
-            <p>@person</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Rural</h2>
-            <p>@ruralLocation</p>
-            <hr />
-            <h2>Marine</h2>
-            <p>@marineLocation</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Ancient or Otherworldly Creature</h2>
-            <p>@oldCreature</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Legendary Character</h2>
-            <p>@legendaryCharacter</p>
-        </div>
-        <div style="margin-bottom: 2rem;" class="generated-text">
-            <h2>Legendary Artifact</h2>
-            <p>@legendaryArtifact</p>
-        </div>
-    </div>
-}
+<script>
+    window.unfocusElement = function () {
+        document.activeElement.blur();
+    };
+</script>
 
-<button @ref="buttonElement" @onclick="Generate" class="btn-primary generate-title">Generate Title</button>
+<style>
+    .npc-container {
+        height: 92vh;
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+        box-sizing: border-box;
+        padding-top: 25px;
+        overflow: hidden;
+    }
 
+
+    .text-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        flex-grow: 1;
+        overflow: hidden;
+        max-height: calc(90vh - 150px);
+    }
+
+
+    .generated-text {
+        color: #d4af37;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .generated-text p {
+            font-size: 0.65rem;
+            line-height: 1.2;
+            margin: 0;
+            overflow-y: hidden;
+            flex-grow: 1;
+            padding-right: 5px;
+        }
+
+        .generated-text h2 {
+            font-size: 0.9rem;
+        }
+</style>
 
 @code {
     private string artifact = string.Empty;
@@ -88,6 +132,11 @@
     private string legendaryCharacter = string.Empty;
     private string legendaryArtifact = string.Empty;
     private ElementReference buttonElement;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Generate();
+    }
 
     private async Task Generate()
     {
@@ -173,18 +222,10 @@
 
     private async Task UnfocusButton()
     {
-        await JSRuntime.InvokeVoidAsync("unfocusElement", buttonElement);
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
+        try
         {
-            await JSRuntime.InvokeVoidAsync("eval", @"
-                window.unfocusElement = function(element) {
-                    element.blur();
-                }
-            ");
+            await JSRuntime.InvokeVoidAsync("unfocusElement");
         }
+        catch { }
     }
 }
