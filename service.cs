@@ -113,8 +113,8 @@ public class TitleGeneratorService : ITitleGeneratorService
         private string GenerateRandomItem(string tableName)
         {
             var table = _data[tableName].EnumerateArray().ToList();
-            int firstRoll = _random.Next(1, 21);
-            int secondRoll = _random.Next(1, 21);
+            int firstRoll = _random.Next(1, 20);
+            int secondRoll = _random.Next(1, 20);
 
             // Find the first selected item
             var selectedItem1 = table.FirstOrDefault(item =>
@@ -157,9 +157,10 @@ public class TitleGeneratorService : ITitleGeneratorService
         private string GenerateFromTable(string tableName, string secondPropertyName)
         {
             var table = _data[tableName].EnumerateArray().ToList();
-            int roll1 = _random.Next(1, 21);
-            int roll2 = _random.Next(1, 21);
+            int roll1 = _random.Next(1, 20);
+            int roll2 = _random.Next(1, 20);
 
+            // First Roll (Get Item)
             var selectedItem1 = table.FirstOrDefault(item =>
                 int.Parse(item.EnumerateObject().First().Value.GetString()) == roll1);
 
@@ -171,19 +172,180 @@ public class TitleGeneratorService : ITitleGeneratorService
             string firstPart = selectedItem1.EnumerateObject().First().Name;
             string secondPart = table[roll2 - 1].GetProperty(secondPropertyName).GetString();
 
+            // Roll-based transformations for various phrases
+            var replacements = new Dictionary<string, Func<string, string>>()
+{
+    // Objective phrases
+    { "an ancient map to (roll on sinister column of building type table)", (s) =>
+        {
+            return "An ancient map to: " + GenerateFromRangeTable("building_type", 1, 20);  // Sinister column logic
+        }
+    },
+    { "identity of a person (primary antagonist table)", (s) =>
+        {
+            return "Identity of a person: " + GenerateFromRangeTable("primary_antagonist", 1, 20);
+        }
+    },
+    { "An opponent (Opponents table)", (s) =>
+        {
+            return "An opponent: " + GenerateFromRangeTable("opponent", 1, 20);
+        }
+    },
+    { "an artifact (artifact descriptors and conditions table)", (s) =>
+        {
+            // Handle nested object structure properly in the artifact descriptors table
+            var artifact = GenerateFromRangeTable("artifact_descriptors_and_conditions", 1, 20);
+            var artifactObject = _data["artifact_descriptors_and_conditions"].EnumerateArray().ElementAtOrDefault(roll2 - 1);
+
+            if (artifactObject.ValueKind == JsonValueKind.Undefined)
+            {
+                return "Failed to generate from artifact_descriptors_and_conditions after 5 attempts.";
+            }
+
+            string descriptor = artifactObject.EnumerateObject().First().Value.GetProperty("Descriptor").GetString();
+            string condition = artifactObject.EnumerateObject().First().Value.GetProperty("Condition").GetString();
+
+            if (condition == "None") {
+                return $"An artifact: {descriptor}";
+            }
+            else
+            {
+                return $"An artifact: {descriptor}";
+            }
+        }
+    },
+
+    // Updated person objective to knowledge_or_person_objectives table
+    { "roll on person_objectives table", (s) =>
+        {
+            return "Knowledge or person objective: " + GenerateFromRangeTable("knowledge_or_person_objectives", 1, 20);
+        }
+    },
+
+    // Plot location and twists
+    { "a deadly or secret organisation (cult table)", (s) =>
+        {
+            return "A deadly or secret organisation: " + GenerateFromRangeTable("cult", 1, 20);
+        }
+    },
+    {
+    "a physical location (location choice and appropriate sub-table)", (s) =>
+        {
+            var locationAndAtmosphere = GenerateLocation();
+
+            var location = locationAndAtmosphere.Split("***")[1];
+
+            return $"A physical location: {location}";
+        }
+    },
+    { "an otherworldly creature’s body part (ancient or otherworldly creatures table)", (s) =>
+        {
+            return "An otherworldly creature’s body part: " + GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 20);
+        }
+    },
+    { "An ally (Person Objective table)", (s) =>
+        {
+            return "Any Ally: " + GenerateFromRangeTable("knowledge_or_person_objectives").Split("***")[0];
+        }
+    },
+    // Plot location (adjusted)
+    { "an otherworldly entity’s lair (ancient or otherworldly creature table)", (s) =>
+        {
+            return "An otherworldly entity’s lair: " + GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 20);
+        }
+    },
+
+    // Plot twists
+    { "an opponent (opponent table)", (s) =>
+        {
+            return "An opponent: " + GenerateFromRangeTable("opponent", 1, 20);
+        }
+    },
+    { "an enemy (primary antagonist table)", (s) =>
+        {
+            return "An enemy: " + GenerateFromRangeTable("primary_antagonist", 1, 20);
+        }
+    },
+
+    // Twists and additional narrative elements
+    { "snake in the grass (a traitor working for an independent faction — roll on non-player characters table)", (s) =>
+        {
+            return "Snake in the grass: " + GenerateFromRangeTable("non_player_characters", 1, 20);
+        }
+    },
+
+    // Add more replacements as needed
+    { "roll on religious tenets table", (s) =>
+        {
+            return "Has information on someone relevant who is missing or dead: " + GenerateFromRangeTable("religious_tenets", 1, 20);
+        }
+    },
+    
+    // Plot modification: Manipulated by someone/something
+    { "Being manipulated by someone or something (roll twice on Primary Antagonist table, with the second roll as the true antagonist)", (s) =>
+        {
+            string primaryAntagonistFirst = GenerateFromRangeTable("primary_antagonist", 1, 20);
+            string primaryAntagonistSecond = GenerateFromRangeTable("primary_antagonist", 1, 20);
+            return $"Being manipulated by: {primaryAntagonistFirst}. The true antagonist: {primaryAntagonistSecond}.";
+        }
+    },
+
+    // Plot modification: Antagonist is a patsy
+    { "The antagonist is a patsy for the true villain (roll again on Primary Antagonist table)", (s) =>
+        {
+            string firstAntagonist = GenerateFromRangeTable("primary_antagonist", 1, 20);
+            string secondAntagonist = GenerateFromRangeTable("primary_antagonist", 1, 20);
+            return $"{firstAntagonist} is a patsy for the true villain: {secondAntagonist}.";
+        }
+    },
+
+    // Plot location
+    { "The vault of a hidden cult (cult table)", (s) =>
+        {
+            return "The vault of a hidden cult: " + GenerateFromRangeTable("cult", 1, 20);
+        }
+    },
+    { "A royal vault (ancient or otherworldly creature table)", (s) =>
+        {
+            return "A royal vault: " + GenerateFromRangeTable("ancient_or_otherworldly_creature");
+        }
+    },
+
+    // Objectives
+    { "Documents or secrets (Knowledge or Person Objective table)", (s) =>
+        {
+            return "Documents or secrets: " + GenerateFromRangeTable("knowledge_or_person_objectives");
+        }
+    },
+
+    // Add any additional replacement logic here
+};
+
+            // Handle multiple matches in secondPart based on specific phrases
+            string sanitizedSecondPart = secondPart.Trim().ToLower();
+
+            foreach (var key in replacements.Keys)
+            {
+                if (sanitizedSecondPart.Contains(key.ToLower()))
+                {
+                    secondPart = replacements[key](secondPart);
+                    break;  // Apply the first match and exit the loop
+                }
+            }
+
             return $"{firstPart}***{secondPart}";
         }
 
-        public string GenerateNationalities() => GenerateFromRangeTable("nationalities", 2, 41);
-        public string GenerateNonPlayerCharacter() => GenerateFromRangeTable("non_player_characters", 1, 21);
-        public string GenerateTemperament() => GenerateFromRangeTable("temperament", 1, 21);
-        public string GenerateCult() => GenerateFromRangeTable("cult", 1, 21);
-        public string GenerateOpponent() => GenerateFromRangeTable("opponent", 1, 21);
-        public string GenerateQuirks() => GenerateFromRangeTable("quirks", 2, 41);
-        public string GenerateReligiousTenet() => GenerateFromRangeTable("religious_tenets", 1, 21);
-        public string GenerateOldCreature() => GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 21);
-        public string GenerateLegendaryCharacter() => GenerateFromRangeTable("legendary_character", 1, 21);
-        public string GenerateLegendaryArtifact() => GenerateFromRangeTable("legendary_artifact", 1, 21);
+        public string GenerateNationalities() => GenerateFromRangeTable("nationalities", 2, 40);
+        public string GenerateNonPlayerCharacter() => GenerateFromRangeTable("non_player_characters", 1, 20);
+        public string GenerateTemperament() => GenerateFromRangeTable("temperament", 1, 20);
+        public string GenerateCult() => GenerateFromRangeTable("cult", 1, 20);
+        public string GenerateOpponent() => GenerateFromRangeTable("opponent", 1, 20);
+        public string GenerateQuirks() => GenerateFromRangeTable("quirks", 2, 40);
+        public string GenerateReligiousTenet() => GenerateFromRangeTable("religious_tenets", 1, 20);
+        public string GenerateOldCreature() => GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 20);
+        public string GenerateLegendaryCharacter() => GenerateFromRangeTable("legendary_character", 1, 20);
+        public string GenerateLegendaryArtifact() => GenerateFromRangeTable("legendary_artifact", 1, 20);
         public string GenerateKnowledgePerson() => GenerateFromRangeTable("knowledge_or_person_objectives");
 
         private string GenerateFromRangeTable(string tableName, int minRoll = 0, int maxRoll = 0)
@@ -205,6 +367,22 @@ public class TitleGeneratorService : ITitleGeneratorService
                         var selectedItem = table[roll];
                         var key = selectedItem.EnumerateObject().First().Name;
                         var value = selectedItem.EnumerateObject().First().Value;
+
+                        if (value.ToString().ToLower().Contains("historian"))
+                        {
+                            return $"{key}***Historian: {GenerateFromRangeTable("cult", 1, 20)}";
+                        }
+
+                        if (value.ToString().ToLower().Contains("priest or priestess"))
+                        {
+                            return $"{key}***Priest or Priestess: {GenerateFromRangeTable("religious_tenets", 1, 20)}";
+                        }
+
+                        if (value.ToString().ToLower().Contains("roll again"))
+                        {
+                            return GenerateFromRangeTable(tableName, minRoll, maxRoll); // Reroll
+                        }
+
                         return $"{key}***{value}";
                     }
                     else
@@ -243,26 +421,9 @@ public class TitleGeneratorService : ITitleGeneratorService
 
                         string result = selectedItem.EnumerateObject().First().Name;
 
-                        // Special handling for specific tables
-                        if (tableName == "opponent" && result == "Otherworldly Creature")
+                        if (result.ToString().ToLower().Contains("roll again"))
                         {
-                            result = $"Otherworldly Creature: {GenerateFromRangeTable("ancient_or_otherworldly_creature", 1, 21)}";
-                        }
-                        else if (tableName == "non_player_characters")
-                        {
-                            if (result == "Clergy")
-                            {
-                                string religiousTenet = GenerateReligiousTenet();
-                                result = $"Clergy ({religiousTenet})";
-                            }
-                            else if (result == "Roll twice, with a separate roll on Temperament table for each")
-                            {
-                                string npc1 = GenerateNonPlayerCharacter();
-                                string npc2 = GenerateNonPlayerCharacter();
-                                string temperament1 = GenerateTemperament();
-                                string temperament2 = GenerateTemperament();
-                                result = $"{npc1} ({temperament1}) and {npc2} ({temperament2})";
-                            }
+                            return GenerateFromRangeTable(tableName, minRoll, maxRoll); // Reroll
                         }
 
                         return result;
@@ -270,17 +431,18 @@ public class TitleGeneratorService : ITitleGeneratorService
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine($"Error in GenerateFromRangeTable on attempt {attempt + 1}: {ex.Message}");
                     if (attempt == maxRetries - 1)
                     {
                         return $"Failed to generate from {tableName} after {maxRetries} attempts: {ex.Message}";
                     }
-                    // If it's not the last attempt, continue to the next iteration
                 }
             }
 
-            // This line should never be reached, but is needed to satisfy the compiler
             return $"Failed to generate from {tableName} due to an unexpected error";
         }
+
+
 
 
         public string GenerateArtifact() => GenerateArtifactResult();
@@ -331,6 +493,7 @@ public class TitleGeneratorService : ITitleGeneratorService
 
                 // Get the atmosphere from the inner object
                 string atmosphere = innerObject.GetProperty("Atmosphere").GetString();
+                Console.WriteLine(atmosphere);
 
                 return $"{locationType}***{atmosphere}";
             }
@@ -345,18 +508,18 @@ public class TitleGeneratorService : ITitleGeneratorService
         {
             var openingSettings = _data["opening_setting"].EnumerateArray().ToList();
 
-            int settingRoll = _random.Next(1, 21);
-            int descriptorRoll = _random.Next(1, 21);
+            int settingRoll = _random.Next(1, 20);
+            int descriptorRoll = _random.Next(1, 20);
 
             string setting = openingSettings[settingRoll - 1].EnumerateObject().First().Name;
             string descriptor = openingSettings[descriptorRoll - 1].GetProperty("Descriptor").GetString();
 
             if (descriptor == "Roll twice and apply both")
             {
-                int secondRoll = _random.Next(1, 21);
+                int secondRoll = _random.Next(1, 20);
                 while (secondRoll == descriptorRoll)
                 {
-                    secondRoll = _random.Next(1, 21);
+                    secondRoll = _random.Next(1, 20);
                 }
                 string secondDescriptor = openingSettings[secondRoll - 1].GetProperty("Descriptor").GetString();
                 descriptor = $"{descriptor} and {secondDescriptor}";
@@ -396,11 +559,11 @@ public class TitleGeneratorService : ITitleGeneratorService
 
                 while (title.Contains(pattern) || title.Contains(misspelledPattern))
                 {
-                    var (item, _) = GetRandomItem(category, title.Contains("𖤍") ? 6 : 21);
+                    var (item, _) = GetRandomItem(category, title.Contains("𖤍") ? 6 : 20);
 
                     if (item == "[religious_tenets]" || item == "[religous tenets]")
                     {
-                        var (religiousTenet, _) = GetRandomItem("religious_tenets", 21);
+                        var (religiousTenet, _) = GetRandomItem("religious_tenets", 20);
                         item = religiousTenet;
                     }
 
@@ -439,7 +602,7 @@ public class TitleGeneratorService : ITitleGeneratorService
 
         private string TitleStructure()
         {
-            int randomNum = _random.Next(1, 21);
+            int randomNum = _random.Next(1, 20);
             var matchingStructure = _data["title structure"].EnumerateArray()
                 .SelectMany(obj => obj.EnumerateObject())
                 .FirstOrDefault(prop =>
@@ -547,7 +710,7 @@ public class TitleGeneratorService : ITitleGeneratorService
 
         private string GetRandomDescriptor()
         {
-            int randomNum = _random.Next(1, 21);
+            int randomNum = _random.Next(1, 20);
             var descriptorItem = _data["descriptor"].EnumerateArray()
                 .SelectMany(obj => obj.EnumerateObject())
                 .FirstOrDefault(prop =>
