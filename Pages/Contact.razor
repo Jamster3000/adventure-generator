@@ -1,112 +1,86 @@
 ﻿@page "/contact"
-@inject ITitleGeneratorService TitleGenerator
-@inject IJSRuntime JSRuntime
 
-<PageTitle>NPC</PageTitle>
-<h1>NPC</h1>
-<div class="npc-container">
-    @if (!string.IsNullOrEmpty(non_player_characters))
-    {
-        <div class="text-grid">
-            <div class="generated-text">
-                <h2>Non-Player Character</h2>
-                <p>@non_player_characters</p>
-            </div>
-            <div class="generated-text">
-                <h2>Temperament</h2>
-                <p>@tempermant</p>
-            </div>
-            <div class="generated-text">
-                <h2>Nationalities</h2>
-                <p>@nationalities</p>
-            </div>
-            <div class="generated-text">
-                <h2>Quirks</h2>
-                <p>@quirks</p>
-            </div>
-            <div class="generated-text">
-                <h2>Opponent</h2>
-                <p>@opponent</p>
-            </div>
-            <div class="generated-text">
-                <h2>Cult</h2>
-                <p>@cult</p>
-            </div>
-        </div>
-    }
-    <button @onclick="async () => await Generate()" class="btn-primary generate-title">Generate</button>
+<h2 style="font-size: 35px;">Contact the Developer</h2>
+<p style="padding-top: 5px; padding-bottom: 20px;">Use this form to send an email to the developer. It can take awhile to submit so please be patient</p>
+
+<form id="contactForm" action="https://formsubmit.co/ce20394ce2b36adcd2e3edf9c0ddf9ab" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label class="contact-label" for="email">Email:</label>
+        <input type="email" id="email" name="email" required="">
+        <label class="contact-label" style="padding-left: 20px;" for="attachment">Attach an Image (optional):</label>
+        <input type="file" id="attachment" name="attachment" accept="image/*">
+    </div>
+    <div class="form-group">
+        <label class="contact-label" for="message">Message:</label>
+        <textarea id="message" name="message" required=""></textarea>
+    </div>
+    <input type="text" name="_honey" style="display:none">
+    <input type="hidden" name="_captcha" value="false">
+    <button class="btn-primary generate-title" type="submit">Send</button>
+    <p id="success-message" style="display: none; padding-top: 5px; padding-left: 150px; font-size: 14px; position: absolute; color: green;">Thank you for your message! The developer will get back to you soon.</p>
+    <p id="error-message" style="display:none; padding-top: 5px; padding-left: 150px; font-size: 14px; position: absolute; color: red;">There was an issue with your submission. Please try again later.</p>
+    <button type="reset" class="btn-primary reset-button">Reset</button>
+</form>
+
+<div id="loading-spinner" style="display:none;">
+    <span style="font-size: 13px; color: #4d3c07;">Please wait...Sending...</span>
+    <div class="spinner"></div>
 </div>
 
-<style>
-    .npc-container {
-        height: 80vh;
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        box-sizing: border-box;
-        padding-top: 50px;
-    }
-
-    .text-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
-        flex-grow: 1;
-        overflow: hidden;
-        max-height: calc(80vh - 150px);
-    }
-
-    .generated-text {
-        color: #d4af37;
-        display: flex;
-        flex-direction: column;
-    }
-
-        .generated-text p {
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin: 0;
-            overflow-y: auto;
-            flex-grow: 1;
-            padding-right: 10px;
-        }
-</style>
-
 <script>
-    window.unfocusElement = function () {
-        document.activeElement.blur();
-    };
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('contactForm');
+        const spinner = document.getElementById('loading-spinner');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        // Modify form action to prevent redirect
+        const originalAction = form.getAttribute('action');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            // Ensure spinner is visible and positioned correctly
+            spinner.style.display = 'block';
+            console.log('Spinner set to visible');
+
+
+            // Reset previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Disable submit button
+            submitButton.disabled = true;
+
+            try {
+                // Create FormData to submit
+                const formData = new FormData(form);
+
+                // Use fetch to submit form data
+                const response = await fetch(originalAction, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // Prevents CORS errors with FormSubmit
+                });
+
+                // Simulate success (FormSubmit doesn't return a typical response)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Show success message
+                successMessage.style.display = 'block';
+                form.reset();
+            } catch (error) {
+                // Show error message
+                console.error('Submission error:', error);
+                errorMessage.style.display = 'block';
+            } finally {
+                // Hide spinner
+                spinner.style.display = 'none';
+
+                // Re-enable submit button
+                submitButton.disabled = false;
+            }
+        });
+    });
 </script>
-
-@code {
-    private string non_player_characters = string.Empty;
-    private string tempermant = string.Empty;
-    private string nationalities = string.Empty;
-    private string quirks = string.Empty;
-    private string opponent = string.Empty;
-    private string cult = string.Empty;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await Generate();
-    }
-
-    private async Task Generate()
-    {
-        non_player_characters = await TitleGenerator.GenerateNonPlayerCharacter();
-        quirks = await TitleGenerator.GenerateQuirks();
-        tempermant = await TitleGenerator.GenerateTemperament();
-        cult = await TitleGenerator.GenerateCult();
-        opponent = await TitleGenerator.GenerateOpponent();
-        nationalities = await TitleGenerator.GenerateNationalities();
-
-        await UnfocusButton();
-    }
-
-    private async Task UnfocusButton()
-    {
-        try { 
-            await JSRuntime.InvokeVoidAsync("unfocusElement"); 
-        }catch { }
-    }
-}
