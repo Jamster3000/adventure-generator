@@ -867,7 +867,7 @@
     { "Criminal activity": "Traitor" },
     { "A legend": "Mercenary" },
     { "A lost language": "Priest or priestess (Roll on Religious Tenets table)" },
-    { "Concerning an artifact": "Noble (Roll on Artifacts table)" },
+    { "Concerning an artifact (Roll on Artifacts table)": "Noble" },
     { "A cult secret": "Historian (Roll on Cult table)" },
     { "The truth to a cover up": "Politician" },
     { "What is at the location?": "Sorcerer" },
