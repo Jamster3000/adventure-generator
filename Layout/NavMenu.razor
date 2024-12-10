@@ -1,6 +1,8 @@
-﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+﻿@inject UpdateStatusService UpdateStatusService
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 ﻿
-<div class="top-row ps-3 navbar navbar-dark" style="height: 95px;">
+<div class="top-row ps-3 navbar navbar-dark" style="height: 95px; margin-top: -25px;">
     <div class="container-fluid" style="display: flex; justify-content: center; align-items: center;">
         <a class="navbar-brand" href=""><img style="margin-top: -10px;" src="images/logo.png" width="225" height="83"></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -42,17 +44,72 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Contact">
+            <NavLink class="nav-link" href="contact">
                 <span class="bi bi-code-square" aria-hidden="true"></span> Contact
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="policies">
+                <span class="bi bi-code-square" aria-hidden="true"></span> Policies
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3 bottom">
+            <NavLink class="nav-link" href="update">
+                @if (UpdateStatusService.UpdatesMissing)
+                {
+                    <span class="bi bi-app-indicator" aria-hidden="true"></span>
+                } else {
+                    <span class="bi bi-app" aria-hidden="true"></span>
+                }
+                Updates
             </NavLink>
         </div>
     </nav>
 </div>
 
 <style>
-    .bi-archive-fill, .bi-code-square {
-        padding-bottom: 50px;
+    .bi-archive-fill, .bi-code-square, .bi-app-indicator, .bi-app {
+    padding-bottom: 50px;
     }
+
+    .bottom {
+    bottom: 0;
+    position: fixed;
+    }
+
+    .nav-item .bi-app-indicator {
+    color: red; /* Highlight the icon if unread */
+    animation: pulse 1.5s infinite;
+    }
+
+    .bi-app-indicator {
+        position: relative; 
+        color: red; 
+        font-size: 1.5rem; 
+        display: inline-block; 
+    }
+
+        .bi-app-indicator::after {
+            content: ''; 
+            position: absolute;
+            top: 65%;
+            left: 55%; 
+            transform: translate(-50%, -50%); 
+            width: 32.5px; 
+            height: 32.5px; 
+            background-color: rgba(255, 0, 0, 0.2); 
+            border-radius: 50%; 
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8); 
+            z-index: -1; 
+            transition: all 0.3s ease-in-out; 
+        }
+
+        .bi-app-indicator:hover::after {
+            width: 40px; 
+            height: 40px; 
+            box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        }
 </style>
 
 @code {
@@ -63,5 +120,17 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override void OnInitialized()
+    {
+        // Subscribe to the state change event
+        UpdateStatusService.OnChange += StateHasChanged;
+    }
+
+    // Unsubscribe to avoid memory leaks
+    public void Dispose()
+    {
+        UpdateStatusService.OnChange -= StateHasChanged;
     }
 }

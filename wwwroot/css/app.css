@@ -17,6 +17,8 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 rgba(0, 0, 0, 0.2);
 }
 
 h1, h2 {
@@ -624,4 +626,72 @@ button[type="reset"]:hover {
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+.update-text {
+    border: 2px solid #8B4513;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.75rem;
+    line-height: 1;
+    height: 400px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding-right: 35px;
+    padding-left: 35px;
+    overflow-y: scroll;
+}
+
+    .update-text:before,
+    .update-text:after {
+        content: '';
+        display: block;
+        width: 100%;
+        background: linear-gradient(90deg, #d4af37, #b8960f);
+        margin: 0.25rem auto;
+        border-radius: 1px;
+    }
+
+    .update-text p {
+        color: #f0e6d2;
+    }
+
+    .update-text h1 {
+        font-size: 30px;
+    }
+
+    .update-text h2 {
+        font-size: 25px;
+    }
+
+    update-text h3 {
+        font-size: 15px;
+    }
+
+    .update-text li {
+        padding-bottom: 20px;
+    }
+
+
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+    body::-webkit-scrollbar-thumb:hover {
+        background: #b8960f;
+    }
+
+body::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.2); 
 }

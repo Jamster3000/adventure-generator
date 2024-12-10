@@ -1,0 +1,84 @@
+﻿@page "/policies"
+
+<h1>Policies</h1>
+
+<div class="policies-content" style="padding-top: 50px;">
+    <button @onclick="TogglePrivacyPolicy" class="btn-primary" style="top: 50px; padding-left: 50px; font-size: 25px; font-weight: 900; width: 100%; height: 100px;">
+        Privacy Policy
+    </button>
+    <div class="@privacyPolicyClass">
+        <div class="update-text">
+            <p>
+                At [insert name here], we value your privacy. This privacy Policy explains how we handle any data that is collected from you when using our website, desktop app ("application"), or mobile app ("application").
+            </p>
+            <ul>
+                <li><strong>Data Collection:</strong> We do not collect any personal data unless you provide it voluntarily through the contact form.</li>
+                <li><strong>Local Storage:</strong> Our web app uses local storage to store a single key-value pair for functionality purposes. This data is stored only on your device and is not shared with third parties.</li>
+                <li><strong>Cookies:</strong> We do not use cookies on thsi website. Our host, Github Pages, also does not collect or use Cookies in realtion to this website.</li>
+                <li><strong>Third-Party Services:</strong> We do not share your data with third-party services unless required by law.</li>
+                <li><strong>Data Retention:</strong> Any data stored locally on your device is not retained on our servers or GitHub's infrastructure (e.g., GitHub's servers) and will remain until you clear it from your browser's local storage. Any data you provide via the contact form, such as emails, will be kept indefinitely. However, you may request the deletion of this data and the emails you have provided. Upon receiving your request, we will delete this data within 24 hours.</li>
+            </ul>
+        </div>
+    </div>
+
+    <button @onclick="ToggleTermsOfService" class="btn-primary" style="top: 50px; padding-left: 50px; font-size: 25px; font-weight: 900; width: 100%; height: 100px;">
+        Terms of Service
+    </button>
+    <div class="@termsOfServiceClass">
+        <div class="update-text">
+            <p>
+                By using this website, you agree to the following terms and conditions.
+            </p>
+            <ul>
+                <li><strong>Use of the website:</strong> You agree to use this website only for lawful purposes. You will not engage in any activity that disrupts or damges the website or its services.</li>
+                <li><strong>Contact Form:</strong> Any messages sent through the contact form are for communication purposes only. Please avoid sending sensitive personal information through the form.</li>
+                <li><strong>Intellectual Property:</strong> All content on this website is owned by the creator or respective rights holder. You are prohibited from using the content without permission.</li>
+                <li><strong>Changes to Terms:</strong> We reserve the right to modify these terms at any time. Any changes will be posted on this page, and your continued use of the website constitutes acceptance of the modified terms.</li>
+            </ul>
+            <p>
+                If you have any questions about our terms of service, please contact us through the contact pages
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    .visible {
+        display: block;
+    }
+
+    .policy-toggle-btn {
+        width: 100%;
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        text-align: left;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .policy-toggle-btn:hover {
+            background: #0056b3;
+        }
+
+</style>
+
+@code {
+    private string privacyPolicyClass = "hidden";
+    private string termsOfServiceClass = "hidden";
+
+    private void TogglePrivacyPolicy()
+    {
+        privacyPolicyClass = privacyPolicyClass == "hidden" ? "visible" : "hidden";
+    }
+
+    private void ToggleTermsOfService()
+    {
+        termsOfServiceClass = termsOfServiceClass == "hidden" ? "visible" : "hidden";
+    }
+}

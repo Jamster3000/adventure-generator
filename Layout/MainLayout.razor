@@ -1,4 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@inject UpdateStatusService UpdateStatusService
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+
 <link href="css/app.css" rel="stylesheet" />
 <div class="page">
     <div class="sidebar">
@@ -15,3 +19,33 @@
         </article>
     </main>
 </div>
+
+
+@code {
+    private List<string> localStorageList = new List<string>();
+    private bool updatesMissing;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var localStorageData = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "Updates");
+
+        var fileNames = new List<string>
+        {
+            "first-post.txt"
+        };
+
+        if (string.IsNullOrEmpty(localStorageData))
+        {
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "Updates", "[]");
+        }
+        else
+        {
+            localStorageList = System.Text.Json.JsonSerializer.Deserialize<List<string>>(localStorageData);
+        }
+
+        updatesMissing = fileNames.Except(localStorageList).Any();
+
+        // Update the shared service with the new state
+        UpdateStatusService.UpdatesMissing = updatesMissing;
+    }
+}

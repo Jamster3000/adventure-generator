@@ -1,0 +1,89 @@
+﻿@page "/update"
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@inject UpdateStatusService UpdateStatusService
+
+<h1>Updates</h1>
+
+@if (PostsContent != null && PostsContent.Any())
+{
+    <div style="max-height: 600px; overflow-y: auto; margin-bottom: 20px;">
+        @foreach (var post in PostsContent)
+        {
+            <div class="update-post" style=" padding-bottom: 30px;">
+                <div class="update-text">
+                    @((MarkupString)post.HtmlContent)
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>No updates available.</p>
+}
+
+@code {
+    private List<UpdatePost> PostsContent { get; set; } = new List<UpdatePost>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var possibleFileNames = new List<string>
+        {
+            "first-post.txt"
+        };
+
+        //serialize the list of posts
+        var newJsonData = System.Text.Json.JsonSerializer.Serialize(possibleFileNames);
+
+        //replace the current "Updates" key value with the new serialized data
+        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "Updates", newJsonData);
+
+
+        // Load content for all available files
+        foreach (var fileName in possibleFileNames)
+        {
+            if (await FileExists($"Posts/{fileName}"))
+            {
+                await LoadFileContent(fileName);
+            }
+        }
+
+        UpdateStatusService.UpdatesMissing = PostsContent.Count < possibleFileNames.Count;
+    }
+
+    private async Task<bool> FileExists(string url)
+    {
+        try
+        {
+            var response = await Http.GetAsync(url);
+            return response.IsSuccessStatusCode;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private async Task LoadFileContent(string fileName)
+    {
+        var response = await Http.GetStringAsync($"Posts/{fileName}");
+
+        // Convert markdown to HTML using Markdig
+        var markdownContent = response;
+        var htmlContent = Markdig.Markdown.ToHtml(markdownContent);
+
+        // Add the content to the list of posts
+        PostsContent.Add(new UpdatePost
+            {
+                FileName = fileName,
+                HtmlContent = htmlContent
+            });
+    }
+
+    public class UpdatePost
+    {
+        public string FileName { get; set; }
+        public string HtmlContent { get; set; }
+    }
+}
