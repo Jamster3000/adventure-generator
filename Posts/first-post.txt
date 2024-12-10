@@ -1,0 +1,25 @@
+﻿# The First Update
+So, the very first update post for this application. There isn't a lot to update you on.
+
+The application is still in the development stages, and I am still working on it. Below are some things that I still have planned to work on for this before I can make this officially verion 1.0
+
+---
+## Planned Updates
+- Some legal policies and tos (just to cover my back and give you all a basic idea of the legal things that are going on).
+- Update the UI & design of the application as I understand that it might not look amazing. I am a programmer not a designer.
+- I am considering adding ai text and image generation (Requires experimentation before I can confirm this).
+- Provide insructions and guidance on how to use the application more clearly.
+- Add static tabels that doesn't require random generation.
+- Converting this web appliction into a desktop and mobile applcation too (because this website is magical like that).
+
+---
+
+There might be more features or plans in the future but this is currently what is in the works.
+
+Please bare in mind that this is a side project fora  friend, I am only working on this in my free time. So, please be patient with me and the updating time of the application.
+
+You can see more about this project on my [GitHub](https://github.com/Jamster3000/adventure-generator) page.
+
+---
+
+Thank you for your time and I hope you enjoy the application. If you have any suggestions or feedback, please let me know. I am always looking for ways to improve this application.
