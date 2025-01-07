@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ConanTableCraft",
   "resources": {
-    "hash": "sha256-m4cYtf8Y/UvFMbwswPHXYRNBnuoH4EqHmo7j2GK6KKY=",
+    "hash": "sha256-UkjjA5IQFGK1OPXMJT2UAJ4BsjWNecMORG2grzc8Eew=",
     "jsModuleNative": {
       "dotnet.native.8.0.11.n1sf6xr5tz.js": "sha256-VdKq87/z5NIxZKmuM+fv38XF+RcEb/bg3jVBwQSfwP4="
     },
@@ -17,7 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "ConanTableCraft.wasm": "sha256-wY73VoeVmwp8l/d5bgPcCn/QOU4kDE6yld/DZUqRovo=",
+      "ConanTableCraft.wasm": "sha256-W1VBHwyK7UGjk9SLrY/IFLw+GPj81ULwS4Oi1KRnLpQ=",
       "Markdig.wasm": "sha256-+0BicYzI+5ABC8GZr1ITU0gPsHD5CMBjOpk5297sa58=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-ImQ5sqg+ztDuDRE/kmLcUbmSz+95jNmMSLNImEjEVjw=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-1rawQgslu1Td64OdknEGXkDRwc18XYc6a/lmWvmvK1E=",
