@@ -1,4 +1,4 @@
-﻿namespace adventureGenerator
+﻿namespace ConanTableCraft
 {
     public class UpdateStatusService
     {
