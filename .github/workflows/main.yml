@@ -19,7 +19,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Publish .NET Core Project
-        run: dotnet publish adventureGenerator.csproj -c Release -o release --nologo
+        run: dotnet publish ConanTableCraft.csproj -c Release -o release --nologo
         # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
       - name: Change base-tag in index.html from / to ConanTableCraft
         run: sed -i 's/<base href="\/" \/>/<base href="\/ConanTableCraft\/" \/>/g' release/wwwroot/index.html
