@@ -1,6 +1,5 @@
 name: ConanTableCraft
 
-# Run workflow on every push to the master branch
 on:
   push:
     branches: [ master ]
@@ -9,25 +8,23 @@ jobs:
   deploy-to-github-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v3
+      - uses: actions/checkout@v4
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.0.x'
       - name: Install MarkDig
         run: dotnet add package Markdig --version 0.38.0
       - name: Restore dependencies
         run: dotnet restore
-      - name: Publish .NET Core Project
+      - name: Publish .NET Project
         run: dotnet publish ConanTableCraft.csproj -c Release -o release --nologo
-        # changes the base-tag in index.html from '/' to 'BlazorGitHubPagesDemo' to match GitHub Pages repository subdirectory
-      - name: Change base-tag in index.html from / to ConanTableCraft
-        run: sed -i 's/<base href="\/" \/>/<base href="\/ConanTableCraft\/" \/>/g' release/wwwroot/index.html
-      # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+      - name: Update base-tag in index.html
+        run: sed -i 's|<base href="/"/>|<base href="/ConanTableCraft/"/>|g' release/wwwroot/index.html
       - name: Add .nojekyll file
         run: touch release/wwwroot/.nojekyll
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           BRANCH: gh-pages
