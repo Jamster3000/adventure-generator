@@ -1,4 +1,4 @@
-name: conanTableCraft
+name: ConanTableCraft
 
 # Run workflow on every push to the master branch
 on:
